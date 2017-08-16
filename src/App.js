@@ -11,6 +11,9 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
+import { fetchTuneBook } from './actions/tuneBook';
+import { connect } from 'react-redux';
+import store from './store';
 
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -34,6 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    store.dispatch(fetchTuneBook('63117'))
     this.renderMusicSheet(this.state.tune)
   }
 
@@ -63,7 +67,13 @@ class App extends Component {
           </Tabs>
         </AppBar>
         <SplitPane split="vertical" minSize={250}>
-          <div>arsuiet</div>
+          <ul>
+            {this.props.tunes.map(tune =>
+              <li>
+                {tune.name}
+              </li>
+            )}
+          </ul>
           <div id='music-sheet'></div>
         </SplitPane>
       </div>
@@ -71,4 +81,8 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+const mapStateToProps = (state) => ({
+  tunes: state.tunebook.tunes
+})
+
+export default withStyles(styles)(connect(mapStateToProps)(App));
