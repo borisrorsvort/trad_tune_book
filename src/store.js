@@ -1,9 +1,16 @@
 import thunk from "redux-thunk";
-import { createStore, applyMiddleware, compose } from "redux";
-import indexReducer from "./reducers/index";
-import { createLogger } from "redux-logger";
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { initializeCurrentLocation, routerForHash } from 'redux-little-router';
+import rootReducer from "./reducers/index";
+import { routes } from './router';
 
-const middlewares = [thunk];
+const {
+  reducer,
+  middleware,
+  enhancer
+} = routerForHash({routes})
+
+const middlewares = [thunk, middleware];
 
 const composeEnhancers =
   process.env.NODE_ENV === "development" &&
@@ -16,14 +23,14 @@ const composeEnhancers =
       )
     : compose;
 
-if (process.env.NODE_ENV === "development") {
-  const logger = createLogger();
-  middlewares.push(logger);
-}
-
 const store = createStore(
-  indexReducer,
-  composeEnhancers(applyMiddleware(...middlewares)),
+  combineReducers({ router: reducer, rootReducer }),
+  composeEnhancers(enhancer, applyMiddleware(...middlewares)),
 );
+
+const initialLocation = store.getState().router;
+if (initialLocation) {
+  store.dispatch(initializeCurrentLocation(initialLocation));
+}
 
 export default store;
