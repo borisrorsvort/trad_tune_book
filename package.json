@@ -5,6 +5,8 @@
   "dependencies": {
     "abcjs": "^0.0.1",
     "exports-loader": "^0.6.4",
+    "material-ui": "next",
+    "material-ui-icons": "^1.0.0-alpha.19",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.11",
