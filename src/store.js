@@ -1,6 +1,6 @@
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { initializeCurrentLocation, routerForHash } from 'redux-little-router';
+import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router';
 import rootReducer from "./reducers/index";
 import { routes } from './router';
 
@@ -8,7 +8,7 @@ const {
   reducer,
   middleware,
   enhancer
-} = routerForHash({routes})
+} = routerForBrowser({routes})
 
 const middlewares = [thunk, middleware];
 

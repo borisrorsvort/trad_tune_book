@@ -31,7 +31,7 @@ class Tunebook extends Component {
       <SplitPane split="vertical" minSize={250}>
         <ul>
           {this.props.tunes.map(tune =>
-            <li>
+            <li key={tune.id}>
               {tune.name}
             </li>
           )}

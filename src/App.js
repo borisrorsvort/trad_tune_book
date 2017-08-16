@@ -12,6 +12,8 @@ import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import { Fragment } from 'redux-little-router';
 import Tunebook from './components/Tunebook'
+import { connect } from 'react-redux';
+import { redirect } from './actions/router';
 
 const styles = {
   root: {
@@ -20,6 +22,22 @@ const styles = {
 };
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: 0,
+    };
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ selectedTab: value });
+    if (value === 0) {
+      this.props.redirect('/');
+    } else if (value === 1) {
+      this.props.redirect('/tunebook');
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -34,11 +52,9 @@ class App extends Component {
             </Typography>
             <Button color="contrast">Login</Button>
           </Toolbar>
-          <Tabs style={styles.tabs} initialSelectedIndex={0}>
+          <Tabs value={this.state.selectedTab} style={styles.tabs} onChange={this.handleChange}>
             <Tab value={0} label="home"/>
-            <Tab value={1} label="about"/>
-            <Tab value={2} label="contact"/>
-            <Tab value={3} label="faq"/>
+            <Tab value={1} label="tunebook"/>
           </Tabs>
         </AppBar>
         <Fragment forRoute='/tunebook'><Tunebook /></Fragment>
@@ -47,4 +63,10 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+const mapStateToProps = state => ({ router: state.router });
+const mapDispatchToProps = (dispatch) => ({
+  redirect: (href) => {
+    dispatch(redirect(href))
+  }
+})
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
