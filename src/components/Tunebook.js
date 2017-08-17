@@ -4,8 +4,11 @@ import { withStyles } from 'material-ui/styles';
 import { fetchTuneBook } from '../actions/tuneBook';
 import { connect } from 'react-redux';
 import store from '../store';
+import Tune from './Tune';
+import { Link, Fragment } from 'redux-little-router';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import ABCJS from 'exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_2.3-min.js';
+
 const styles = {
   flex: {
     flex: 1,
@@ -32,11 +35,13 @@ class Tunebook extends Component {
         <ul>
           {this.props.tunes.map(tune =>
             <li key={tune.id}>
-              {tune.name}
+              <Link className='anything' href={`/tunebook/${tune.id}`}>
+                {tune.name}
+              </Link>
             </li>
           )}
         </ul>
-        <div id='music-sheet'></div>
+        <Fragment forRoute='/:tune_id'><Tune /></Fragment>
       </SplitPane>
     );
   }
