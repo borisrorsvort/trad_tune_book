@@ -1,7 +1,7 @@
 export const routes = {
   '/tunebook': {
     title: 'Tunebook',
-    '/:tune_id': {
+    '/:tuneId': {
       title: 'Tune'
     }
   },

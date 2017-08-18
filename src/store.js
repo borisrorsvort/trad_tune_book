@@ -24,7 +24,7 @@ const composeEnhancers =
     : compose;
 
 const store = createStore(
-  combineReducers({ router: reducer, rootReducer }),
+  combineReducers({ router: reducer, ...rootReducer }),
   composeEnhancers(enhancer, applyMiddleware(...middlewares)),
 );
 

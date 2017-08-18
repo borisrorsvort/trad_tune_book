@@ -6,6 +6,7 @@
     "abcjs": "^0.0.1",
     "axios": "^0.16.2",
     "exports-loader": "^0.6.4",
+    "he": "^1.1.1",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.19",
     "react": "^15.6.1",

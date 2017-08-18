@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
 import tunebook from './tunebook';
 
-const index = combineReducers({
+const index = {
   tunebook
-});
+};
 
 export default index;
