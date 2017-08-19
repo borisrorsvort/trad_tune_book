@@ -4,6 +4,7 @@ import { fetchTune } from '../actions/tuneBook';
 import { connect } from 'react-redux';
 import he from 'he';
 import SheetMusic from './SheetMusic';
+import { Link } from 'redux-little-router';
 
 class Tune extends Component {
   componentDidMount() {
@@ -28,7 +29,9 @@ class Tune extends Component {
     return (
       <div>
         <h2>
-          {he.decode(this.props.currentTune.name)}
+          <Link href={this.props.currentTune.url} target="_blank">
+            {this.props.currentTune.name}
+          </Link>
         </h2>
         {this.props.currentTune.settings.map(setting => {
           return <SheetMusic key={setting.id} tune={setting} />;
