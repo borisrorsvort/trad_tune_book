@@ -11,14 +11,15 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import { Fragment } from 'redux-little-router';
-import Tunebook from './components/Tunebook'
+import Tunebook from './components/Tunebook';
+import Sets from './components/Sets';
 import { connect } from 'react-redux';
 import { redirect } from './actions/router';
 
 const styles = {
   root: {
     width: '100%',
-  }
+  },
 };
 
 class App extends Component {
@@ -35,8 +36,10 @@ class App extends Component {
       this.props.redirect('/');
     } else if (value === 1) {
       this.props.redirect('/tunebook');
+    } else if (value === 2) {
+      this.props.redirect('/sets');
     }
-  }
+  };
 
   render() {
     const classes = this.props.classes;
@@ -52,21 +55,33 @@ class App extends Component {
             </Typography>
             <Button color="contrast">Login</Button>
           </Toolbar>
-          <Tabs value={this.state.selectedTab} style={styles.tabs} onChange={this.handleChange}>
-            <Tab value={0} label="home"/>
-            <Tab value={1} label="tunebook"/>
+          <Tabs
+            value={this.state.selectedTab}
+            style={styles.tabs}
+            onChange={this.handleChange}
+          >
+            <Tab value={0} label="home" />
+            <Tab value={1} label="tunebook" />
+            <Tab value={2} label="sets" />
           </Tabs>
         </AppBar>
-        <Fragment forRoute='/tunebook'><Tunebook /></Fragment>
+        <Fragment forRoute="/tunebook">
+          <Tunebook />
+        </Fragment>
+        <Fragment forRoute="/sets">
+          <Sets />
+        </Fragment>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({ router: state.router });
-const mapDispatchToProps = (dispatch) => ({
-  redirect: (href) => {
-    dispatch(redirect(href))
-  }
-})
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
+const mapDispatchToProps = dispatch => ({
+  redirect: href => {
+    dispatch(redirect(href));
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(App),
+);

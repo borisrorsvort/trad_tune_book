@@ -1,7 +1,9 @@
 import tunebook from './tunebook';
+import sets from './sets';
 
 const index = {
-  tunebook
+  tunebook,
+  sets,
 };
 
 export default index;
