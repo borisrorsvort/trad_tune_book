@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SplitPane from 'react-split-pane';
+import Set from './Set';
 import he from 'he';
 import {
   withStyles,
@@ -48,7 +49,9 @@ class Sets extends Component {
             </ListItem>,
           )}
         </List>
-        <Fragment forRoute="/:tuneId">aunisret</Fragment>
+        <Fragment forRoute="/:setId">
+          <Set />
+        </Fragment>
       </SplitPane>
     );
   }

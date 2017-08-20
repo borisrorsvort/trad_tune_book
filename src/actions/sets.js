@@ -50,7 +50,7 @@ export const fetchSet = (memberId, setId) => dispatch => {
   return axios
     .get(`${MEMBER_URL}${memberId}/sets/${setId}?format=json`)
     .then(function(response) {
-      dispatch(receiveSet(JSON.parse(response.data)));
+      dispatch(receiveSet(response.data));
     })
     .catch(function(error) {
       console.log(error);
