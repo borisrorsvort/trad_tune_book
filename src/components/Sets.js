@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SplitPane from 'react-split-pane';
 import Set from './Set';
 import he from 'he';
 import {
@@ -15,12 +14,7 @@ import store from '../store';
 import { MusicNote } from 'material-ui-icons';
 import { Fragment } from 'redux-little-router';
 import { redirect } from '../actions/router';
-
-const styles = theme => ({
-  flex: {
-    flex: 1,
-  },
-});
+import { commonStyles } from '../styles/common';
 
 class Sets extends Component {
   componentDidMount() {
@@ -32,13 +26,15 @@ class Sets extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <SplitPane split="vertical" minSize={250}>
-        <List>
+      <div className={classes.container}>
+        <List className={classes.sideNav}>
           {this.props.sets.map(set =>
             <ListItem
               key={set.id}
-              className={this.props.classes.button}
+              className={classes.button}
               button
               onClick={item => this.handleClick(`/sets/${set.id}`)}
             >
@@ -52,7 +48,7 @@ class Sets extends Component {
         <Fragment forRoute="/:setId">
           <Set />
         </Fragment>
-      </SplitPane>
+      </div>
     );
   }
 }
@@ -61,4 +57,4 @@ const mapStateToProps = state => ({
   sets: state.sets.sets || [],
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Sets));
+export default connect(mapStateToProps)(withStyles(commonStyles)(Sets));

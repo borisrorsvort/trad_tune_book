@@ -5,6 +5,8 @@ import he from 'he';
 import SheetMusic from './SheetMusic';
 import { Link } from 'redux-little-router';
 import { fetchSet } from '../actions/sets';
+import { withStyles } from 'material-ui';
+import { commonStyles } from '../styles/common';
 
 class Set extends Component {
   componentDidMount() {
@@ -19,6 +21,8 @@ class Set extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     if (
       this.props.currentSet === undefined ||
       this.props.currentSet.name === undefined
@@ -27,7 +31,7 @@ class Set extends Component {
     }
 
     return (
-      <div>
+      <div className={classes.content}>
         <h2>
           <Link href={this.props.currentSet.url} target="_blank">
             {he.decode(this.props.currentSet.name)}
@@ -46,4 +50,4 @@ const mapStateToProps = state => ({
   currentSet: state.sets.currentSet,
 });
 
-export default connect(mapStateToProps)(Set);
+export default connect(mapStateToProps)(withStyles(commonStyles)(Set));

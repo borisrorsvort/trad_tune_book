@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import store from '../store';
 import { fetchTune } from '../actions/tuneBook';
 import { connect } from 'react-redux';
-import he from 'he';
 import SheetMusic from './SheetMusic';
+import he from 'he';
 import { Link } from 'redux-little-router';
+import { withStyles } from 'material-ui';
+import { commonStyles } from '../styles/common';
 
 class Tune extends Component {
   componentDidMount() {
@@ -19,6 +21,7 @@ class Tune extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     if (
       this.props.currentTune === undefined ||
       this.props.currentTune.name === undefined
@@ -27,10 +30,10 @@ class Tune extends Component {
     }
 
     return (
-      <div>
+      <div className={classes.content}>
         <h2>
           <Link href={this.props.currentTune.url} target="_blank">
-            {this.props.currentTune.name}
+            {he.decode(this.props.currentTune.name)}
           </Link>
         </h2>
         {this.props.currentTune.settings.map(setting => {
@@ -46,4 +49,4 @@ const mapStateToProps = state => ({
   currentTune: state.tunebook.currentTune,
 });
 
-export default connect(mapStateToProps)(Tune);
+export default connect(mapStateToProps)(withStyles(commonStyles)(Tune));

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SplitPane from 'react-split-pane';
 import { withStyles } from 'material-ui/styles';
 import { fetchTuneBook } from '../actions/tuneBook';
 import { connect } from 'react-redux';
@@ -10,12 +9,7 @@ import he from 'he';
 import { MusicNote } from 'material-ui-icons';
 import { List, ListItemIcon, ListItem, ListItemText } from 'material-ui';
 import { redirect } from '../actions/router';
-
-const styles = theme => ({
-  flex: {
-    flex: 1,
-  },
-});
+import { commonStyles } from '../styles/common';
 
 class Tunebook extends Component {
   componentDidMount() {
@@ -27,13 +21,14 @@ class Tunebook extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <SplitPane split="vertical" minSize={250}>
-        <List>
+      <div className={classes.container}>
+        <List className={classes.sideNav}>
           {this.props.tunes.map(tune =>
             <ListItem
               key={tune.id}
-              className={this.props.classes.button}
+              className={classes.button}
               button
               onClick={item => this.handleClick(`/tunebook/${tune.id}`)}
             >
@@ -47,7 +42,7 @@ class Tunebook extends Component {
         <Fragment forRoute="/:tuneId">
           <Tune />
         </Fragment>
-      </SplitPane>
+      </div>
     );
   }
 }
@@ -56,4 +51,4 @@ const mapStateToProps = state => ({
   tunes: state.tunebook.tunes || [],
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Tunebook));
+export default connect(mapStateToProps)(withStyles(commonStyles)(Tunebook));

@@ -5,7 +5,6 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Tabs from 'material-ui/Tabs/Tabs';
@@ -40,7 +39,7 @@ class App extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton color="contrast" aria-label="Menu">
               <MenuIcon />
@@ -48,13 +47,8 @@ class App extends Component {
             <Typography type="title" color="inherit" className={classes.flex}>
               TradTuneBook
             </Typography>
-            <Button color="contrast">Login</Button>
           </Toolbar>
-          <Tabs
-            value={this.state.selectedTab}
-            style={styles.tabs}
-            onChange={this.handleChange}
-          >
+          <Tabs value={this.state.selectedTab} onChange={this.handleChange}>
             <Tab value={0} label="home" />
             <Tab value={1} label="tunebook" />
             <Tab value={2} label="sets" />
