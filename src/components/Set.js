@@ -30,7 +30,7 @@ class Set extends Component {
       <div>
         <h2>
           <Link href={this.props.currentSet.url} target="_blank">
-            {this.props.currentSet.name}
+            {he.decode(this.props.currentSet.name)}
           </Link>
         </h2>
         {this.props.currentSet.settings.map(setting => {

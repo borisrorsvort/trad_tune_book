@@ -3,6 +3,7 @@ import ABCJS from 'exports-loader?ABCJS!script-loader!../../node_modules/abcjs/b
 import React, { Component } from 'react';
 import { withStyles, TextField } from 'material-ui';
 import { abcReformatter } from '../helpers/abcHelper';
+import he from 'he';
 
 const abcRenderParams = {
   paddingtop: 50,
@@ -31,7 +32,7 @@ class SheetMusic extends Component {
     );
   }
   render() {
-    const abcFormattedText = abcReformatter(this.state.abc);
+    const abcFormattedText = he.decode(abcReformatter(this.state.abc));
     return (
       <div>
         <h3>

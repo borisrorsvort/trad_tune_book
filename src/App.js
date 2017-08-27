@@ -32,13 +32,8 @@ class App extends Component {
 
   handleChange = (event, value) => {
     this.setState({ selectedTab: value });
-    if (value === 0) {
-      this.props.redirect('/');
-    } else if (value === 1) {
-      this.props.redirect('/tunebook');
-    } else if (value === 2) {
-      this.props.redirect('/sets');
-    }
+    const tabsHrefs = ['/', '/tunebook', '/sets'];
+    this.props.redirect(tabsHrefs[value]);
   };
 
   render() {
