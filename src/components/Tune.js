@@ -5,8 +5,28 @@ import { connect } from 'react-redux';
 import SheetMusic from './SheetMusic';
 import he from 'he';
 import { Link } from 'redux-little-router';
-import { withStyles } from 'material-ui';
+import {
+  withStyles,
+  Grid,
+  Paper,
+  IconButton,
+  Toolbar,
+  Typography
+} from 'material-ui';
 import { commonStyles } from '../styles/common';
+import PrintIcon from 'material-ui-icons/Print';
+import { TUNE_URL } from '../constants/actionTypes';
+
+const styles = theme => ({
+  settings: theme.mixins.gutters({
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
+  }),
+  flex: {
+    flex: 1
+  },
+  ...commonStyles(theme)
+});
 
 class Tune extends Component {
   componentDidMount() {
@@ -22,6 +42,7 @@ class Tune extends Component {
 
   render() {
     const { classes } = this.props;
+
     if (
       this.props.currentTune === undefined ||
       this.props.currentTune.name === undefined
@@ -31,14 +52,24 @@ class Tune extends Component {
 
     return (
       <div className={classes.content}>
-        <h2>
-          <Link href={this.props.currentTune.url} target="_blank">
-            {he.decode(this.props.currentTune.name)}
-          </Link>
-        </h2>
-        {this.props.currentTune.settings.map(setting => {
-          return <SheetMusic key={setting.id} tune={setting} />;
-        })}
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Paper className={this.props.classes.settings} elevation={1}>
+              <Toolbar disableGutters>
+                <Typography
+                  type="title"
+                  color="inherit"
+                  className={this.props.classes.flex}
+                >
+                  {he.decode(this.props.currentTune.name)}
+                </Typography>
+              </Toolbar>
+              {this.props.currentTune.settings.map(setting => {
+                return <SheetMusic key={setting.id} tune={setting} />;
+              })}
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -46,7 +77,7 @@ class Tune extends Component {
 
 const mapStateToProps = state => ({
   tuneId: state.router.params.tuneId,
-  currentTune: state.tunebook.currentTune,
+  currentTune: state.tunebook.currentTune
 });
 
-export default connect(mapStateToProps)(withStyles(commonStyles)(Tune));
+export default connect(mapStateToProps)(withStyles(styles)(Tune));
