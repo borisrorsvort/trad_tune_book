@@ -8,22 +8,36 @@ import store from './store';
 import createPalette from 'material-ui/styles/palette';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
+import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 
 const theme = createMuiTheme({
   palette: createPalette({
     primary: {
-      ...green,
-      500: '#fff'
+      ...grey,
+      500: grey[900]
     },
     accent: {
       ...green,
-      A200: green[500],
+      A200: green[500]
     },
-    error: red,
-  }),
+    error: red
+  })
 });
+// const theme = createMuiTheme({
+//   palette: createPalette({
+//     primary: {
+//       ...green,
+//       500: '#fff'
+//     },
+//     accent: {
+//       ...green,
+//       A200: green[500],
+//     },
+//     error: red,
+//   }),
+// });
 
 const app = (
   <MuiThemeProvider theme={theme}>
@@ -31,7 +45,7 @@ const app = (
       <App />
     </Provider>
   </MuiThemeProvider>
-)
+);
 
 ReactDOM.render(app, document.getElementById('root'));
 registerServiceWorker();

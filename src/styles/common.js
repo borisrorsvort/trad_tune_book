@@ -7,22 +7,22 @@ export const commonStyles = theme => ({
     overflow: 'hidden',
     height: '100vh',
     willChange: 'overflow',
-    backfaceVisibility: 'hidden',
+    backfaceVisibility: 'hidden'
   },
   sideNav: {
     width: '250px',
     flex: 'unset',
     order: 0,
-    background: theme.palette.primary[500],
+    background: 'white',
     overflow: 'auto',
     height: 'auto',
-    borderRight: '1px solid #efefef',
+    borderRight: '1px solid #efefef'
   },
   content: {
     flex: '1',
     overflow: 'auto',
     height: 'auto',
     padding: '20px',
-    background: '#fafafa',
-  },
+    background: '#fafafa'
+  }
 });

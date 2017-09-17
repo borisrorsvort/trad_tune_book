@@ -14,12 +14,18 @@ abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
 
-abcjs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/abcjs/-/abcjs-0.0.1.tgz#f9b102258e5bfcead736b2aef8560ccdcb286d69"
+"abcjs@https://github.com/paulrosen/abcjs.git":
+  version "0.0.2"
+  resolved "https://github.com/paulrosen/abcjs.git#a8dfa340daa0cc1ef3d4119c1ba50a0bb587c996"
   dependencies:
     midi "git://github.com/paulrosen/MIDI.js.git#abcjs"
-    raphael "2.2.1"
+    raphael "^2.2.7"
+
+"abcjs@https://github.com/paulrosen/abcjs.git#3.1.4":
+  version "0.0.1"
+  resolved "https://github.com/paulrosen/abcjs.git#eca6e6b6b4c912935edb5e4273e5982838cd6ebb"
+  dependencies:
+    midi "git://github.com/paulrosen/MIDI.js.git#abcjs"
 
 accepts@~1.3.3:
   version "1.3.3"
@@ -2359,9 +2365,9 @@ etag@~1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
 
-"eve@git://github.com/adobe-webplatform/eve.git#eef80ed":
-  version "0.4.1"
-  resolved "git://github.com/adobe-webplatform/eve.git#eef80ed"
+eve-raphael@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/eve-raphael/-/eve-raphael-0.5.0.tgz#17c754b792beef3fa6684d79cf5a47c63c4cda30"
 
 event-emitter@~0.3.5:
   version "0.3.5"
@@ -5309,11 +5315,11 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
-raphael@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/raphael/-/raphael-2.2.1.tgz#84d7fe884b4271d3825721fd8f68f463f28238a7"
+raphael@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/raphael/-/raphael-2.2.7.tgz#231b19141f8d086986d8faceb66f8b562ee2c810"
   dependencies:
-    eve "git://github.com/adobe-webplatform/eve.git#eef80ed"
+    eve-raphael "0.5.0"
 
 raw-loader@~0.5.1:
   version "0.5.1"

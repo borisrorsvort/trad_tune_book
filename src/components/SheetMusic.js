@@ -1,19 +1,19 @@
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import ABCJS from 'exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_2.3-min.js';
-import React, { Component } from 'react';
-import { withStyles, Typography } from 'material-ui';
-import { abcReformatter } from '../helpers/abcHelper';
-import he from 'he';
-import reactDimensions from 'react-dimensions';
-import { BorderBottom } from 'material-ui-icons';
+import ABCJS from "exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_latest-min.js";
+import React, { Component } from "react";
+import { withStyles, Typography } from "material-ui";
+import { abcReformatter } from "../helpers/abcHelper";
+import he from "he";
+import reactDimensions from "react-dimensions";
+import { BorderBottom } from "material-ui-icons";
 
 const styles = theme => ({
   root: {
-    margin: '10px 0',
-    padding: '10px 0',
-    borderBottom: '1px solid #ccc',
-    '&:last-child': {
-      border: 'none',
+    margin: "10px 0",
+    padding: "10px 0",
+    borderBottom: "1px solid #ccc",
+    "&:last-child": {
+      border: "none",
       marginBottom: 0,
       paddingBottom: 0
     }
@@ -30,10 +30,9 @@ class SheetMusic extends Component {
 
   renderAbc(width) {
     const props = {
-      scale: 0.9,
-      staffWidth: 0,
-      paddingright: 0,
-      paddingleft: 0
+      paddingright: 20,
+      paddingleft: 0,
+      responsive: "resize"
     };
 
     ABCJS.renderAbc(this.el, abcReformatter(this.state.abc), {}, props, {});

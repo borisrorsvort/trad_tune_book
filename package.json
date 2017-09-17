@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "abcjs": "^0.0.1",
+    "abcjs": "https://github.com/paulrosen/abcjs.git",
     "axios": "^0.16.2",
     "exports-loader": "^0.6.4",
     "he": "^1.1.1",
@@ -20,10 +20,12 @@
     "script-loader": "^0.7.0"
   },
   "main": "src/electron-starter.js",
-  "homepage": "./",
+  "homepage": "https://borisrorsvort.github.io/trad_tune_book",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
