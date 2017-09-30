@@ -14,13 +14,20 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Card,
+  CardContent,
+  CardActions,
+  Button
 } from "material-ui";
 import { commonStyles } from "../styles/common";
 import PrintIcon from "material-ui-icons/Print";
 import { TUNE_URL } from "../constants/actionTypes";
 
 const styles = theme => ({
+  card: {
+    marginBottom: theme.spacing.unit * 2
+  },
   settings: theme.mixins.gutters({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit
@@ -73,20 +80,33 @@ class Tune extends Component {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            <Paper elevation={1}>
-              <List>
-                {this.props.currentTune.settings.map(setting => {
-                  return (
-                    <ListItem key={setting.id} button>
-                      <ListItemText
-                        primary={`Setting ${setting.id}`}
-                        secondary={setting.key}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Paper>
+            {this.props.currentTune.settings.map(setting => {
+              return (
+                <Card className={this.props.classes.card}>
+                  <CardContent>
+                    <Typography type="subheader" gutterBottom>
+                      Setting #{setting.id} ({setting.key})
+                    </Typography>
+                    <Typography type="caption">
+                      by {setting.member.name} on {setting.date}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      dense
+                      component={Link}
+                      target="_blank"
+                      href={{
+                        pathname: `${TUNE_URL}${this.props.currentTune
+                          .id}#setting${setting.id}`
+                      }}
+                    >
+                      View on The Session.org
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            })}
           </Grid>
         </Grid>
       </div>

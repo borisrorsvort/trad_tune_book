@@ -14,12 +14,25 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Card,
+  CardContent,
+  CardActions,
+  Button
 } from "material-ui";
 import { commonStyles } from "../styles/common";
 import PrintIcon from "material-ui-icons/Print";
+import { TUNE_URL } from "../constants/actionTypes";
 
 const styles = theme => ({
+  card: {
+    marginBottom: theme.spacing.unit * 2
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+    color: theme.palette.text.secondary
+  },
   settings: theme.mixins.gutters({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit
@@ -58,7 +71,7 @@ class Set extends Component {
       <div className={classes.content}>
         <Grid container spacing={24}>
           <Grid item xs={8}>
-            <Paper className={this.props.classes.settings} elevation={1}>
+            <Paper className={this.props.classes.settings} elevation={0}>
               <Toolbar disableGutters>
                 <Typography
                   type="title"
@@ -79,20 +92,30 @@ class Set extends Component {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            <Paper elevation={1}>
-              <List>
-                {this.props.currentSet.settings.map(setting => {
-                  return (
-                    <ListItem key={setting.id} button>
-                      <ListItemText
-                        primary={`Setting ${he.decode(setting.name)}`}
-                        secondary={setting.key}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Paper>
+            {this.props.currentSet.settings.map(setting => {
+              return (
+                <Card className={this.props.classes.card}>
+                  <CardContent>
+                    <Typography type="subheader" gutterBottom>
+                      Setting {he.decode(setting.name)} ({setting.key})
+                    </Typography>
+                    <Typography type="caption">
+                      by {setting.member.name} on {setting.date}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      dense
+                      component={Link}
+                      target="_blank"
+                      href={`${TUNE_URL}${setting.id}`}
+                    >
+                      View on The Session.org
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            })}
           </Grid>
         </Grid>
       </div>
