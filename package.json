@@ -20,7 +20,7 @@
     "script-loader": "^0.7.0"
   },
   "main": "src/electron-starter.js",
-  "homepage": "https://borisrorsvort.github.io/trad_tune_book",
+  "homepage": "/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
