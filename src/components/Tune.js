@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import store from '../store';
-import { fetchTune } from '../actions/tuneBook';
-import { connect } from 'react-redux';
-import SheetMusic from './SheetMusic';
-import he from 'he';
-import { Link } from 'redux-little-router';
+import React, { Component } from "react";
+import store from "../store";
+import { fetchTune } from "../actions/tuneBook";
+import { connect } from "react-redux";
+import SheetMusic from "./SheetMusic";
+import he from "he";
+import { Link } from "redux-little-router";
 import {
   withStyles,
   Grid,
   Paper,
   IconButton,
   Toolbar,
-  Typography
-} from 'material-ui';
-import { commonStyles } from '../styles/common';
-import PrintIcon from 'material-ui-icons/Print';
-import { TUNE_URL } from '../constants/actionTypes';
+  Typography,
+  List,
+  ListItem,
+  ListItemText
+} from "material-ui";
+import { commonStyles } from "../styles/common";
+import PrintIcon from "material-ui-icons/Print";
+import { TUNE_URL } from "../constants/actionTypes";
 
 const styles = theme => ({
   settings: theme.mixins.gutters({
@@ -53,7 +56,7 @@ class Tune extends Component {
     return (
       <div className={classes.content}>
         <Grid container spacing={24}>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Paper className={this.props.classes.settings} elevation={1}>
               <Toolbar disableGutters>
                 <Typography
@@ -67,6 +70,22 @@ class Tune extends Component {
               {this.props.currentTune.settings.map(setting => {
                 return <SheetMusic key={setting.id} tune={setting} />;
               })}
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper elevation={1}>
+              <List>
+                {this.props.currentTune.settings.map(setting => {
+                  return (
+                    <ListItem key={setting.id} button>
+                      <ListItemText
+                        primary={`Setting ${setting.id}`}
+                        secondary={setting.key}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </List>
             </Paper>
           </Grid>
         </Grid>

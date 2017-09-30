@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
-import { Fragment } from 'redux-little-router';
-import Tunebook from './components/Tunebook';
-import Sets from './components/Sets';
-import { connect } from 'react-redux';
-import { redirect } from './actions/router';
+import { withStyles } from "material-ui/styles";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import IconButton from "material-ui/IconButton";
+import MenuIcon from "material-ui-icons/Menu";
+import Tabs from "material-ui/Tabs/Tabs";
+import Tab from "material-ui/Tabs/Tab";
+import { Fragment } from "redux-little-router";
+import Tunebook from "./components/Tunebook";
+import Sets from "./components/Sets";
+import { connect } from "react-redux";
+import { redirect } from "./actions/router";
 
 const styles = {
   root: {
-    width: '100%',
-  },
+    width: "100%"
+  }
 };
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      selectedTab: 0,
+      selectedTab: 0
     };
   }
 
   handleChange = (event, value) => {
     this.setState({ selectedTab: value });
-    const tabsHrefs = ['/', '/tunebook', '/sets'];
+    const tabsHrefs = ["/", "/tunebook", "/sets"];
     this.props.redirect(tabsHrefs[value]);
   };
 
@@ -39,16 +39,22 @@ class App extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.root}>
-        <AppBar position="fixed">
+        <AppBar position="fixed" color="primary">
           <Toolbar>
-            <IconButton color="contrast" aria-label="Menu">
+            <IconButton color="accent" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography type="title" color="inherit" className={classes.flex}>
+            <Typography type="title" color="accent" className={classes.flex}>
               TradTuneBook
             </Typography>
           </Toolbar>
-          <Tabs value={this.state.selectedTab} onChange={this.handleChange}>
+          <Tabs
+            value={this.state.selectedTab}
+            onChange={this.handleChange}
+            indicatorColor="accent"
+            textColor="accent"
+            centered
+          >
             <Tab value={0} label="home" />
             <Tab value={1} label="tunebook" />
             <Tab value={2} label="sets" />
@@ -69,8 +75,8 @@ const mapStateToProps = state => ({ router: state.router });
 const mapDispatchToProps = dispatch => ({
   redirect: href => {
     dispatch(redirect(href));
-  },
+  }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(App),
+  withStyles(styles)(App)
 );

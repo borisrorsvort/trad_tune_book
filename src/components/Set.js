@@ -1,20 +1,23 @@
-import React, { Component } from 'react';
-import store from '../store';
-import { connect } from 'react-redux';
-import he from 'he';
-import SheetMusic from './SheetMusic';
-import { Link } from 'redux-little-router';
-import { fetchSet } from '../actions/sets';
+import React, { Component } from "react";
+import store from "../store";
+import { connect } from "react-redux";
+import he from "he";
+import SheetMusic from "./SheetMusic";
+import { Link } from "redux-little-router";
+import { fetchSet } from "../actions/sets";
 import {
   withStyles,
   Grid,
   Paper,
   Toolbar,
   IconButton,
-  Typography
-} from 'material-ui';
-import { commonStyles } from '../styles/common';
-import PrintIcon from 'material-ui-icons/Print';
+  Typography,
+  List,
+  ListItem,
+  ListItemText
+} from "material-ui";
+import { commonStyles } from "../styles/common";
+import PrintIcon from "material-ui-icons/Print";
 
 const styles = theme => ({
   settings: theme.mixins.gutters({
@@ -29,13 +32,13 @@ const styles = theme => ({
 
 class Set extends Component {
   componentDidMount() {
-    store.dispatch(fetchSet('63117', this.props.setId));
+    store.dispatch(fetchSet("63117", this.props.setId));
   }
 
   componentWillReceiveProps(nextProps) {
     const newSetId = nextProps.setId;
     if (this.props.setId !== newSetId) {
-      store.dispatch(fetchSet('63117', newSetId));
+      store.dispatch(fetchSet("63117", newSetId));
     }
   }
 
@@ -54,7 +57,7 @@ class Set extends Component {
     return (
       <div className={classes.content}>
         <Grid container spacing={24}>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Paper className={this.props.classes.settings} elevation={1}>
               <Toolbar disableGutters>
                 <Typography
@@ -73,6 +76,22 @@ class Set extends Component {
               {this.props.currentSet.settings.map(setting => {
                 return <SheetMusic key={setting.id} tune={setting} />;
               })}
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper elevation={1}>
+              <List>
+                {this.props.currentSet.settings.map(setting => {
+                  return (
+                    <ListItem key={setting.id} button>
+                      <ListItemText
+                        primary={`Setting ${he.decode(setting.name)}`}
+                        secondary={setting.key}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </List>
             </Paper>
           </Grid>
         </Grid>
