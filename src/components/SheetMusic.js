@@ -5,7 +5,6 @@ import { withStyles, Typography } from "material-ui";
 import { abcReformatter } from "../helpers/abcHelper";
 import he from "he";
 import reactDimensions from "react-dimensions";
-import { BorderBottom } from "material-ui-icons";
 
 const styles = theme => ({
   root: {

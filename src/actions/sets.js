@@ -1,35 +1,37 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   REQUEST_SETS,
   RECEIVE_SETS,
   REQUEST_SET,
   RECEIVE_SET,
-  MEMBER_URL,
-} from '../constants/actionTypes';
+  MEMBER_URL
+} from "../constants/actionTypes";
+
+import { updateTitle } from "./ui";
 
 function requestSets() {
   return {
-    type: REQUEST_SETS,
+    type: REQUEST_SETS
   };
 }
 
 function receiveSets(data) {
   return {
     type: RECEIVE_SETS,
-    sets: data.sets,
+    sets: data.sets
   };
 }
 
 function requestSet() {
   return {
-    type: REQUEST_SET,
+    type: REQUEST_SET
   };
 }
 
 function receiveSet(set) {
   return {
     type: RECEIVE_SET,
-    currentSet: set,
+    currentSet: set
   };
 }
 
@@ -51,6 +53,7 @@ export const fetchSet = (memberId, setId) => dispatch => {
     .get(`${MEMBER_URL}${memberId}/sets/${setId}?format=json`)
     .then(function(response) {
       dispatch(receiveSet(response.data));
+      dispatch(updateTitle(response.data.name));
     })
     .catch(function(error) {
       console.log(error);

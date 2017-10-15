@@ -12,9 +12,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
   Card,
   CardContent,
   CardActions,
@@ -37,9 +34,6 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit
   }),
-  flex: {
-    flex: 1
-  },
   ...commonStyles(theme)
 });
 
@@ -68,57 +62,48 @@ class Set extends Component {
     }
 
     return (
-      <div className={classes.content}>
-        <Grid container spacing={24}>
-          <Grid item xs={8}>
-            <Paper className={this.props.classes.settings} elevation={0}>
-              <Toolbar disableGutters>
-                <Typography
-                  type="title"
-                  color="inherit"
-                  className={this.props.classes.flex}
-                >
-                  {he.decode(this.props.currentSet.name)}
-                </Typography>
-                <a href={printUrl} target="_blank">
-                  <IconButton>
-                    <PrintIcon />
-                  </IconButton>
-                </a>
-              </Toolbar>
-              {this.props.currentSet.settings.map(setting => {
-                return <SheetMusic key={setting.id} tune={setting} />;
-              })}
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
+      <Grid container spacing={24}>
+        <Grid item xs={8}>
+          <Paper className={classes.settings} elevation={0}>
+            <Toolbar disableGutters>
+              <a href={printUrl} target="_blank">
+                <IconButton>
+                  <PrintIcon />
+                </IconButton>
+              </a>
+            </Toolbar>
             {this.props.currentSet.settings.map(setting => {
-              return (
-                <Card className={this.props.classes.card}>
-                  <CardContent>
-                    <Typography type="subheader" gutterBottom>
-                      Setting {he.decode(setting.name)} ({setting.key})
-                    </Typography>
-                    <Typography type="caption">
-                      by {setting.member.name} on {setting.date}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      dense
-                      component={Link}
-                      target="_blank"
-                      href={`${TUNE_URL}${setting.id}`}
-                    >
-                      View on The Session.org
-                    </Button>
-                  </CardActions>
-                </Card>
-              );
+              return <SheetMusic key={setting.id} tune={setting} />;
             })}
-          </Grid>
+          </Paper>
         </Grid>
-      </div>
+        <Grid item xs={4}>
+          {this.props.currentSet.settings.map(setting => {
+            return (
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography type="subheader" gutterBottom>
+                    Setting {he.decode(setting.name)} ({setting.key})
+                  </Typography>
+                  <Typography type="caption">
+                    by {setting.member.name} on {setting.date}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    dense
+                    component={Link}
+                    target="_blank"
+                    href={`${TUNE_URL}${setting.id}`}
+                  >
+                    View on The Session.org
+                  </Button>
+                </CardActions>
+              </Card>
+            );
+          })}
+        </Grid>
+      </Grid>
     );
   }
 }

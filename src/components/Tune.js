@@ -3,25 +3,18 @@ import store from "../store";
 import { fetchTune } from "../actions/tuneBook";
 import { connect } from "react-redux";
 import SheetMusic from "./SheetMusic";
-import he from "he";
 import { Link } from "redux-little-router";
 import {
   withStyles,
   Grid,
   Paper,
-  IconButton,
-  Toolbar,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
   Card,
   CardContent,
   CardActions,
   Button
 } from "material-ui";
 import { commonStyles } from "../styles/common";
-import PrintIcon from "material-ui-icons/Print";
 import { TUNE_URL } from "../constants/actionTypes";
 
 const styles = theme => ({
@@ -61,55 +54,44 @@ class Tune extends Component {
     }
 
     return (
-      <div className={classes.content}>
-        <Grid container spacing={24}>
-          <Grid item xs={8}>
-            <Paper className={this.props.classes.settings} elevation={1}>
-              <Toolbar disableGutters>
-                <Typography
-                  type="title"
-                  color="inherit"
-                  className={this.props.classes.flex}
-                >
-                  {he.decode(this.props.currentTune.name)}
-                </Typography>
-              </Toolbar>
-              {this.props.currentTune.settings.map(setting => {
-                return <SheetMusic key={setting.id} tune={setting} />;
-              })}
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
+      <Grid container spacing={24}>
+        <Grid item xs={8}>
+          <Paper className={classes.settings} elevation={1}>
             {this.props.currentTune.settings.map(setting => {
-              return (
-                <Card className={this.props.classes.card}>
-                  <CardContent>
-                    <Typography type="subheader" gutterBottom>
-                      Setting #{setting.id} ({setting.key})
-                    </Typography>
-                    <Typography type="caption">
-                      by {setting.member.name} on {setting.date}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      dense
-                      component={Link}
-                      target="_blank"
-                      href={{
-                        pathname: `${TUNE_URL}${this.props.currentTune
-                          .id}#setting${setting.id}`
-                      }}
-                    >
-                      View on The Session.org
-                    </Button>
-                  </CardActions>
-                </Card>
-              );
+              return <SheetMusic key={setting.id} tune={setting} />;
             })}
-          </Grid>
+          </Paper>
         </Grid>
-      </div>
+        <Grid item xs={4}>
+          {this.props.currentTune.settings.map(setting => {
+            return (
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography type="subheader" gutterBottom>
+                    Setting #{setting.id} ({setting.key})
+                  </Typography>
+                  <Typography type="caption">
+                    by {setting.member.name} on {setting.date}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    dense
+                    component={Link}
+                    target="_blank"
+                    href={{
+                      pathname: `${TUNE_URL}${this.props.currentTune
+                        .id}#setting${setting.id}`
+                    }}
+                  >
+                    View on The Session.org
+                  </Button>
+                </CardActions>
+              </Card>
+            );
+          })}
+        </Grid>
+      </Grid>
     );
   }
 }

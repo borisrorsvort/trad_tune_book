@@ -5,26 +5,10 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";
 import store from "./store";
-// import createPalette from 'material-ui/styles/palette';
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-
-import grey from "material-ui/colors/grey";
 import green from "material-ui/colors/green";
 import red from "material-ui/colors/red";
 
-// const theme = createMuiTheme({
-//   palette: createPalette({
-//     primary: {
-//       ...grey,
-//       500: grey[900]
-//     },
-//     accent: {
-//       ...green,
-//       A200: green[500]
-//     },
-//     error: red
-//   })
-// });
 const white = {
   50: "#fff",
   100: "#fff",

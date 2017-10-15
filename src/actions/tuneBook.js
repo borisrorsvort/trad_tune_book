@@ -1,16 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 import {
-    REQUEST_TUNEBOOK,
-    RECEIVE_TUNEBOOK,
-    MEMBER_URL,
-    TUNE_URL,
-    REQUEST_TUNE,
-    RECEIVE_TUNE
-} from '../constants/actionTypes';
+  REQUEST_TUNEBOOK,
+  RECEIVE_TUNEBOOK,
+  MEMBER_URL,
+  TUNE_URL,
+  REQUEST_TUNE,
+  RECEIVE_TUNE
+} from "../constants/actionTypes";
+import { updateTitle } from "./ui";
 
 function requestTuneBook() {
   return {
-    type: REQUEST_TUNEBOOK,
+    type: REQUEST_TUNEBOOK
   };
 }
 
@@ -23,7 +24,7 @@ function receiveTuneBook(data) {
 
 function requestTune() {
   return {
-    type: REQUEST_TUNE,
+    type: REQUEST_TUNE
   };
 }
 
@@ -34,24 +35,27 @@ function receiveTune(tune) {
   };
 }
 
-export const fetchTuneBook = memberId => (dispatch) => {
+export const fetchTuneBook = memberId => dispatch => {
   dispatch(requestTuneBook());
-  return axios.get(`${MEMBER_URL}${memberId}/tunebook?format=json`)
-    .then(function (response) {
+  return axios
+    .get(`${MEMBER_URL}${memberId}/tunebook?format=json`)
+    .then(function(response) {
       dispatch(receiveTuneBook(response.data));
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 };
 
-export const fetchTune = tuneId => (dispatch) => {
+export const fetchTune = tuneId => dispatch => {
   dispatch(requestTune());
-  return axios.get(`${TUNE_URL}${tuneId}?format=json`)
-    .then(function (response) {
+  return axios
+    .get(`${TUNE_URL}${tuneId}?format=json`)
+    .then(function(response) {
       dispatch(receiveTune(response.data));
+      dispatch(updateTitle(response.data.name));
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 };
