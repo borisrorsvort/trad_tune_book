@@ -31,7 +31,7 @@ const styles = theme => ({
     height: "100%"
   },
   appBar: {
-    position: "absolute",
+    position: "fixed",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen
