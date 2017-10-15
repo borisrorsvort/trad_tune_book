@@ -6,14 +6,6 @@ import { Fragment } from "redux-little-router";
 import { layoutStyles } from "../styles/layout";
 
 class DrawerResponsive extends Component {
-  state = {
-    mobileOpen: false
-  };
-
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
-
   render() {
     const { classes } = this.props;
     const drawer = (
@@ -34,7 +26,7 @@ class DrawerResponsive extends Component {
           <Drawer
             type="temporary"
             anchor={"left"}
-            open={this.state.mobileOpen}
+            open={this.props.mobileOpen}
             classes={{
               paper: classes.drawerPaper
             }}

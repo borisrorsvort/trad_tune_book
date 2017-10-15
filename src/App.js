@@ -19,6 +19,14 @@ import { layoutStyles } from "./styles/layout";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    mobileOpen: false
+  };
+
+  handleDrawerToggle = () => {
+    this.setState({ mobileOpen: !this.state.mobileOpen });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -42,7 +50,7 @@ class App extends Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <DrawerResponsive />
+          <DrawerResponsive mobileOpen={this.state.mobileOpen} />
           <div className={classes.content}>
             <Fragment forRoute="/tunebook">
               <Tunebook />
