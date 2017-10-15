@@ -6,6 +6,15 @@ import { Fragment } from "redux-little-router";
 import { layoutStyles } from "../styles/layout";
 
 class DrawerResponsive extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
+  }
+
+  handleDrawerToggle() {
+    this.props.handleDrawerToggle();
+  }
+
   render() {
     const { classes } = this.props;
     const drawer = (
@@ -20,6 +29,7 @@ class DrawerResponsive extends Component {
         </Fragment>
       </div>
     );
+
     return (
       <div>
         <Hidden mdUp>

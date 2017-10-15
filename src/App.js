@@ -37,7 +37,7 @@ class App extends Component {
             <Toolbar>
               <Hidden mdUp>
                 <IconButton
-                  color="contrast"
+                  color="accent"
                   aria-label="open drawer"
                   onClick={this.handleDrawerToggle}
                   className={classes.navIconHide}
@@ -50,7 +50,10 @@ class App extends Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <DrawerResponsive mobileOpen={this.state.mobileOpen} />
+          <DrawerResponsive
+            mobileOpen={this.state.mobileOpen}
+            handleDrawerToggle={this.handleDrawerToggle}
+          />
           <div className={classes.content}>
             <Fragment forRoute="/tunebook">
               <Tunebook />
