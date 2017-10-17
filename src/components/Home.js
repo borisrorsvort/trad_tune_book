@@ -1,9 +1,24 @@
 import React, { Component } from "react";
-import { TextField } from "material-ui";
+import { TextField, withStyles, Paper, Button, Typography } from "material-ui";
 import { connect } from "react-redux";
 import store from "../store";
 import { updateUserId } from "../actions/session";
 import { Link } from "redux-little-router";
+
+const styles = theme => ({
+  paper: {
+    width: "50%",
+    margin: "auto",
+    padding: "20px"
+  },
+  input: {
+    width: "100%",
+    marginBottom: theme.spacing.unit
+  },
+  button: {
+    color: "white"
+  }
+});
 
 class Home extends Component {
   handleChange = userId => event => {
@@ -11,23 +26,36 @@ class Home extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <Paper className={classes.paper} elevation={0}>
+        <Typography type="subheader" gutterBottom>
+          To start, you must fill in you TheSession.org user id.
+        </Typography>
         <TextField
           id="userId"
           label="You seesion.org user id"
+          className={classes.input}
           value={this.props.userId}
           onChange={this.handleChange("userId")}
           margin="normal"
         />
-        <Link href="/tunebook/tunes">Get me to my tunebook</Link>
-      </div>
+        <Button
+          href="/tunebook/tunes"
+          className={classes.button}
+          component={Link}
+          raised
+          color="primary"
+        >
+          See my tunebook
+        </Button>
+      </Paper>
     );
   }
 }
 
-const mapSateToProps = state => {
-  userId: state.session.userId;
-};
+const mapSateToProps = state => ({
+  userId: state.session.userId
+});
 
-export default connect(mapSateToProps)(Home);
+export default connect(mapSateToProps)(withStyles(styles)(Home));

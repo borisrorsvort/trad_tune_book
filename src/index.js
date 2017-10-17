@@ -42,14 +42,16 @@ const theme = createMuiTheme({
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <div>
-        <Fragment forRoute="/">
-          <Home />
-        </Fragment>
-        <Fragment forRoute="/tunebook">
-          <App />
-        </Fragment>
-      </div>
+      <Fragment forRoute="/">
+        <div>
+          <Fragment forRoute="/">
+            <Home />
+          </Fragment>
+          <Fragment forRoute="/tunebook">
+            <App />
+          </Fragment>
+        </div>
+      </Fragment>
     </Provider>
   </MuiThemeProvider>
 );
