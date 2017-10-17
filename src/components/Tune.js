@@ -55,14 +55,14 @@ class Tune extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <Paper className={classes.settings} elevation={1}>
             {this.props.currentTune.settings.map(setting => {
               return <SheetMusic key={setting.id} tune={setting} />;
             })}
           </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item hidden={{ smDown: true }} md={4}>
           {this.props.currentTune.settings.map(setting => {
             return (
               <Card className={classes.card}>

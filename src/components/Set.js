@@ -63,7 +63,7 @@ class Set extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <Paper className={classes.settings} elevation={0}>
             <Toolbar disableGutters>
               <a href={printUrl} target="_blank">
@@ -77,7 +77,7 @@ class Set extends Component {
             })}
           </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item hidden={{ smDown: true }} md={4}>
           {this.props.currentSet.settings.map(setting => {
             return (
               <Card className={classes.card}>
