@@ -4,15 +4,12 @@ import NavDropDown from "./NavDropDown";
 import DrawerItems from "./DrawerItems";
 import { Fragment } from "redux-little-router";
 import { layoutStyles } from "../styles/layout";
+import { toggleDrawer } from "../actions/ui";
+import store from "../store";
 
 class DrawerResponsive extends Component {
-  constructor(props) {
-    super(props);
-    this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
-  }
-
   handleDrawerToggle() {
-    this.props.handleDrawerToggle();
+    store.dispatch(toggleDrawer());
   }
 
   render() {
@@ -36,7 +33,7 @@ class DrawerResponsive extends Component {
           <Drawer
             type="temporary"
             anchor={"left"}
-            open={this.props.mobileOpen}
+            open={this.props.showDrawer}
             classes={{
               paper: classes.drawerPaper
             }}

@@ -1,8 +1,9 @@
-import { UPDATE_TITLE } from "../constants/actionTypes";
+import { UPDATE_TITLE, TOGGLE_DRAWER } from "../constants/actionTypes";
 
 function ui(
   state = {
-    title: "Trad Tunes book"
+    title: "Trad Tunes book",
+    showDrawer: false
   },
   action
 ) {
@@ -10,6 +11,10 @@ function ui(
     case UPDATE_TITLE:
       return Object.assign({}, state, {
         title: action.title
+      });
+    case TOGGLE_DRAWER:
+      return Object.assign({}, state, {
+        showDrawer: !state.showDrawer
       });
     default:
       return state;

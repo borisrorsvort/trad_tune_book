@@ -14,6 +14,7 @@ import {
 import { MusicNote } from "material-ui-icons";
 import he from "he";
 import { commonStyles } from "../styles/common";
+import { toggleDrawer } from "../actions/ui";
 
 class DrawerItems extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class DrawerItems extends Component {
         ? `/tunebook/sets/${item.id}`
         : `/tunebook/tunes/${item.id}`;
     store.dispatch(redirect(href));
+    store.dispatch(toggleDrawer());
   };
 
   render() {

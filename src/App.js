@@ -17,15 +17,13 @@ import DrawerResponsive from "./components/DrawerResponsive";
 import { withStyles } from "material-ui/styles";
 import { layoutStyles } from "./styles/layout";
 import "./App.css";
+import store from "./store";
+import { toggleDrawer } from "./actions/ui";
 
 class App extends Component {
-  state = {
-    mobileOpen: false
-  };
-
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
+  handleDrawerToggle() {
+    store.dispatch(toggleDrawer());
+  }
 
   render() {
     const { classes } = this.props;
@@ -50,10 +48,7 @@ class App extends Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <DrawerResponsive
-            mobileOpen={this.state.mobileOpen}
-            handleDrawerToggle={this.handleDrawerToggle}
-          />
+          <DrawerResponsive showDrawer={this.props.showDrawer} />
           <div className={classes.content}>
             <Fragment forRoute="/tunes">
               <Tunebook />
@@ -70,7 +65,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   router: state.router,
-  title: state.ui.title
+  title: state.ui.title,
+  showDrawer: state.ui.showDrawer
 });
 
 export default connect(mapStateToProps)(withStyles(layoutStyles)(App));
