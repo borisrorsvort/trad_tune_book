@@ -19,17 +19,19 @@ class DrawerItems extends Component {
   componentDidMount() {
     switch (this.props.type) {
       case "tunes":
-        store.dispatch(fetchTuneBook("63117"));
+        store.dispatch(fetchTuneBook(this.props.userId));
         break;
       default:
-        store.dispatch(fetchSets("63117"));
+        store.dispatch(fetchSets(this.props.userId));
         break;
     }
   }
 
   handleClick = item => _e => {
     const href =
-      this.props.type === "sets" ? `/sets/${item.id}` : `/tunebook/${item.id}`;
+      this.props.type === "sets"
+        ? `/tunebook/sets/${item.id}`
+        : `/tunebook/tunes/${item.id}`;
     store.dispatch(redirect(href));
   };
 
@@ -57,7 +59,8 @@ class DrawerItems extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  items: props.type === "sets" ? state.sets.sets : state.tunebook.tunes
+  items: props.type === "sets" ? state.sets.sets : state.tunebook.tunes,
+  userId: state.session.userId
 });
 
 export default connect(mapStateToProps)(withStyles(commonStyles)(DrawerItems));

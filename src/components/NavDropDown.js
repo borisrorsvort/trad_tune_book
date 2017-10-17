@@ -26,8 +26,8 @@ const styles = theme => ({
 });
 
 const menuOptions = [
-  { label: "Sets", href: "/sets" },
-  { label: "Tunebook", href: "/tunebook" }
+  { label: "Sets", href: "/tunebook/sets" },
+  { label: "Tunes", href: "/tunebook/tunes" }
 ];
 
 class NavDropDown extends Component {
@@ -53,7 +53,7 @@ class NavDropDown extends Component {
   render() {
     const { classes } = this.props;
     const selectedMenuItem = menuOptions.find(o =>
-      o.label.toLowerCase().includes(this.props.router.pathname.split("/")[1])
+      o.label.toLowerCase().includes(this.props.router.pathname.split("/")[2])
     );
 
     return (

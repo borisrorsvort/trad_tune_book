@@ -1,17 +1,19 @@
 export const routes = {
-  '/tunebook': {
-    title: 'Tunebook',
-    '/:tuneId': {
-      title: 'Tune',
+  "/tunebook": {
+    "/tunes": {
+      title: "Tunes",
+      "/:tuneId": {
+        title: "Tune"
+      }
     },
+    "/sets": {
+      title: "Sets",
+      "/:setId": {
+        title: "Set"
+      }
+    }
   },
-  '/sets': {
-    title: 'Sets',
-    '/:setId': {
-      title: 'Set',
-    },
-  },
-  '/': {
-    title: 'Home',
-  },
+  "/": {
+    title: "Home"
+  }
 };

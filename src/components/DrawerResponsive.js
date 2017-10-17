@@ -21,7 +21,7 @@ class DrawerResponsive extends Component {
       <div>
         <NavDropDown />
         <Divider />
-        <Fragment forRoute="/tunebook">
+        <Fragment forRoute="/tunes">
           <DrawerItems type="tunes" />
         </Fragment>
         <Fragment forRoute="/sets">

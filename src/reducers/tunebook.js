@@ -1,27 +1,26 @@
 import {
-    REQUEST_TUNEBOOK,
-    RECEIVE_TUNEBOOK,
-    REQUEST_TUNE,
-    RECEIVE_TUNE
-} from '../constants/actionTypes';
+  REQUEST_TUNEBOOK,
+  RECEIVE_TUNEBOOK,
+  REQUEST_TUNE,
+  RECEIVE_TUNE
+} from "../constants/actionTypes";
 
 function tunebook(
   state = {
     isFetching: false,
-    tunes: [],
+    tunes: []
   },
   action
 ) {
   switch (action.type) {
     case REQUEST_TUNEBOOK:
       return Object.assign({}, state, {
-        isFetching: true,
-        tunes: [],
+        isFetching: true
       });
     case RECEIVE_TUNEBOOK:
       return Object.assign({}, state, {
         isFetching: false,
-        tunes: action.tunes,
+        tunes: action.tunes
       });
     case REQUEST_TUNE:
       return Object.assign({}, state, {

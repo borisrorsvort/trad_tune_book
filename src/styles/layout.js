@@ -49,13 +49,13 @@ export const layoutStyles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    height: "calc(100% - 56px)",
-    marginTop: 56
+    height: "calc(100% - 56px)"
+    // marginTop: 56
   },
   [theme.breakpoints.up("md")]: {
     content: {
       height: "calc(100% - 64px)",
-      marginTop: 64,
+      // marginTop: 64,
       marginLeft: SIDEBAR_WIDTH
     },
     appBar: {

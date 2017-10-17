@@ -8,6 +8,8 @@ import store from "./store";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import green from "material-ui/colors/green";
 import red from "material-ui/colors/red";
+import { Fragment } from "redux-little-router";
+import Home from "./components/Home";
 
 const white = {
   50: "#fff",
@@ -40,7 +42,14 @@ const theme = createMuiTheme({
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <App />
+      <div>
+        <Fragment forRoute="/">
+          <Home />
+        </Fragment>
+        <Fragment forRoute="/tunebook">
+          <App />
+        </Fragment>
+      </div>
     </Provider>
   </MuiThemeProvider>
 );

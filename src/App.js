@@ -55,7 +55,7 @@ class App extends Component {
             handleDrawerToggle={this.handleDrawerToggle}
           />
           <div className={classes.content}>
-            <Fragment forRoute="/tunebook">
+            <Fragment forRoute="/tunes">
               <Tunebook />
             </Fragment>
             <Fragment forRoute="/sets">
