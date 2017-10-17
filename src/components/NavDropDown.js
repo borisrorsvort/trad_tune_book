@@ -25,16 +25,15 @@ const styles = theme => ({
   }
 });
 
-const menuOptions = [
-  { label: "Sets", href: "/tunebook/sets" },
-  { label: "Tunes", href: "/tunebook/tunes" }
-];
-
 class NavDropDown extends Component {
   state = {
     anchorEl: null,
     open: false,
-    selectedIndex: 1
+    selectedIndex: 1,
+    menuOptions: [
+      { label: `Sets (${this.props.setsCount})`, href: "/tunebook/sets" },
+      { label: `Tunes (${this.props.tunesCount})`, href: "/tunebook/tunes" }
+    ]
   };
 
   handleClickListItem = event => {
@@ -43,7 +42,7 @@ class NavDropDown extends Component {
 
   handleMenuItemClick = (event, index) => {
     this.setState({ selectedIndex: index, open: false });
-    store.dispatch(redirect(menuOptions[index].href));
+    store.dispatch(redirect(this.state.menuOptions[index].href));
   };
 
   handleRequestClose = () => {
@@ -52,7 +51,7 @@ class NavDropDown extends Component {
 
   render() {
     const { classes } = this.props;
-    const selectedMenuItem = menuOptions.find(o =>
+    const selectedMenuItem = this.state.menuOptions.find(o =>
       o.label.toLowerCase().includes(this.props.router.pathname.split("/")[2])
     );
 
@@ -85,7 +84,7 @@ class NavDropDown extends Component {
             }
           }}
         >
-          {menuOptions.map((option, index) => (
+          {this.state.menuOptions.map((option, index) => (
             <MenuItem
               key={option.label}
               selected={index === this.state.selectedIndex}
@@ -102,7 +101,9 @@ class NavDropDown extends Component {
 
 const mapStateToProps = state => {
   return {
-    router: state.router
+    router: state.router,
+    tunesCount: state.tunebook.tunes.length,
+    setsCount: state.sets.sets.length
   };
 };
 
