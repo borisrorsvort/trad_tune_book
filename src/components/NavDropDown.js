@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import store from "../store";
 import { redirect } from "../actions/router";
 import { SIDEBAR_WIDTH } from "../constants/layout";
+import { currentSection } from "../helpers/routerHelper";
 
 const styles = theme => ({
   root: {
@@ -52,7 +53,7 @@ class NavDropDown extends Component {
   render() {
     const { classes } = this.props;
     const selectedMenuItem = this.state.menuOptions.find(o =>
-      o.label.toLowerCase().includes(this.props.router.pathname.split("/")[2])
+      o.label.toLowerCase().includes(currentSection(this.props.router))
     );
 
     return (
@@ -102,7 +103,7 @@ class NavDropDown extends Component {
 const mapStateToProps = state => {
   return {
     router: state.router,
-    tunesCount: state.tunebook.tunes.length,
+    tunesCount: state.tunes.tunes.length,
     setsCount: state.sets.sets.length
   };
 };

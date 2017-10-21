@@ -19,10 +19,16 @@ import { layoutStyles } from "./styles/layout";
 import "./App.css";
 import store from "./store";
 import { toggleDrawer } from "./actions/ui";
+import { redirect } from "./actions/router";
+import { randomTuneOrSetUrl } from "./helpers/routerHelper";
 
 class App extends Component {
   handleDrawerToggle() {
     store.dispatch(toggleDrawer());
+  }
+
+  goToRandom() {
+    store.dispatch(redirect(randomTuneOrSetUrl()));
   }
 
   render() {
@@ -43,7 +49,12 @@ class App extends Component {
                   <MenuIcon />
                 </IconButton>
               </Hidden>
-              <Typography type="title" color="accent" noWrap>
+              <Typography
+                type="title"
+                color="accent"
+                noWrap
+                onClick={this.goToRandom}
+              >
                 {he.decode(this.props.title)}
               </Typography>
             </Toolbar>

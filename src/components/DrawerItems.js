@@ -16,6 +16,7 @@ import he from "he";
 import { commonStyles } from "../styles/common";
 import { toggleDrawer } from "../actions/ui";
 import classNames from "classnames";
+import { tuneOrSetUrl } from "../helpers/routerHelper";
 
 const styles = theme => ({
   activeListItem: {
@@ -36,10 +37,7 @@ class DrawerItems extends Component {
   }
 
   handleClick = item => _e => {
-    const href =
-      this.props.type === "sets"
-        ? `/tunebook/sets/${item.id}`
-        : `/tunebook/tunes/${item.id}`;
+    const href = tuneOrSetUrl(item.id, this.props.type);
     store.dispatch(redirect(href));
     store.dispatch(toggleDrawer());
   };
@@ -76,7 +74,7 @@ class DrawerItems extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  items: props.type === "sets" ? state.sets.sets : state.tunebook.tunes,
+  items: props.type === "sets" ? state.sets.sets : state.tunes.tunes,
   userId: state.session.userId,
   router: state.router
 });

@@ -5,7 +5,7 @@ import {
   RECEIVE_TUNE
 } from "../constants/actionTypes";
 
-function tunebook(
+function tunes(
   state = {
     isFetching: false,
     tunes: []
@@ -38,4 +38,4 @@ function tunebook(
   }
 }
 
-export default tunebook;
+export default tunes;

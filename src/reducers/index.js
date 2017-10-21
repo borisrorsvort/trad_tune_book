@@ -1,4 +1,4 @@
-import tunebook from "./tunebook";
+import tunes from "./tunes";
 import sets from "./sets";
 import ui from "./ui";
 import session from "./session";
@@ -6,7 +6,7 @@ import session from "./session";
 const index = {
   ui,
   session,
-  tunebook,
+  tunes,
   sets
 };
 

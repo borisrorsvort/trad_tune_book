@@ -98,7 +98,7 @@ class Tune extends Component {
 
 const mapStateToProps = state => ({
   tuneId: state.router.params.tuneId,
-  currentTune: state.tunebook.currentTune
+  currentTune: state.tunes.currentTune
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Tune));

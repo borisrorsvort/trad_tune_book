@@ -37,7 +37,7 @@ if (initialLocation) {
 store.subscribe(() => {
   saveState({
     session: store.getState().session,
-    tunebook: store.getState().tunebook,
+    tunes: store.getState().tunes,
     sets: store.getState().sets
   });
 });
