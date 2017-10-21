@@ -15,6 +15,13 @@ import { MusicNote } from "material-ui-icons";
 import he from "he";
 import { commonStyles } from "../styles/common";
 import { toggleDrawer } from "../actions/ui";
+import classNames from "classnames";
+
+const styles = theme => ({
+  activeListItem: {
+    background: "#ddd"
+  }
+});
 
 class DrawerItems extends Component {
   componentDidMount() {
@@ -37,6 +44,12 @@ class DrawerItems extends Component {
     store.dispatch(toggleDrawer());
   };
 
+  isActive(id) {
+    const { router: { params } } = this.props;
+    const itemId = id.toString();
+    return params.setId === itemId || params.tuneId === itemId;
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -45,7 +58,9 @@ class DrawerItems extends Component {
         {this.props.items.map(item => (
           <ListItem
             key={item.id}
-            className={classes.button}
+            className={classNames({
+              [`${classes.activeListItem}`]: this.isActive(item.id)
+            })}
             button
             onClick={this.handleClick(item)}
           >
@@ -62,7 +77,8 @@ class DrawerItems extends Component {
 
 const mapStateToProps = (state, props) => ({
   items: props.type === "sets" ? state.sets.sets : state.tunebook.tunes,
-  userId: state.session.userId
+  userId: state.session.userId,
+  router: state.router
 });
 
-export default connect(mapStateToProps)(withStyles(commonStyles)(DrawerItems));
+export default connect(mapStateToProps)(withStyles(styles)(DrawerItems));
