@@ -34,6 +34,9 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit
   }),
+  iconBtn: {
+    marginRight: "10px"
+  },
   ...commonStyles(theme)
 });
 
@@ -65,24 +68,25 @@ class Set extends Component {
       <Grid container spacing={24}>
         <Grid item xs={12} md={8}>
           <Paper className={classes.settings} elevation={0}>
-            <Toolbar disableGutters>
-              <a href={printUrl} target="_blank">
-                <IconButton>
-                  <PrintIcon />
-                </IconButton>
-              </a>
-            </Toolbar>
             {this.props.currentSet.settings.map(setting => {
               return <SheetMusic key={setting.id} tune={setting} />;
             })}
           </Paper>
         </Grid>
         <Grid item hidden={{ smDown: true }} md={4}>
+          <Card className={classes.card}>
+            <CardActions>
+              <Button href={printUrl} target="_blank">
+                <PrintIcon className={classes.iconBtn} />
+                Print
+              </Button>
+            </CardActions>
+          </Card>
           {this.props.currentSet.settings.map(setting => {
             return (
-              <Card className={classes.card}>
+              <Card className={classes.card} key={setting.id}>
                 <CardContent>
-                  <Typography type="subheader" gutterBottom>
+                  <Typography type="subheading" gutterBottom>
                     Setting {he.decode(setting.name)} ({setting.key})
                   </Typography>
                   <Typography type="caption">

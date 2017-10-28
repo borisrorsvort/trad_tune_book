@@ -13,7 +13,6 @@ import {
 } from "material-ui";
 import { MusicNote } from "material-ui-icons";
 import he from "he";
-import { commonStyles } from "../styles/common";
 import { toggleDrawer } from "../actions/ui";
 import classNames from "classnames";
 import { tuneOrSetUrl } from "../helpers/routerHelper";
