@@ -11,7 +11,7 @@ import {
   ListItemText,
   withStyles
 } from "material-ui";
-import { MusicNote } from "material-ui-icons";
+import MusicNote from "material-ui-icons/MusicNote";
 import he from "he";
 import { toggleDrawer } from "../actions/ui";
 import classNames from "classnames";

@@ -9,8 +9,6 @@ import {
   withStyles,
   Grid,
   Paper,
-  Toolbar,
-  IconButton,
   Typography,
   Card,
   CardContent,

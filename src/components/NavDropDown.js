@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { KeyboardArrowDown } from "material-ui-icons";
+import KeyboardArrowDown from "material-ui-icons/KeyboardArrowDown";
 import {
   Menu,
   MenuItem,

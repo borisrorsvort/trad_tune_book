@@ -4,10 +4,8 @@ export const tuneOrSetUrl = (id, type) => {
   switch (type) {
     case "sets":
       return `/tunebook/sets/${id}`;
-      break;
     default:
       return `/tunebook/tunes/${id}`;
-      break;
   }
 };
 
