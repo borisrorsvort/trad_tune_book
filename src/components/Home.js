@@ -169,7 +169,10 @@ class Home extends Component {
 }
 
 const mapSateToProps = state => ({
-  userName: state.session.currentUser.name || ""
+  userName:
+    state.session.currentUser !== undefined
+      ? state.session.currentUser.name
+      : ""
 });
 
 export default connect(mapSateToProps)(withStyles(styles)(Home));
