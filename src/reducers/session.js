@@ -1,21 +1,19 @@
-import { UPDATE_USER_ID } from "../constants/actionTypes";
+import { UPDATE_CURRENT_USER } from "../constants/actionTypes";
 
 function session(
   state = {
-    userId: null
+    currentUser: {}
   },
   action
 ) {
   switch (action.type) {
-    case UPDATE_USER_ID:
+    case UPDATE_CURRENT_USER:
       return Object.assign({}, state, {
-        userId: action.userId
+        currentUser: action.currentUser
       });
     default:
       return state;
   }
 }
-
-// 63117
 
 export default session;

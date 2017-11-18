@@ -74,7 +74,7 @@ class DrawerItems extends Component {
 
 const mapStateToProps = (state, props) => ({
   items: props.type === "sets" ? state.sets.sets : state.tunes.tunes,
-  userId: state.session.userId,
+  userId: state.session.currentUser.id,
   router: state.router
 });
 
