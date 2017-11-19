@@ -26,6 +26,9 @@ const styles = theme => ({
     margin: 0,
     padding: 0,
     listStyleType: "none"
+  },
+  textField: {
+    width: "100%"
   }
 });
 
@@ -34,10 +37,15 @@ function renderInput(inputProps) {
 
   return (
     <TextField
+      className={classes.textField}
       autoFocus={autoFocus}
       value={value}
       inputRef={ref}
+      styles={{
+        width: "100%"
+      }}
       InputProps={{
+        className: classes.input,
         ...other
       }}
     />
@@ -130,8 +138,9 @@ class NameAutoComplete extends Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: true,
-          placeholder: "Search a country (start with a)",
+          autoFocus: false,
+          classes,
+          placeholder: "Search your user name",
           value: this.state.value,
           onChange: this.handleChange
         }}
