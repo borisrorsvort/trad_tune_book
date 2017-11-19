@@ -40,19 +40,19 @@ const styles = theme => ({
 
 class Set extends Component {
   componentDidMount() {
-    store.dispatch(fetchSet("63117", this.props.setId));
+    store.dispatch(fetchSet(this.props.userId, this.props.setId));
   }
 
   componentWillReceiveProps(nextProps) {
     const newSetId = nextProps.setId;
     if (this.props.setId !== newSetId) {
-      store.dispatch(fetchSet("63117", newSetId));
+      store.dispatch(fetchSet(this.props.userId, newSetId));
     }
   }
 
   render() {
-    const printUrl = `https://thesession.org/members/63117/sets/${this.props
-      .setId}/sheetmusic?print=true`;
+    const printUrl = `https://thesession.org/members/${this.props
+      .userId}/sets/${this.props.setId}/sheetmusic?print=true`;
     const { classes } = this.props;
 
     if (
@@ -112,7 +112,8 @@ class Set extends Component {
 
 const mapStateToProps = state => ({
   setId: state.router.params.setId,
-  currentSet: state.sets.currentSet
+  currentSet: state.sets.currentSet,
+  userId: state.session.currentUser.id
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Set));
