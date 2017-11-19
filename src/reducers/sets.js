@@ -7,7 +7,10 @@ import {
 function sets(
   state = {
     isFetching: false,
-    sets: []
+    sets: [],
+    currentSet: {
+      isFetching: false
+    }
   },
   action
 ) {
@@ -30,7 +33,10 @@ function sets(
     case RECEIVE_SET:
       const currentSet = action.currentSet;
       return Object.assign({}, state, {
-        currentSet
+        currentSet: {
+          ...currentSet,
+          isFetching: false
+        }
       });
     default:
       return state;

@@ -43,7 +43,7 @@ export const fetchTuneBook = memberId => dispatch => {
       dispatch(receiveTuneBook(response.data));
     })
     .catch(function(error) {
-      console.log(error);
+      alert("something went wrong, try again late");
     });
 };
 

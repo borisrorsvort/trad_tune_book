@@ -8,7 +8,10 @@ import {
 function tunes(
   state = {
     isFetching: false,
-    tunes: []
+    tunes: [],
+    currentTune: {
+      isFetching: false
+    }
   },
   action
 ) {
@@ -31,7 +34,10 @@ function tunes(
     case RECEIVE_TUNE:
       const currentTune = action.currentTune;
       return Object.assign({}, state, {
-        currentTune
+        currentTune: {
+          ...currentTune,
+          isFetching: false
+        }
       });
     default:
       return state;

@@ -12,7 +12,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button
+  Button,
+  CircularProgress
 } from "material-ui";
 import { commonStyles } from "../styles/common";
 import { TUNE_URL } from "../constants/actionTypes";
@@ -45,6 +46,16 @@ class Tune extends Component {
 
   render() {
     const { classes } = this.props;
+
+    if (this.props.isFetching) {
+      return (
+        <Grid container spacing={24}>
+          <Grid item xs={12} md={8}>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      );
+    }
 
     if (
       this.props.currentTune === undefined ||
@@ -104,7 +115,8 @@ class Tune extends Component {
 
 const mapStateToProps = state => ({
   tuneId: state.router.params.tuneId,
-  currentTune: state.tunes.currentTune
+  currentTune: state.tunes.currentTune,
+  isFetching: state.tunes.currentTune.isFetching
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Tune));

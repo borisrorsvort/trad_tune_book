@@ -13,7 +13,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button
+  Button,
+  CircularProgress
 } from "material-ui";
 import { commonStyles } from "../styles/common";
 import PrintIcon from "material-ui-icons/Print";
@@ -54,6 +55,16 @@ class Set extends Component {
     const printUrl = `https://thesession.org/members/${this.props
       .userId}/sets/${this.props.setId}/sheetmusic?print=true`;
     const { classes } = this.props;
+
+    if (this.props.isFetching) {
+      return (
+        <Grid container spacing={24}>
+          <Grid item xs={12} md={8}>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      );
+    }
 
     if (
       this.props.currentSet === undefined ||
@@ -113,7 +124,8 @@ class Set extends Component {
 const mapStateToProps = state => ({
   setId: state.router.params.setId,
   currentSet: state.sets.currentSet,
-  userId: state.session.currentUser.id
+  userId: state.session.currentUser.id,
+  isFetching: state.sets.currentSet.isFetching
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Set));
