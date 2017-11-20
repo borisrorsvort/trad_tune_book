@@ -151,6 +151,7 @@ class NameAutoComplete extends Component {
 
 const mapSateToProps = state => ({
   userName:
+    state.session.currentUser !== undefined &&
     state.session.currentUser.name !== undefined
       ? state.session.currentUser.name
       : ""
