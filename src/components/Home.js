@@ -27,7 +27,7 @@ class Home extends Component {
       >
         <Grid item xs={12} md={8}>
           <Paper className={classes.paper} elevation={0}>
-            <Typography type="subheader" gutterBottom>
+            <Typography type="subheading" gutterBottom>
               To start, you must fill in you TheSession.org user id.
             </Typography>
             <NameAutoComplete />

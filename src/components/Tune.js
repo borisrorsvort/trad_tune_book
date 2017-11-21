@@ -82,9 +82,9 @@ class Tune extends Component {
         <Grid item hidden={{ smDown: true }} md={4}>
           {this.props.currentTune.settings.map(setting => {
             return (
-              <Card className={classes.card}>
+              <Card className={classes.card} key={setting.id}>
                 <CardContent>
-                  <Typography type="subheader" gutterBottom>
+                  <Typography type="subheading" gutterBottom>
                     Setting #{setting.id} ({setting.key})
                   </Typography>
                   <Typography type="caption">
@@ -96,10 +96,8 @@ class Tune extends Component {
                     dense
                     component={Link}
                     target="_blank"
-                    href={{
-                      pathname: `${TUNE_URL}${this.props.currentTune
-                        .id}#setting${setting.id}`
-                    }}
+                    href={`${TUNE_URL}${this.props.currentTune
+                      .id}#setting${setting.id}`}
                   >
                     View on The Session.org
                   </Button>
