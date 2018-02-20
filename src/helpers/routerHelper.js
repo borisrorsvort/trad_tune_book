@@ -10,7 +10,7 @@ export const tuneOrSetUrl = (id, type) => {
 };
 
 export const currentSection = router => {
-  return router.pathname.split("/")[2].toLowerCase();
+  return router.pathname && router.pathname.split("/")[2].toLowerCase();
 };
 
 export const randomTuneOrSetUrl = () => {

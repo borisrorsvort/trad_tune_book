@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-import KeyboardArrowDown from "material-ui-icons/KeyboardArrowDown";
 import {
-  Menu,
-  MenuItem,
+  IconButton,
   List,
   ListItem,
+  ListItemSecondaryAction,
   ListItemText,
-  IconButton,
-  ListItemSecondaryAction
+  Menu,
+  MenuItem
 } from "material-ui";
-import { withStyles } from "material-ui/styles";
-import { connect } from "react-redux";
-import store from "../store";
-import { redirect } from "../actions/router";
+import React, { Component } from "react";
+
+import KeyboardArrowDown from "material-ui-icons/KeyboardArrowDown";
 import { SIDEBAR_WIDTH } from "../constants/layout";
+import { connect } from "react-redux";
 import { currentSection } from "../helpers/routerHelper";
+import { redirect } from "../actions/router";
+import store from "../store";
+import { withStyles } from "material-ui/styles";
 
 const styles = theme => ({
   root: {
@@ -30,11 +31,7 @@ class NavDropDown extends Component {
   state = {
     anchorEl: null,
     open: false,
-    selectedIndex: 1,
-    menuOptions: [
-      { label: `Sets (${this.props.setsCount})`, href: "/tunebook/sets" },
-      { label: `Tunes (${this.props.tunesCount})`, href: "/tunebook/tunes" }
-    ]
+    selectedIndex: 1
   };
 
   handleClickListItem = event => {
@@ -43,16 +40,23 @@ class NavDropDown extends Component {
 
   handleMenuItemClick = (event, index) => {
     this.setState({ selectedIndex: index, open: false });
-    store.dispatch(redirect(this.state.menuOptions[index].href));
+    store.dispatch(redirect(this.menuOptions()[index].href));
   };
 
   handleRequestClose = () => {
     this.setState({ open: false });
   };
 
+  menuOptions() {
+    return [
+      { label: `Sets (${this.props.sets.length})`, href: "/tunebook/sets" },
+      { label: `Tunes (${this.props.tunes.length})`, href: "/tunebook/tunes" }
+    ];
+  }
+
   render() {
     const { classes } = this.props;
-    const selectedMenuItem = this.state.menuOptions.find(o =>
+    const selectedMenuItem = this.menuOptions().find(o =>
       o.label.toLowerCase().includes(currentSection(this.props.router))
     );
 
@@ -85,7 +89,7 @@ class NavDropDown extends Component {
             }
           }}
         >
-          {this.state.menuOptions.map((option, index) => (
+          {this.menuOptions().map((option, index) => (
             <MenuItem
               key={option.label}
               selected={index === this.state.selectedIndex}
@@ -103,8 +107,8 @@ class NavDropDown extends Component {
 const mapStateToProps = state => {
   return {
     router: state.router,
-    tunesCount: state.tunes.tunes.length,
-    setsCount: state.sets.sets.length
+    tunes: state.tunes.tunes,
+    sets: state.sets.sets
   };
 };
 

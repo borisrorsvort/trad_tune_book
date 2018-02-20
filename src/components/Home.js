@@ -1,9 +1,14 @@
+import { Button, Grid, Paper, Typography, withStyles } from "material-ui";
 import React, { Component } from "react";
-import { withStyles, Paper, Button, Typography, Grid } from "material-ui";
+
 import { Link } from "redux-little-router";
 import NameAutoComplete from "./NameAutoComplete";
+import { connect } from "react-redux";
 
 const styles = theme => ({
+  container: {
+    height: "100vh"
+  },
   paper: {
     margin: "0 auto",
     padding: "20px"
@@ -16,7 +21,7 @@ const styles = theme => ({
 
 class Home extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, userName } = this.props;
     return (
       <Grid
         container
@@ -24,22 +29,25 @@ class Home extends Component {
         alignItems="center"
         justify="center"
         direction="row"
+        className={classes.container}
       >
-        <Grid item xs={12} md={8}>
-          <Paper className={classes.paper} elevation={0}>
+        <Grid item xs={12} md={4}>
+          <Paper className={classes.paper} elevation={8}>
             <Typography type="subheading" gutterBottom>
-              To start, you must fill in you TheSession.org user id.
+              To start, select in your TheSession.org user name.
             </Typography>
-            <NameAutoComplete />
-            <Button
-              href="/tunebook/tunes"
-              className={classes.button}
-              component={Link}
-              raised
-              color="primary"
-            >
-              See my tunebook
-            </Button>
+            <NameAutoComplete userName={userName} />
+            {userName && (
+              <Button
+                href="/tunebook/tunes"
+                className={classes.button}
+                component={Link}
+                raised
+                color="primary"
+              >
+                Open tunebook
+              </Button>
+            )}
           </Paper>
         </Grid>
       </Grid>
@@ -47,4 +55,12 @@ class Home extends Component {
   }
 }
 
-export default withStyles(styles)(Home);
+const mapStateToProps = state => ({
+  userName:
+    state.session.currentUser !== undefined &&
+    state.session.currentUser.name !== undefined
+      ? state.session.currentUser.name
+      : ""
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));

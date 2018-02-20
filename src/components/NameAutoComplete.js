@@ -1,11 +1,11 @@
+import { Paper, TextField, withStyles } from "material-ui";
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { MenuItem } from "material-ui/Menu";
-import { TextField, withStyles, Paper } from "material-ui";
+import { fetchUserId, updateCurrentUser } from "../actions/session";
+
 import Autosuggest from "react-autosuggest";
+import { MenuItem } from "material-ui/Menu";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
-import { updateCurrentUser, fetchUserId } from "../actions/session";
 import store from "../store";
 
 const styles = theme => ({
@@ -140,7 +140,7 @@ class NameAutoComplete extends Component {
         inputProps={{
           autoFocus: false,
           classes,
-          placeholder: "Search your user name",
+          placeholder: "Search by typing your user name",
           value: this.state.value,
           onChange: this.handleChange
         }}
@@ -149,12 +149,4 @@ class NameAutoComplete extends Component {
   }
 }
 
-const mapSateToProps = state => ({
-  userName:
-    state.session.currentUser !== undefined &&
-    state.session.currentUser.name !== undefined
-      ? state.session.currentUser.name
-      : ""
-});
-
-export default connect(mapSateToProps)(withStyles(styles)(NameAutoComplete));
+export default withStyles(styles)(NameAutoComplete);

@@ -1,22 +1,23 @@
-import React, { Component } from "react";
-import store from "../store";
-import { fetchTune } from "../actions/tuneBook";
-import { connect } from "react-redux";
-import SheetMusic from "./SheetMusic";
-import { Link } from "redux-little-router";
 import {
-  withStyles,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
   Grid,
   Paper,
   Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  CircularProgress
+  withStyles
 } from "material-ui";
-import { commonStyles } from "../styles/common";
+import React, { Component } from "react";
+
+import { Link } from "redux-little-router";
+import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
+import { commonStyles } from "../styles/common";
+import { connect } from "react-redux";
+import { fetchTune } from "../actions/tuneBook";
+import store from "../store";
 
 const styles = theme => ({
   card: {
@@ -65,48 +66,47 @@ class Tune extends Component {
     }
 
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} md={8}>
-          <Paper className={classes.settings} elevation={1}>
-            {this.props.currentTune.settings.map(setting => {
-              return (
-                <SheetMusic
-                  key={setting.id}
-                  tune={setting}
-                  type={this.props.currentTune.type}
-                />
-              );
-            })}
-          </Paper>
-        </Grid>
-        <Grid item hidden={{ smDown: true }} md={4}>
-          {this.props.currentTune.settings.map(setting => {
-            return (
-              <Card className={classes.card} key={setting.id}>
-                <CardContent>
-                  <Typography type="subheading" gutterBottom>
-                    Setting #{setting.id} ({setting.key})
-                  </Typography>
-                  <Typography type="caption">
-                    by {setting.member.name} on {setting.date}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    dense
-                    component={Link}
-                    target="_blank"
-                    href={`${TUNE_URL}${this.props.currentTune
-                      .id}#setting${setting.id}`}
-                  >
-                    View on The Session.org
-                  </Button>
-                </CardActions>
-              </Card>
-            );
-          })}
-        </Grid>
-      </Grid>
+      <div>
+        {this.props.currentTune.settings.map(setting => {
+          return (
+            <Grid container spacing={24}>
+              <Grid item xs={12} md={8}>
+                <Paper className={classes.settings} elevation={1}>
+                  <SheetMusic
+                    key={setting.id}
+                    tune={setting}
+                    type={this.props.currentTune.type}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item hidden={{ smDown: true }} md={4}>
+                <Card className={classes.card} key={setting.id}>
+                  <CardContent>
+                    <Typography type="subheading" gutterBottom>
+                      Setting #{setting.id} ({setting.key})
+                    </Typography>
+                    <Typography type="caption">
+                      by {setting.member.name} on {setting.date}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      dense
+                      component={Link}
+                      target="_blank"
+                      href={`${TUNE_URL}${this.props.currentTune.id}#setting${
+                        setting.id
+                      }`}
+                    >
+                      View on The Session.org
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            </Grid>
+          );
+        })}
+      </div>
     );
   }
 }

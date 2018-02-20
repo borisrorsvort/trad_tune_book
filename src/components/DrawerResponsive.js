@@ -1,13 +1,22 @@
+import { Divider, Drawer, Hidden, withStyles } from "material-ui";
 import React, { Component } from "react";
-import { Hidden, Drawer, Divider, withStyles } from "material-ui";
-import NavDropDown from "./NavDropDown";
+
 import DrawerItems from "./DrawerItems";
 import { Fragment } from "redux-little-router";
+import NavDropDown from "./NavDropDown";
+import { connect } from "react-redux";
+import { fetchSets } from "../actions/sets";
+import { fetchTuneBook } from "../actions/tuneBook";
 import { layoutStyles } from "../styles/layout";
-import { toggleDrawer } from "../actions/ui";
 import store from "../store";
+import { toggleDrawer } from "../actions/ui";
 
 class DrawerResponsive extends Component {
+  componentDidMount() {
+    store.dispatch(fetchTuneBook(this.props.userId));
+    store.dispatch(fetchSets(this.props.userId));
+  }
+
   handleDrawerToggle() {
     store.dispatch(toggleDrawer());
   }
@@ -61,4 +70,10 @@ class DrawerResponsive extends Component {
   }
 }
 
-export default withStyles(layoutStyles)(DrawerResponsive);
+const mapStateToProps = (state, props) => ({
+  userId: state.session.currentUser.id
+});
+
+export default connect(mapStateToProps)(
+  withStyles(layoutStyles)(DrawerResponsive)
+);

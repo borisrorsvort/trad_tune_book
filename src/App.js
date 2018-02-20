@@ -1,39 +1,43 @@
+import "./App.css";
+
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Fragment } from "redux-little-router";
-import { Hidden } from "material-ui";
-import he from "he";
 
 import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
+import DrawerResponsive from "./components/DrawerResponsive";
+import { Fragment } from "redux-little-router";
+import { Hidden } from "material-ui";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
-
-import Tunebook from "./components/Tunebook";
 import Sets from "./components/Sets";
-import DrawerResponsive from "./components/DrawerResponsive";
-
-import { withStyles } from "material-ui/styles";
+import Toolbar from "material-ui/Toolbar";
+import Tunebook from "./components/Tunebook";
+import Typography from "material-ui/Typography";
+import { connect } from "react-redux";
+import he from "he";
+import isEmpty from "lodash/isEmpty";
 import { layoutStyles } from "./styles/layout";
-import "./App.css";
+import { randomTuneOrSetUrl } from "./helpers/routerHelper";
+import { redirect } from "./actions/router";
 import store from "./store";
 import { toggleDrawer } from "./actions/ui";
-import { redirect } from "./actions/router";
-import { randomTuneOrSetUrl } from "./helpers/routerHelper";
+import { withStyles } from "material-ui/styles";
 
 class App extends Component {
+  componentWillMount() {
+    if (this.props.isLoggedOut) {
+      store.dispatch(redirect("/"));
+    }
+  }
+
   handleDrawerToggle() {
     store.dispatch(toggleDrawer());
   }
 
-  goToRandom() {
-    store.dispatch(redirect(randomTuneOrSetUrl()));
-  }
-
   render() {
-    const { classes } = this.props;
-
+    const { classes, isLoggedOut } = this.props;
+    if (isLoggedOut) {
+      return null;
+    }
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -49,12 +53,7 @@ class App extends Component {
                   <MenuIcon />
                 </IconButton>
               </Hidden>
-              <Typography
-                type="title"
-                color="accent"
-                noWrap
-                onClick={this.goToRandom}
-              >
+              <Typography type="title" color="accent" noWrap>
                 {he.decode(this.props.title)}
               </Typography>
             </Toolbar>
@@ -77,7 +76,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   router: state.router,
   title: state.ui.title,
-  showDrawer: state.ui.showDrawer
+  showDrawer: state.ui.showDrawer,
+  isLoggedOut: isEmpty(state.session.currentUser)
 });
 
 export default connect(mapStateToProps)(withStyles(layoutStyles)(App));

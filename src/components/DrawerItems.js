@@ -1,9 +1,3 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import store from "../store";
-import { fetchTuneBook } from "../actions/tuneBook";
-import { fetchSets } from "../actions/sets";
-import { redirect } from "../actions/router";
 import {
   List,
   ListItem,
@@ -11,10 +5,15 @@ import {
   ListItemText,
   withStyles
 } from "material-ui";
+import React, { Component } from "react";
+
 import MusicNote from "material-ui-icons/MusicNote";
-import he from "he";
-import { toggleDrawer } from "../actions/ui";
 import classNames from "classnames";
+import { connect } from "react-redux";
+import he from "he";
+import { redirect } from "../actions/router";
+import store from "../store";
+import { toggleDrawer } from "../actions/ui";
 import { tuneOrSetUrl } from "../helpers/routerHelper";
 
 const styles = theme => ({
@@ -25,14 +24,14 @@ const styles = theme => ({
 
 class DrawerItems extends Component {
   componentDidMount() {
-    switch (this.props.type) {
-      case "tunes":
-        store.dispatch(fetchTuneBook(this.props.userId));
-        break;
-      default:
-        store.dispatch(fetchSets(this.props.userId));
-        break;
-    }
+    // switch (this.props.type) {
+    //   case "tunes":
+    //     store.dispatch(fetchTuneBook(this.props.userId));
+    //     break;
+    //   default:
+    //     store.dispatch(fetchSets(this.props.userId));
+    //     break;
+    // }
   }
 
   handleClick = item => _e => {
@@ -74,7 +73,6 @@ class DrawerItems extends Component {
 
 const mapStateToProps = (state, props) => ({
   items: props.type === "sets" ? state.sets.sets : state.tunes.tunes,
-  userId: state.session.currentUser.id,
   router: state.router
 });
 
