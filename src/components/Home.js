@@ -34,6 +34,9 @@ const styles = theme => ({
     lineHeight: 1.5,
     color: "white",
     opacity: 0.8
+  },
+  login: {
+    alignSelf: "flex-start"
   }
 });
 
@@ -57,7 +60,7 @@ class Home extends Component {
               <small>The ideal session companion</small>
             </h1>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} className={classes.login}>
             <Paper className={classes.paper} elevation={8}>
               <Typography type="subheading" gutterBottom>
                 To start, select your{" "}
