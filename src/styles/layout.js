@@ -19,6 +19,9 @@ export const layoutStyles = theme => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
+  flex: {
+    flex: 1
+  },
   menuButton: {
     marginLeft: 12,
     marginRight: 20

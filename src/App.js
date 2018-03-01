@@ -1,12 +1,13 @@
 import "./App.css";
 
+import { Button, Hidden } from "material-ui";
 import React, { Component } from "react";
 
 import AppBar from "material-ui/AppBar";
 import DrawerResponsive from "./components/DrawerResponsive";
 import { Fragment } from "redux-little-router";
-import { Hidden } from "material-ui";
 import IconButton from "material-ui/IconButton";
+import { Link } from "redux-little-router";
 import MenuIcon from "material-ui-icons/Menu";
 import Sets from "./components/Sets";
 import Toolbar from "material-ui/Toolbar";
@@ -16,7 +17,6 @@ import { connect } from "react-redux";
 import he from "he";
 import isEmpty from "lodash/isEmpty";
 import { layoutStyles } from "./styles/layout";
-import { randomTuneOrSetUrl } from "./helpers/routerHelper";
 import { redirect } from "./actions/router";
 import store from "./store";
 import { toggleDrawer } from "./actions/ui";
@@ -53,9 +53,17 @@ class App extends Component {
                   <MenuIcon />
                 </IconButton>
               </Hidden>
-              <Typography type="title" color="accent" noWrap>
+              <Typography
+                type="title"
+                color="accent"
+                className={classes.flex}
+                noWrap
+              >
                 {he.decode(this.props.title)}
               </Typography>
+              <Button component={Link} href="/" color="accent">
+                Change user
+              </Button>
             </Toolbar>
           </AppBar>
           <DrawerResponsive showDrawer={this.props.showDrawer} />

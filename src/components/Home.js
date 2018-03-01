@@ -1,9 +1,11 @@
 import { Button, Grid, Paper, Typography, withStyles } from "material-ui";
 import React, { Component } from "react";
 
+import BodyClassName from "react-body-classname";
 import { Link } from "redux-little-router";
 import NameAutoComplete from "./NameAutoComplete";
 import { connect } from "react-redux";
+import logoUrl from "../images/logo.svg";
 
 const styles = theme => ({
   container: {
@@ -16,6 +18,22 @@ const styles = theme => ({
   button: {
     color: "white",
     marginTop: theme.spacing.unit * 2
+  },
+  home: {
+    background: theme.palette.primary[500]
+  },
+  logo: {
+    maxWidth: "100%",
+    margin: "0 auto 40px",
+    display: "block"
+  },
+  title: {
+    fontSize: 21,
+    fontWeight: "normal",
+    textAlign: "center",
+    lineHeight: 1.5,
+    color: "white",
+    opacity: 0.8
   }
 });
 
@@ -23,34 +41,47 @@ class Home extends Component {
   render() {
     const { classes, userName } = this.props;
     return (
-      <Grid
-        container
-        spacing={24}
-        alignItems="center"
-        justify="center"
-        direction="row"
-        className={classes.container}
-      >
-        <Grid item xs={12} md={4}>
-          <Paper className={classes.paper} elevation={8}>
-            <Typography type="subheading" gutterBottom>
-              To start, select in your TheSession.org user name.
-            </Typography>
-            <NameAutoComplete userName={userName} />
-            {userName && (
-              <Button
-                href="/tunebook/tunes"
-                className={classes.button}
-                component={Link}
-                raised
-                color="primary"
-              >
-                Open tunebook
-              </Button>
-            )}
-          </Paper>
+      <BodyClassName className={classes.home}>
+        <Grid
+          container
+          spacing={24}
+          alignItems="center"
+          justify="center"
+          direction="row"
+          className={classes.container}
+        >
+          <Grid item xs={12} md={12}>
+            <img src={logoUrl} alt="Foinn app" className={classes.logo} />
+            <h1 className={classes.title}>
+              Browse your tunes and sets from Thessession.org <br />
+              <small>The ideal session companion</small>
+            </h1>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper className={classes.paper} elevation={8}>
+              <Typography type="subheading" gutterBottom>
+                To start, select your{" "}
+                <a href="https://thesession.org" target="_blank">
+                  TheSession.org
+                </a>{" "}
+                user name.
+              </Typography>
+              <NameAutoComplete userName={userName} />
+              {userName && (
+                <Button
+                  href="/tunebook/tunes"
+                  className={classes.button}
+                  component={Link}
+                  raised
+                  color="primary"
+                >
+                  Open tunebook
+                </Button>
+              )}
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </BodyClassName>
     );
   }
 }
