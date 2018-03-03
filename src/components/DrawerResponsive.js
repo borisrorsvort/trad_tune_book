@@ -3,7 +3,6 @@ import React, { Component } from "react";
 
 import DrawerItems from "./DrawerItems";
 import { Fragment } from "redux-little-router";
-import NavDropDown from "./NavDropDown";
 import { connect } from "react-redux";
 import { fetchSets } from "../actions/sets";
 import { fetchTuneBook } from "../actions/tuneBook";
@@ -25,8 +24,6 @@ class DrawerResponsive extends Component {
     const { classes } = this.props;
     const drawer = (
       <div>
-        <NavDropDown />
-        <Divider />
         <Fragment forRoute="/tunes">
           <DrawerItems type="tunes" />
         </Fragment>

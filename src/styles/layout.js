@@ -17,7 +17,9 @@ export const layoutStyles = theme => ({
     })
   },
   flex: {
-    flex: 1
+    flex: 1,
+    display: "flex",
+    alignItems: "center"
   },
   menuButton: {
     marginLeft: 12,
@@ -42,6 +44,15 @@ export const layoutStyles = theme => ({
     padding: "0 8px",
     ...theme.mixins.toolbar
   },
+  logo: {
+    position: "relative",
+    transform: "translateY(-2px)"
+  },
+  greetings: {
+    marginRight: theme.spacing.unit,
+    opacity: 0.5,
+    display: "inline-block"
+  },
   content: {
     width: "100%",
     padding: theme.spacing.unit * 3,
@@ -54,7 +65,6 @@ export const layoutStyles = theme => ({
   },
   [theme.breakpoints.up("md")]: {
     content: {
-      height: "calc(100% - 64px)",
       marginTop: 64,
       marginLeft: SIDEBAR_WIDTH
     },

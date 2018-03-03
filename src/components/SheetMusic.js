@@ -1,15 +1,17 @@
+import React, { Component } from "react";
+
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import ABCJS from "exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_latest-min.js";
-import React, { Component } from "react";
-import { withStyles } from "material-ui";
 import { abcReformatter } from "../helpers/abcHelper";
 import he from "he";
 import reactDimensions from "react-dimensions";
+import { withStyles } from "material-ui";
 
 const styles = theme => ({
   root: {
-    margin: "10px 0",
-    padding: "10px 0",
+    margin: "20px auto",
+    padding: "20px",
+    maxWidth: "640px",
     borderBottom: "1px solid #ccc",
     "&:last-child": {
       border: "none",

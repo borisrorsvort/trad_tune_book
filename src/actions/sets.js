@@ -1,13 +1,12 @@
-import axios from "axios";
 import {
-  REQUEST_SETS,
+  MEMBER_URL,
+  RECEIVE_SET,
   RECEIVE_SETS,
   REQUEST_SET,
-  RECEIVE_SET,
-  MEMBER_URL
+  REQUEST_SETS
 } from "../constants/actionTypes";
 
-import { updateTitle } from "./ui";
+import axios from "axios";
 
 function requestSets() {
   return {
@@ -53,7 +52,6 @@ export const fetchSet = (memberId, setId) => dispatch => {
     .get(`${MEMBER_URL}${memberId}/sets/${setId}?format=json`)
     .then(function(response) {
       dispatch(receiveSet(response.data));
-      dispatch(updateTitle(response.data.name));
     })
     .catch(function(error) {
       console.log(error);

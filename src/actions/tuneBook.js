@@ -1,13 +1,13 @@
-import axios from "axios";
 import {
-  REQUEST_TUNEBOOK,
-  RECEIVE_TUNEBOOK,
   MEMBER_URL,
-  TUNE_URL,
+  RECEIVE_TUNE,
+  RECEIVE_TUNEBOOK,
   REQUEST_TUNE,
-  RECEIVE_TUNE
+  REQUEST_TUNEBOOK,
+  TUNE_URL
 } from "../constants/actionTypes";
-import { updateTitle } from "./ui";
+
+import axios from "axios";
 
 function requestTuneBook() {
   return {
@@ -53,7 +53,6 @@ export const fetchTune = tuneId => dispatch => {
     .get(`${TUNE_URL}${tuneId}?format=json`)
     .then(function(response) {
       dispatch(receiveTune(response.data));
-      dispatch(updateTitle(response.data.name));
     })
     .catch(function(error) {
       console.log(error);

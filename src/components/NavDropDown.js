@@ -1,12 +1,4 @@
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Menu,
-  MenuItem
-} from "material-ui";
+import { Button, Menu, MenuItem } from "material-ui";
 import React, { Component } from "react";
 
 import KeyboardArrowDown from "material-ui-icons/KeyboardArrowDown";
@@ -19,11 +11,10 @@ import { withStyles } from "material-ui/styles";
 
 const styles = theme => ({
   root: {
+    ...theme.mixins.toolbar,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
+    marginLeft: "20px"
   }
 });
 
@@ -62,22 +53,15 @@ class NavDropDown extends Component {
 
     return (
       <div className={classes.root}>
-        <List>
-          <ListItem
-            button
-            aria-haspopup="true"
-            aria-controls="lock-menu"
-            aria-label="When device is locked"
-            onClick={this.handleClickListItem}
-          >
-            <ListItemText primary={selectedMenuItem.label} />
-            <ListItemSecondaryAction>
-              <IconButton aria-label="Tunebooks">
-                <KeyboardArrowDown />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
+        <Button
+          aria-owns={this.state.anchorEl ? "simple-menu" : null}
+          aria-haspopup="true"
+          onClick={this.handleClickListItem}
+          color="secondary"
+        >
+          {selectedMenuItem.label}
+          <KeyboardArrowDown />
+        </Button>
         <Menu
           id="simple-menu"
           anchorEl={this.state.anchorEl}

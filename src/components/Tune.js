@@ -14,14 +14,14 @@ import React, { Component } from "react";
 import { Link } from "redux-little-router";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
-import { commonStyles } from "../styles/common";
 import { connect } from "react-redux";
 import { fetchTune } from "../actions/tuneBook";
+import he from "he";
 import store from "../store";
 
 const styles = theme => ({
   card: {
-    marginBottom: theme.spacing.unit * 2
+    margin: `${theme.spacing.unit * 10}px 0`
   },
   settings: theme.mixins.gutters({
     paddingTop: theme.spacing.unit,
@@ -30,7 +30,11 @@ const styles = theme => ({
   flex: {
     flex: 1
   },
-  ...commonStyles(theme)
+  title: {
+    textAlign: "center",
+    marginTop: theme.spacing.unit * 2,
+    fontWeight: 100
+  }
 });
 
 class Tune extends Component {
@@ -67,17 +71,22 @@ class Tune extends Component {
 
     return (
       <div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} md={8}>
+            <Typography className={this.props.classes.title} variant="display2">
+              {he.decode(this.props.currentTune.name)}
+            </Typography>
+          </Grid>
+        </Grid>
         {this.props.currentTune.settings.map(setting => {
           return (
             <Grid container spacing={24}>
               <Grid item xs={12} md={8}>
-                <Paper className={classes.settings} elevation={1}>
-                  <SheetMusic
-                    key={setting.id}
-                    tune={setting}
-                    type={this.props.currentTune.type}
-                  />
-                </Paper>
+                <SheetMusic
+                  key={setting.id}
+                  tune={setting}
+                  type={this.props.currentTune.type}
+                />
               </Grid>
               <Grid item hidden={{ smDown: true }} md={4}>
                 <Card className={classes.card} key={setting.id}>
@@ -91,7 +100,6 @@ class Tune extends Component {
                   </CardContent>
                   <CardActions>
                     <Button
-                      dense
                       component={Link}
                       target="_blank"
                       href={`${TUNE_URL}${this.props.currentTune.id}#setting${

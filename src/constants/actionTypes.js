@@ -8,7 +8,6 @@ export const RECEIVE_SETS = "RECEIVE_SETS";
 export const REQUEST_SET = "REQUEST_SET";
 export const RECEIVE_SET = "RECEIVE_SET";
 
-export const UPDATE_TITLE = "UPDATE_TITLE";
 export const TOGGLE_DRAWER = "TOGGLE_DRAWER";
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
 export const REQUEST_USER_ID = "UPDATE_USER_ID";

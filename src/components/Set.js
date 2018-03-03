@@ -23,7 +23,7 @@ import store from "../store";
 
 const styles = theme => ({
   card: {
-    marginBottom: theme.spacing.unit * 2
+    margin: `${theme.spacing.unit * 10}px 0`
   },
   title: {
     marginBottom: 16,
@@ -37,7 +37,14 @@ const styles = theme => ({
   iconBtn: {
     marginRight: "10px"
   },
-  ...commonStyles(theme)
+  mainTitle: {
+    textAlign: "center",
+    marginTop: theme.spacing.unit * 2,
+    fontWeight: 100
+  },
+  printButton: {
+    textAlign: "center"
+  }
 });
 
 class Set extends Component {
@@ -76,49 +83,57 @@ class Set extends Component {
     }
 
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} md={8}>
-          <Paper className={classes.settings} elevation={0}>
-            {this.props.currentSet.settings.map(setting => {
-              return <SheetMusic key={setting.id} tune={setting} />;
-            })}
-          </Paper>
-        </Grid>
-        <Grid item hidden={{ smDown: true }} md={4}>
-          <Card className={classes.card}>
-            <CardActions>
+      <div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} md={8}>
+            <Typography
+              className={this.props.classes.mainTitle}
+              variant="display2"
+            >
+              {he.decode(this.props.currentSet.name)}
+            </Typography>
+            <p className={classes.printButton}>
               <Button href={printUrl} target="_blank">
                 <PrintIcon className={classes.iconBtn} />
                 Print
               </Button>
-            </CardActions>
-          </Card>
+            </p>
+          </Grid>
+        </Grid>
+        <div className={classes.settings}>
           {this.props.currentSet.settings.map(setting => {
             return (
-              <Card className={classes.card} key={setting.id}>
-                <CardContent>
-                  <Typography variant="subheading" gutterBottom>
-                    Setting {he.decode(setting.name)} ({setting.key})
-                  </Typography>
-                  <Typography variant="caption">
-                    by {setting.member.name} on {setting.date}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    dense
-                    component={Link}
-                    target="_blank"
-                    href={`${TUNE_URL}${setting.id}`}
-                  >
-                    View on The Session.org
-                  </Button>
-                </CardActions>
-              </Card>
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={8}>
+                  <SheetMusic key={setting.id} tune={setting} />;
+                </Grid>
+                <Grid item xs={12} md={4} hidden={{ smDow: true }}>
+                  <Card className={classes.card} key={setting.id}>
+                    <CardContent>
+                      <Typography variant="subheading" gutterBottom>
+                        Setting {he.decode(setting.name)} ({setting.key})
+                      </Typography>
+                      <Typography variant="caption">
+                        by {setting.member.name} on {setting.date}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        dense
+                        component={Link}
+                        target="_blank"
+                        href={`${TUNE_URL}${setting.id}`}
+                      >
+                        View on The Session.org
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              </Grid>
             );
           })}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     );
   }
 }

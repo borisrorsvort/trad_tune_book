@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import Set from "./Set";
+
+import EmptyState from "./EmptyState";
 import { Fragment } from "redux-little-router";
+import Set from "./Set";
 
 class Sets extends Component {
   render() {
     return (
-      <Fragment forRoute="/:setId">
-        <Set />
-      </Fragment>
+      <div>
+        <Fragment forRoute="/:setId">
+          <Set />
+        </Fragment>
+        <Fragment forRoute="/">
+          <EmptyState />
+        </Fragment>
+      </div>
     );
   }
 }

@@ -8,6 +8,7 @@ import {
 import React, { Component } from "react";
 
 import MusicNote from "material-ui-icons/MusicNote";
+import _sortBy from "lodash/sortBy";
 import classNames from "classnames";
 import { connect } from "react-redux";
 import he from "he";
@@ -23,17 +24,6 @@ const styles = theme => ({
 });
 
 class DrawerItems extends Component {
-  componentDidMount() {
-    // switch (this.props.type) {
-    //   case "tunes":
-    //     store.dispatch(fetchTuneBook(this.props.userId));
-    //     break;
-    //   default:
-    //     store.dispatch(fetchSets(this.props.userId));
-    //     break;
-    // }
-  }
-
   handleClick = item => _e => {
     const href = tuneOrSetUrl(item.id, this.props.type);
     store.dispatch(redirect(href));
@@ -72,7 +62,9 @@ class DrawerItems extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  items: props.type === "sets" ? state.sets.sets : state.tunes.tunes,
+  items: _sortBy(props.type === "sets" ? state.sets.sets : state.tunes.tunes, [
+    "name"
+  ]),
   router: state.router
 });
 

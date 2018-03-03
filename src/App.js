@@ -9,15 +9,16 @@ import { Fragment } from "redux-little-router";
 import IconButton from "material-ui/IconButton";
 import { Link } from "redux-little-router";
 import MenuIcon from "material-ui-icons/Menu";
+import NavDropDown from "./components/NavDropDown";
 import Sets from "./components/Sets";
 import Toolbar from "material-ui/Toolbar";
 import Tunebook from "./components/Tunebook";
-import Typography from "material-ui/Typography";
 import { connect } from "react-redux";
 import he from "he";
 import isEmpty from "lodash/isEmpty";
 import { layoutStyles } from "./styles/layout";
 import { redirect } from "./actions/router";
+import smallLogoUrl from "./images/logo-small.svg";
 import store from "./store";
 import { toggleDrawer } from "./actions/ui";
 import { withStyles } from "material-ui/styles";
@@ -52,14 +53,18 @@ class App extends Component {
                 <MenuIcon />
               </IconButton>
             </Hidden>
-            <Typography
-              variant="title"
-              color="secondary"
-              className={classes.flex}
-              noWrap
-            >
-              {he.decode(this.props.title)}
-            </Typography>
+            <div className={classes.flex}>
+              <Hidden smDown>
+                <img src={smallLogoUrl} alt="Foinn" className={classes.logo} />
+              </Hidden>
+              <NavDropDown />
+            </div>
+
+            <Hidden smDown>
+              <span className={classes.greetings}>
+                Hi! {this.props.userName}
+              </span>
+            </Hidden>
             <Button component={Link} href="/" color="secondary">
               Change user
             </Button>
@@ -81,9 +86,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   router: state.router,
-  title: state.ui.title,
   showDrawer: state.ui.showDrawer,
-  isLoggedOut: isEmpty(state.session.currentUser)
+  isLoggedOut: isEmpty(state.session.currentUser),
+  userName: state.session.currentUser.name
 });
 
 export default connect(mapStateToProps)(withStyles(layoutStyles)(App));
