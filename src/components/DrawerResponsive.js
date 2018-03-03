@@ -40,13 +40,13 @@ class DrawerResponsive extends Component {
       <div>
         <Hidden mdUp>
           <Drawer
-            type="temporary"
+            variant="temporary"
             anchor={"left"}
             open={this.props.showDrawer}
             classes={{
               paper: classes.drawerPaper
             }}
-            onRequestClose={this.handleDrawerToggle}
+            onClose={this.handleDrawerToggle}
             ModalProps={{
               keepMounted: true // Better open performance on mobile.
             }}
@@ -56,7 +56,7 @@ class DrawerResponsive extends Component {
         </Hidden>
         <Hidden mdDown implementation="css">
           <Drawer
-            type="persistent"
+            variant="persistent"
             open
             classes={{
               paper: classes.drawerPaper

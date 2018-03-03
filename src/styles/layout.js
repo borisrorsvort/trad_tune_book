@@ -2,18 +2,15 @@ import { SIDEBAR_WIDTH } from "../constants/layout";
 
 export const layoutStyles = theme => ({
   root: {
-    width: "100%",
-    height: "100%",
-    overflow: "hidden"
-  },
-  appFrame: {
+    flexGrow: 1,
+    zIndex: 1,
+    overflow: "hidden",
     position: "relative",
-    display: "flex",
-    width: "100%",
-    height: "100%"
+    display: "flex"
   },
   appBar: {
     position: "fixed",
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen
@@ -30,11 +27,11 @@ export const layoutStyles = theme => ({
     display: "none"
   },
   drawerPaper: {
+    zIndex: theme.zIndex.drawer - 1,
     width: SIDEBAR_WIDTH,
     top: 0,
     left: 0,
     height: "100vh",
-    zIndex: 1300,
     position: "fixed",
     overflowY: "auto"
   },
@@ -61,9 +58,9 @@ export const layoutStyles = theme => ({
       marginTop: 64,
       marginLeft: SIDEBAR_WIDTH
     },
-    appBar: {
-      width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
-      marginLeft: SIDEBAR_WIDTH
+    drawerPaper: {
+      height: "calc(100vh - 64px)",
+      top: 64
     }
   }
 });

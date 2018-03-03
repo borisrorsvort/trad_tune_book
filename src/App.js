@@ -40,41 +40,39 @@ class App extends Component {
     }
     return (
       <div className={classes.root}>
-        <div className={classes.appFrame}>
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <Hidden mdUp>
-                <IconButton
-                  color="accent"
-                  aria-label="open drawer"
-                  onClick={this.handleDrawerToggle}
-                  className={classes.navIconHide}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Hidden>
-              <Typography
-                type="title"
-                color="accent"
-                className={classes.flex}
-                noWrap
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <Hidden mdUp>
+              <IconButton
+                color="secondary"
+                aria-label="open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.navIconHide}
               >
-                {he.decode(this.props.title)}
-              </Typography>
-              <Button component={Link} href="/" color="accent">
-                Change user
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <DrawerResponsive showDrawer={this.props.showDrawer} />
-          <div className={classes.content}>
-            <Fragment forRoute="/tunes">
-              <Tunebook />
-            </Fragment>
-            <Fragment forRoute="/sets">
-              <Sets />
-            </Fragment>
-          </div>
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
+            <Typography
+              variant="title"
+              color="secondary"
+              className={classes.flex}
+              noWrap
+            >
+              {he.decode(this.props.title)}
+            </Typography>
+            <Button component={Link} href="/" color="secondary">
+              Change user
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <DrawerResponsive showDrawer={this.props.showDrawer} />
+        <div className={classes.content}>
+          <Fragment forRoute="/tunes">
+            <Tunebook />
+          </Fragment>
+          <Fragment forRoute="/sets">
+            <Sets />
+          </Fragment>
         </div>
       </div>
     );

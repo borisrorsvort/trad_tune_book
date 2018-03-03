@@ -82,7 +82,7 @@ class NavDropDown extends Component {
           id="simple-menu"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
           PaperProps={{
             style: {
               width: SIDEBAR_WIDTH - 35

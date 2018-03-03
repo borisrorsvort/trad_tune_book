@@ -62,7 +62,7 @@ class Home extends Component {
           </Grid>
           <Grid item xs={12} md={4} className={classes.login}>
             <Paper className={classes.paper} elevation={8}>
-              <Typography type="subheading" gutterBottom>
+              <Typography variant="subheading" gutterBottom>
                 To start, select your{" "}
                 <a href="https://thesession.org" target="_blank">
                   TheSession.org
@@ -75,7 +75,7 @@ class Home extends Component {
                   href="/tunebook/tunes"
                   className={classes.button}
                   component={Link}
-                  raised
+                  variant="raised"
                   color="primary"
                 >
                   Open tunebook

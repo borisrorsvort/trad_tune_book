@@ -1,24 +1,25 @@
-import React, { Component } from "react";
-import store from "../store";
-import { connect } from "react-redux";
-import he from "he";
-import SheetMusic from "./SheetMusic";
-import { Link } from "redux-little-router";
-import { fetchSet } from "../actions/sets";
 import {
-  withStyles,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
   Grid,
   Paper,
   Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  CircularProgress
+  withStyles
 } from "material-ui";
-import { commonStyles } from "../styles/common";
+import React, { Component } from "react";
+
+import { Link } from "redux-little-router";
 import PrintIcon from "material-ui-icons/Print";
+import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
+import { commonStyles } from "../styles/common";
+import { connect } from "react-redux";
+import { fetchSet } from "../actions/sets";
+import he from "he";
+import store from "../store";
 
 const styles = theme => ({
   card: {
@@ -52,8 +53,9 @@ class Set extends Component {
   }
 
   render() {
-    const printUrl = `https://thesession.org/members/${this.props
-      .userId}/sets/${this.props.setId}/sheetmusic?print=true`;
+    const printUrl = `https://thesession.org/members/${
+      this.props.userId
+    }/sets/${this.props.setId}/sheetmusic?print=true`;
     const { classes } = this.props;
 
     if (this.props.isFetching) {
@@ -95,10 +97,10 @@ class Set extends Component {
             return (
               <Card className={classes.card} key={setting.id}>
                 <CardContent>
-                  <Typography type="subheading" gutterBottom>
+                  <Typography variant="subheading" gutterBottom>
                     Setting {he.decode(setting.name)} ({setting.key})
                   </Typography>
-                  <Typography type="caption">
+                  <Typography variant="caption">
                     by {setting.member.name} on {setting.date}
                   </Typography>
                 </CardContent>

@@ -82,10 +82,10 @@ class Tune extends Component {
               <Grid item hidden={{ smDown: true }} md={4}>
                 <Card className={classes.card} key={setting.id}>
                   <CardContent>
-                    <Typography type="subheading" gutterBottom>
+                    <Typography variant="subheading" gutterBottom>
                       Setting #{setting.id} ({setting.key})
                     </Typography>
-                    <Typography type="caption">
+                    <Typography variant="caption">
                       by {setting.member.name} on {setting.date}
                     </Typography>
                   </CardContent>
