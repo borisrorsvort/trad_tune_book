@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import ABCJS from "exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_latest-min.js";
 import { abcReformatter } from "../helpers/abcHelper";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+//import abcjs from "exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_latest-min.js";
+import abcjs from "abcjs";
+import abcjsMidi from "abcjs/midi";
 import he from "he";
 import reactDimensions from "react-dimensions";
 import { withStyles } from "material-ui";
@@ -29,11 +31,29 @@ class SheetMusic extends Component {
       responsive: "resize"
     };
 
-    ABCJS.renderAbc(
+    abcjs.renderAbc(
       this.el,
       abcReformatter(this.props.tune, this.props.type, this.title()),
       {},
       props,
+      {}
+    );
+  }
+
+  renderMidi() {
+    abcjsMidi.renderMidi(
+      this.midi,
+      abcReformatter(this.props.tune, this.props.type, this.title()),
+      {},
+      {
+        inlineControls: {
+          selectionToggle: false,
+          loopToggle: false,
+          standard: true,
+          tempo: false,
+          startPlaying: false
+        }
+      },
       {}
     );
   }
@@ -48,17 +68,20 @@ class SheetMusic extends Component {
     const newWidth = nextProps.containerWidth;
     if (this.props.containerWidth !== newWidth) {
       this.renderAbc(this.props.containerWidth);
+      this.renderMidi(this.props.containerWidth);
     }
   }
 
   componentDidMount() {
     this.renderAbc(this.props.containerWidth);
+    this.renderMidi(this.props.containerWidth);
   }
 
   render() {
     return (
       <div className={this.props.classes.root}>
         <div ref={el => (this.el = el)} />
+        <div ref={el => (this.midi = el)} />
       </div>
     );
   }

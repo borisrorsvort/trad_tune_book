@@ -5,7 +5,6 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Paper,
   Typography,
   withStyles
 } from "material-ui";
@@ -80,13 +79,9 @@ class Tune extends Component {
         </Grid>
         {this.props.currentTune.settings.map(setting => {
           return (
-            <Grid container spacing={24}>
+            <Grid container spacing={24} key={setting.id}>
               <Grid item xs={12} md={8}>
-                <SheetMusic
-                  key={setting.id}
-                  tune={setting}
-                  type={this.props.currentTune.type}
-                />
+                <SheetMusic tune={setting} type={this.props.currentTune.type} />
               </Grid>
               <Grid item hidden={{ smDown: true }} md={4}>
                 <Card className={classes.card} key={setting.id}>

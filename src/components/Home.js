@@ -64,7 +64,11 @@ class Home extends Component {
             <Paper className={classes.paper} elevation={8}>
               <Typography variant="subheading" gutterBottom>
                 To start, select your{" "}
-                <a href="https://thesession.org" target="_blank">
+                <a
+                  href="https://thesession.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   TheSession.org
                 </a>{" "}
                 user name.

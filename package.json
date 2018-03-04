@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "abcjs": "https://github.com/paulrosen/abcjs.git",
+    "abcjs": "3.3.4",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.17.1",
     "classnames": "^2.2.5",

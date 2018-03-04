@@ -14,7 +14,6 @@ import Sets from "./components/Sets";
 import Toolbar from "material-ui/Toolbar";
 import Tunebook from "./components/Tunebook";
 import { connect } from "react-redux";
-import he from "he";
 import isEmpty from "lodash/isEmpty";
 import { layoutStyles } from "./styles/layout";
 import { redirect } from "./actions/router";

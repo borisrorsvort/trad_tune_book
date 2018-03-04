@@ -5,7 +5,6 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Paper,
   Typography,
   withStyles
 } from "material-ui";
@@ -15,7 +14,6 @@ import { Link } from "redux-little-router";
 import PrintIcon from "material-ui-icons/Print";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
-import { commonStyles } from "../styles/common";
 import { connect } from "react-redux";
 import { fetchSet } from "../actions/sets";
 import he from "he";
@@ -103,9 +101,9 @@ class Set extends Component {
         <div className={classes.settings}>
           {this.props.currentSet.settings.map(setting => {
             return (
-              <Grid container spacing={24}>
+              <Grid container spacing={24} key={setting.id}>
                 <Grid item xs={12} md={8}>
-                  <SheetMusic key={setting.id} tune={setting} />
+                  <SheetMusic tune={setting} />
                 </Grid>
                 <Grid item xs={12} md={4} hidden={{ smDow: true }}>
                   <Card className={classes.card} key={setting.id}>
@@ -119,7 +117,6 @@ class Set extends Component {
                     </CardContent>
                     <CardActions>
                       <Button
-                        dense
                         component={Link}
                         target="_blank"
                         href={`${TUNE_URL}${setting.id}`}

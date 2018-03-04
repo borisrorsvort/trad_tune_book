@@ -8,3 +8,155 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Some basic CSS to make the MIDI controls in abcjs presentable. */
+
+.abcjs-inline-midi {
+  padding: 10px;
+  border-radius: 3px;
+  color: #666;
+  background-color: #efefef;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-btn {
+  width: 28px;
+  height: 26px;
+  display: inline-block;
+  margin-right: 2px;
+  float: left;
+  padding: 0;
+  background: none;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 14px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #f4f4f4;
+  border: 1px solid transparent;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.abcjs-inline-midi .abcjs-btn:hover {
+  opacity: 0.8;
+}
+
+.abcjs-inline-midi .abcjs-btn:focus {
+  outline: none;
+}
+
+.abcjs-inline-midi .abcjs-midi-reset:before {
+  content: "";
+  height: 12px;
+  width: 12px;
+  background: #ccc;
+  position: absolute;
+  top: 24%;
+  left: 0;
+}
+
+.abcjs-inline-midi .abcjs-midi-start:before {
+  content: "";
+  border: 8px solid #ccc;
+  height: 0;
+  width: 0;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  position: absolute;
+  top: 20%;
+  left: 0;
+}
+
+.abcjs-inline-midi .abcjs-midi-start.abcjs-pushed:before {
+  content: "";
+  background: #ccc;
+  height: 12px;
+  width: 3px;
+  border: none;
+  position: absolute;
+  top: 25%;
+  left: 0;
+}
+
+.abcjs-inline-midi .abcjs-midi-start.abcjs-pushed:after {
+  content: "";
+  background: #ccc;
+  height: 12px;
+  width: 3px;
+  border: none;
+  position: absolute;
+  top: 25%;
+  left: 5px;
+}
+
+.abcjs-inline-midi .abcjs-midi-progress-background {
+  background-color: #fff;
+  border: none;
+  height: 10px;
+  border-radius: 5px;
+  margin: 0 8px 0 15px;
+  position: relative;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-midi-progress-indicator {
+  width: 20px;
+  margin-left: -10px; /* half of the width */
+  height: 20px;
+  background-color: #ccc;
+  position: absolute;
+  display: inline-block;
+  border-radius: 50%;
+  top: -5px;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-midi-clock,
+.abcjs-inline-midi .abcjs-midi-post {
+  margin-left: 4px;
+  margin-top: 0;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-midi-pre {
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-tempo-wrapper {
+  float: right;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 20px;
+  color: #666;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abcjs-inline-midi .abcjs-midi-tempo {
+  border-radius: 2px;
+  border: none;
+  margin: 1px 2px 0 4px;
+  padding-left: 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
