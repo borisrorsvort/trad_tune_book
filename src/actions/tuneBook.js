@@ -31,7 +31,7 @@ function receiveTune(tune) {
 export const fetchTuneBook = memberId => dispatch => {
   dispatch(requestTuneBook());
   return axios
-    .get(`${MEMBER_URL}${memberId}/tunebook?format=json&per_page=100`)
+    .get(`${types.MEMBER_URL}${memberId}/tunebook?format=json&per_page=100`)
     .then(function(response) {
       dispatch(receiveTuneBook(response.data));
     })
@@ -43,7 +43,7 @@ export const fetchTuneBook = memberId => dispatch => {
 export const fetchTune = tuneId => dispatch => {
   dispatch(requestTune());
   return axios
-    .get(`${TUNE_URL}${tuneId}?format=json`)
+    .get(`${types.TUNE_URL}${tuneId}?format=json`)
     .then(function(response) {
       dispatch(receiveTune(response.data));
     })
