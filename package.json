@@ -26,10 +26,6 @@
   },
   "main": "src/electron-starter.js",
   "homepage": "/",
-  "root": "build/",
-  "routes": {
-    "/**": "index.html"
-  },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
