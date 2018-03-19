@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { fetchSets } from "../actions/sets";
 import { fetchTuneBook } from "../actions/tuneBook";
 import { layoutStyles } from "../styles/layout";
+import sizeMe from "react-sizeme";
 import store from "../store";
 import { toggleDrawer } from "../actions/ui";
 
@@ -22,7 +23,8 @@ class DrawerResponsive extends Component {
 
   render() {
     const { classes } = this.props;
-    const drawer = (
+
+    const drawerContent = (
       <div>
         <Fragment forRoute="/tunes">
           <DrawerItems type="tunes" />
@@ -33,10 +35,12 @@ class DrawerResponsive extends Component {
       </div>
     );
 
+    const MeasuredDrawer = sizeMe()(Drawer);
+
     return (
-      <div>
+      <div className="drawer-container">
         <Hidden mdUp>
-          <Drawer
+          <MeasuredDrawer
             variant="temporary"
             anchor={"left"}
             open={this.props.showDrawer}
@@ -48,8 +52,8 @@ class DrawerResponsive extends Component {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-            {drawer}
-          </Drawer>
+            {drawerContent}
+          </MeasuredDrawer>
         </Hidden>
         <Hidden mdDown implementation="css">
           <Drawer
@@ -59,7 +63,7 @@ class DrawerResponsive extends Component {
               paper: classes.drawerPaper
             }}
           >
-            {drawer}
+            {drawerContent}
           </Drawer>
         </Hidden>
       </div>

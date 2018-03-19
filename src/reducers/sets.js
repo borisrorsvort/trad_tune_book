@@ -1,13 +1,14 @@
 import {
-  REQUEST_SETS,
+  RECEIVE_SET,
   RECEIVE_SETS,
   REQUEST_SET,
-  RECEIVE_SET
+  REQUEST_SETS
 } from "../constants/actionTypes";
 function sets(
   state = {
     isFetching: false,
     sets: [],
+    meta: {},
     currentSet: {
       isFetching: false
     }
@@ -20,9 +21,11 @@ function sets(
         isFetching: true
       });
     case RECEIVE_SETS:
+      const sets = action.add ? [...state.sets, ...action.sets] : action.sets;
       return Object.assign({}, state, {
         isFetching: false,
-        sets: action.sets
+        sets: sets,
+        meta: action.meta
       });
     case REQUEST_SET:
       return Object.assign({}, state, {

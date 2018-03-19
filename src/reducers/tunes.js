@@ -1,14 +1,15 @@
 import {
-  REQUEST_TUNEBOOK,
+  RECEIVE_TUNE,
   RECEIVE_TUNEBOOK,
   REQUEST_TUNE,
-  RECEIVE_TUNE
+  REQUEST_TUNEBOOK
 } from "../constants/actionTypes";
 
 function tunes(
   state = {
     isFetching: false,
     tunes: [],
+    meta: {},
     currentTune: {
       isFetching: false
     }
@@ -21,9 +22,13 @@ function tunes(
         isFetching: true
       });
     case RECEIVE_TUNEBOOK:
+      const tunes = action.add
+        ? [...state.tunes, ...action.tunes]
+        : action.tunes;
       return Object.assign({}, state, {
         isFetching: false,
-        tunes: action.tunes
+        tunes: tunes,
+        meta: action.meta
       });
     case REQUEST_TUNE:
       return Object.assign({}, state, {

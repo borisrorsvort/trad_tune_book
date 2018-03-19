@@ -8,10 +8,12 @@ function requestTuneBook() {
   };
 }
 
-function receiveTuneBook(data) {
+function receiveTuneBook(tunes, meta, add = false) {
   return {
     type: types.RECEIVE_TUNEBOOK,
-    tunes: data.tunes
+    tunes: tunes,
+    meta: meta,
+    add: add
   };
 }
 
@@ -28,12 +30,32 @@ function receiveTune(tune) {
   };
 }
 
-export const fetchTuneBook = memberId => dispatch => {
+export const fetchTuneBook = (
+  memberId,
+  nextPage = 1,
+  add = false
+) => dispatch => {
   dispatch(requestTuneBook());
   return axios
-    .get(`${types.MEMBER_URL}${memberId}/tunebook?format=json&per_page=100`)
+    .get(
+      `${
+        types.MEMBER_URL
+      }${memberId}/tunebook?format=json&page=${nextPage}&per_page=50`
+    )
     .then(function(response) {
-      dispatch(receiveTuneBook(response.data));
+      const { page, pages, per_page, total, tunes } = response.data;
+      dispatch(
+        receiveTuneBook(
+          tunes,
+          {
+            page: page,
+            pages: pages,
+            per_page: per_page,
+            total: total
+          },
+          add
+        )
+      );
     })
     .catch(function(error) {
       alert("something went wrong, try again late");
