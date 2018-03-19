@@ -7,14 +7,18 @@ import { connect } from "react-redux";
 import { fetchSets } from "../actions/sets";
 import { fetchTuneBook } from "../actions/tuneBook";
 import { layoutStyles } from "../styles/layout";
-import sizeMe from "react-sizeme";
 import store from "../store";
 import { toggleDrawer } from "../actions/ui";
 
 class DrawerResponsive extends Component {
+  state = {
+    elementHeigh: 0
+  };
+
   componentDidMount() {
     store.dispatch(fetchTuneBook(this.props.userId));
     store.dispatch(fetchSets(this.props.userId));
+    this.setState({ elementHeight: this.divRef.clientHeight });
   }
 
   handleDrawerToggle() {
@@ -27,20 +31,21 @@ class DrawerResponsive extends Component {
     const drawerContent = (
       <div>
         <Fragment forRoute="/tunes">
-          <DrawerItems type="tunes" />
+          <DrawerItems type="tunes" height={this.state.elementHeight} />
         </Fragment>
         <Fragment forRoute="/sets">
-          <DrawerItems type="sets" />
+          <DrawerItems type="sets" height={this.state.elementHeight} />
         </Fragment>
       </div>
     );
 
-    const MeasuredDrawer = sizeMe()(Drawer);
-
     return (
-      <div className="drawer-container">
+      <div
+        className={classes.drawerPaper}
+        ref={element => (this.divRef = element)}
+      >
         <Hidden mdUp>
-          <MeasuredDrawer
+          <Drawer
             variant="temporary"
             anchor={"left"}
             open={this.props.showDrawer}
@@ -53,9 +58,9 @@ class DrawerResponsive extends Component {
             }}
           >
             {drawerContent}
-          </MeasuredDrawer>
+          </Drawer>
         </Hidden>
-        <Hidden mdDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             variant="persistent"
             open

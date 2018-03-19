@@ -50,6 +50,12 @@ class DrawerItems extends Component {
 
   _rowRenderer = ({ index, key, style }) => {
     const item = this.props.items[index];
+    const itemName =
+      item &&
+      (item.name.length > 40
+        ? he.decode(item.name).substring(0, 40) + "..."
+        : he.decode(item.name));
+
     if (!item) {
       return (
         <div style={style} key={index}>
@@ -70,13 +76,13 @@ class DrawerItems extends Component {
         <ListItemIcon>
           <MusicNote />
         </ListItemIcon>
-        <ListItemText primary={he.decode(item.name)} />
+        <ListItemText primary={itemName} />
       </ListItem>
     );
   };
 
   render() {
-    const { classes, meta, height } = this.props;
+    const { meta, height, isSets } = this.props;
 
     if (_isEmpty(meta)) {
       return null;
@@ -93,11 +99,12 @@ class DrawerItems extends Component {
             {({ width }) => (
               <List
                 ref={registerChild}
-                height={400}
+                height={height || 0}
                 onRowsRendered={onRowsRendered}
                 rowCount={meta.total}
-                rowHeight={48}
+                rowHeight={isSets ? 80 : 60}
                 rowRenderer={this._rowRenderer}
+                threshold={100}
                 width={width}
               />
             )}
@@ -115,7 +122,8 @@ const mapStateToProps = (state, props) => {
     items: sets ? state.sets.sets : state.tunes.tunes,
     meta: sets ? state.sets.meta : state.tunes.meta,
     router: state.router,
-    userId: state.session.currentUser.id
+    userId: state.session.currentUser.id,
+    isSets: props.type === "sets"
   };
 };
 

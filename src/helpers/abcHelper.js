@@ -20,7 +20,7 @@ export const abcReformatter = (tune, type, name) => {
   }
   const abc = tune.abc.split("! ").join("\n");
   const tuneName = `T: ${name}`;
-  const timeSignature = `M: ${tuneTypes[type]}`;
+  const timeSignature = `M: ${tuneTypes[type] || tuneTypes[tune.type]}`;
   const tuneKey = `K: ${tune.key}`;
 
   return [tuneName, timeSignature, tuneKey, abc].join("\n");

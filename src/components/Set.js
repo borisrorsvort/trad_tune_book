@@ -105,7 +105,7 @@ class Set extends Component {
                 <Grid item xs={12} md={8}>
                   <SheetMusic tune={setting} />
                 </Grid>
-                <Grid item xs={12} md={4} hidden={{ smDow: true }}>
+                <Grid item xs={12} md={4} hidden={{ smDown: true }}>
                   <Card className={classes.card} key={setting.id}>
                     <CardContent>
                       <Typography variant="subheading" gutterBottom>
