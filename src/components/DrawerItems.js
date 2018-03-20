@@ -108,7 +108,7 @@ class DrawerItems extends Component {
                 rowCount={meta.total}
                 rowHeight={isSets ? 80 : 60}
                 rowRenderer={this._rowRenderer}
-                threshold={100}
+                threshold={300}
                 width={width}
               />
             )}
