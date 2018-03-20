@@ -27,6 +27,10 @@ class DrawerItems extends Component {
     store.dispatch(toggleDrawer());
   };
 
+  componentWillReceiveProps() {
+    this.list && this.list.forceUpdateGrid();
+  }
+
   isActive(id) {
     const { router: { params } } = this.props;
     const itemId = id.toString();
@@ -98,7 +102,7 @@ class DrawerItems extends Component {
           <AutoSizer disableHeight>
             {({ width }) => (
               <List
-                ref={registerChild}
+                ref={el => (this.list = el)}
                 height={height || 0}
                 onRowsRendered={onRowsRendered}
                 rowCount={meta.total}
