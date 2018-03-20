@@ -24,7 +24,7 @@ class DrawerItems extends Component {
   handleClick = item => _e => {
     const href = tuneOrSetUrl(item.id, this.props.type);
     store.dispatch(redirect(href));
-    store.dispatch(toggleDrawer());
+    store.dispatch(toggleDrawer(true));
   };
 
   componentWillReceiveProps() {

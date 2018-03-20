@@ -5,6 +5,7 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  Hidden,
   Typography,
   withStyles
 } from "material-ui";
@@ -28,17 +29,17 @@ const styles = theme => ({
     fontSize: 14,
     color: theme.palette.text.secondary
   },
-  settings: theme.mixins.gutters({
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit
-  }),
+  settings: {},
   iconBtn: {
     marginRight: "10px"
   },
   mainTitle: {
     textAlign: "center",
     marginTop: theme.spacing.unit * 2,
-    fontWeight: 100
+    fontWeight: 100,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "21px"
+    }
   },
   printButton: {
     textAlign: "center"
@@ -90,12 +91,14 @@ class Set extends Component {
             >
               {he.decode(this.props.currentSet.name)}
             </Typography>
-            <p className={classes.printButton}>
-              <Button href={printUrl} target="_blank">
-                <PrintIcon className={classes.iconBtn} />
-                Print
-              </Button>
-            </p>
+            <Hidden smDown>
+              <p className={classes.printButton}>
+                <Button href={printUrl} target="_blank">
+                  <PrintIcon className={classes.iconBtn} />
+                  Print
+                </Button>
+              </p>
+            </Hidden>
           </Grid>
         </Grid>
         <div className={classes.settings}>

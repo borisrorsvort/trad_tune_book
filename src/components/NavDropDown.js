@@ -15,6 +15,9 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     marginLeft: "20px"
+  },
+  righIcon: {
+    marginLeft: 16
   }
 });
 
@@ -40,9 +43,14 @@ class NavDropDown extends Component {
 
   menuOptions() {
     return [
-      { label: `Sets (${this.props.setsCount})`, href: "/tunebook/sets" },
+      {
+        label: `Sets (${this.props.setsCount})`,
+        shortLabel: "Sets",
+        href: "/tunebook/sets"
+      },
       {
         label: `Tunes (${this.props.tunesCount})`,
+        shortLabel: "Tunes",
         href: "/tunebook/tunes"
       }
     ];
@@ -62,8 +70,8 @@ class NavDropDown extends Component {
           onClick={this.handleClickListItem}
           color="secondary"
         >
-          {selectedMenuItem.label}
-          <KeyboardArrowDown />
+          {selectedMenuItem.shortLabel}
+          <KeyboardArrowDown className={classes.righIcon} />
         </Button>
         <Menu
           id="simple-menu"

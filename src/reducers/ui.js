@@ -9,7 +9,7 @@ function ui(
   switch (action.type) {
     case TOGGLE_DRAWER:
       return Object.assign({}, state, {
-        showDrawer: !state.showDrawer
+        showDrawer: action.forceClose ? false : !state.showDrawer
       });
     default:
       return state;

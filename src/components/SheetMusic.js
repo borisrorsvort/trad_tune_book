@@ -12,13 +12,16 @@ import { withStyles } from "material-ui";
 const styles = theme => ({
   root: {
     margin: "20px auto",
-    padding: "20px",
+
     maxWidth: "640px",
     borderBottom: "1px solid #ccc",
     "&:last-child": {
       border: "none",
       marginBottom: 0,
       paddingBottom: 0
+    },
+    [theme.breakpoints.up("md")]: {
+      padding: "20px"
     }
   }
 });
@@ -26,7 +29,7 @@ const styles = theme => ({
 class SheetMusic extends Component {
   renderAbc(width) {
     const props = {
-      paddingright: 20,
+      paddingright: 0,
       paddingleft: 0,
       responsive: "resize"
     };

@@ -69,7 +69,6 @@ class App extends Component {
             </Button>
           </Toolbar>
         </AppBar>
-        <DrawerResponsive showDrawer={this.props.showDrawer} />
         <div className={classes.content}>
           <Fragment forRoute="/tunes">
             <Tunebook />
@@ -78,6 +77,7 @@ class App extends Component {
             <Sets />
           </Fragment>
         </div>
+        <DrawerResponsive showDrawer={this.props.showDrawer} />
       </div>
     );
   }
