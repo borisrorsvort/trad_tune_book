@@ -1,9 +1,9 @@
 import { Button, Grid, Paper, Typography, withStyles } from "material-ui";
-import React, { Component } from "react";
 
 import BodyClassName from "react-body-classname";
 import { Link } from "redux-little-router";
 import NameAutoComplete from "./NameAutoComplete";
+import React from "react";
 import { connect } from "react-redux";
 import logoUrl from "../images/logo.svg";
 

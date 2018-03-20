@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React from "react";
 import { withStyles } from "material-ui";
 
 const styles = () => ({
@@ -13,9 +12,7 @@ const styles = () => ({
 
 function EmptyState(props) {
   return (
-    <div className={props.classes.root}>
-      Please select a item from the list
-    </div>
+    <div className={props.classes.root}>Please select a item from the list</div>
   );
 }
 

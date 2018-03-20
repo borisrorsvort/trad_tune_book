@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-
 import EmptyState from "./EmptyState";
 import { Fragment } from "redux-little-router";
+import React from "react";
 import Set from "./Set";
 
 function Sets(props) {
