@@ -11,14 +11,12 @@ const styles = () => ({
   }
 });
 
-class EmptyState extends Component {
-  render() {
-    return (
-      <div className={this.props.classes.root}>
-        Please select a item from the list
-      </div>
-    );
-  }
+function EmptyState(props) {
+  return (
+    <div className={props.classes.root}>
+      Please select a item from the list
+    </div>
+  );
 }
 
 export default withStyles(styles)(EmptyState);

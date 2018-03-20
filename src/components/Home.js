@@ -40,57 +40,55 @@ const styles = theme => ({
   }
 });
 
-class Home extends Component {
-  render() {
-    const { classes, userName } = this.props;
-    return (
-      <BodyClassName className={classes.home}>
-        <Grid
-          container
-          spacing={24}
-          alignItems="center"
-          justify="center"
-          direction="row"
-          className={classes.container}
-        >
-          <Grid item xs={12} md={12}>
-            <img src={logoUrl} alt="Foinn app" className={classes.logo} />
-            <h1 className={classes.title}>
-              Browse your tunes and sets from Thessession.org <br />
-              <small>The ideal session companion</small>
-            </h1>
-          </Grid>
-          <Grid item xs={12} md={4} className={classes.login}>
-            <Paper className={classes.paper} elevation={8}>
-              <Typography variant="subheading" gutterBottom>
-                To start, select your{" "}
-                <a
-                  href="https://thesession.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  TheSession.org
-                </a>{" "}
-                user name.
-              </Typography>
-              <NameAutoComplete userName={userName} />
-              {userName && (
-                <Button
-                  href="/tunebook/tunes"
-                  className={classes.button}
-                  component={Link}
-                  variant="raised"
-                  color="primary"
-                >
-                  Open tunebook
-                </Button>
-              )}
-            </Paper>
-          </Grid>
+function Home(props) {
+  const { classes, userName } = props;
+  return (
+    <BodyClassName className={classes.home}>
+      <Grid
+        container
+        spacing={24}
+        alignItems="center"
+        justify="center"
+        direction="row"
+        className={classes.container}
+      >
+        <Grid item xs={12} md={12}>
+          <img src={logoUrl} alt="Foinn app" className={classes.logo} />
+          <h1 className={classes.title}>
+            Browse your tunes and sets from Thessession.org <br />
+            <small>The ideal session companion</small>
+          </h1>
         </Grid>
-      </BodyClassName>
-    );
-  }
+        <Grid item xs={12} md={4} className={classes.login}>
+          <Paper className={classes.paper} elevation={8}>
+            <Typography variant="subheading" gutterBottom>
+              To start, select your{" "}
+              <a
+                href="https://thesession.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                TheSession.org
+              </a>{" "}
+              user name.
+            </Typography>
+            <NameAutoComplete userName={userName} />
+            {userName && (
+              <Button
+                href="/tunebook/tunes"
+                className={classes.button}
+                component={Link}
+                variant="raised"
+                color="primary"
+              >
+                Open tunebook
+              </Button>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
+    </BodyClassName>
+  );
 }
 
 const mapStateToProps = state => ({
