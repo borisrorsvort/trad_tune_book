@@ -46,12 +46,12 @@ class NavDropDown extends Component {
       {
         label: `Sets (${this.props.setsCount})`,
         shortLabel: "Sets",
-        href: "/tunebook/sets"
+        href: `/tunebook/${this.props.currentUser.id}/sets`
       },
       {
         label: `Tunes (${this.props.tunesCount})`,
         shortLabel: "Tunes",
-        href: "/tunebook/tunes"
+        href: `/tunebook/${this.props.currentUser.id}/tunes`
       }
     ];
   }
@@ -103,7 +103,8 @@ const mapStateToProps = state => {
   return {
     router: state.router,
     tunesCount: state.tunes.meta && state.tunes.meta.total,
-    setsCount: state.sets.meta && state.sets.meta.total
+    setsCount: state.sets.meta && state.sets.meta.total,
+    currentUser: state.session.currentUser
   };
 };
 

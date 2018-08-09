@@ -1,15 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import { Provider } from "react-redux";
-import store from "./store";
+
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import green from "material-ui/colors/green";
-import red from "material-ui/colors/red";
+
+import App from "./App";
 import { Fragment } from "redux-little-router";
 import Home from "./components/Home";
+import { Provider } from "react-redux";
+import React from "react";
+import ReactDOM from "react-dom";
+import green from "material-ui/colors/green";
+import red from "material-ui/colors/red";
+import registerServiceWorker from "./registerServiceWorker";
+import store from "./store";
 
 const white = {
   50: "#fff",
@@ -47,9 +49,7 @@ const app = (
           <Fragment forRoute="/">
             <Home />
           </Fragment>
-          <Fragment forRoute="/tunebook">
-            <App />
-          </Fragment>
+          <App />
         </div>
       </Fragment>
     </Provider>

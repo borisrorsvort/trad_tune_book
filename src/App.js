@@ -7,7 +7,6 @@ import AppBar from "material-ui/AppBar";
 import DrawerResponsive from "./components/DrawerResponsive";
 import { Fragment } from "redux-little-router";
 import IconButton from "material-ui/IconButton";
-import { Link } from "redux-little-router";
 import MenuIcon from "material-ui-icons/Menu";
 import NavDropDown from "./components/NavDropDown";
 import Sets from "./components/Sets";
@@ -16,6 +15,7 @@ import Tunebook from "./components/Tunebook";
 import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
 import { layoutStyles } from "./styles/layout";
+import { logout } from "./actions/session";
 import { redirect } from "./actions/router";
 import smallLogoUrl from "./images/logo-small.svg";
 import store from "./store";
@@ -29,6 +29,11 @@ class App extends Component {
     }
   }
 
+  handleChangeUser = () => {
+    this.props.logout();
+    store.dispatch(redirect("/"));
+  };
+
   handleDrawerToggle() {
     store.dispatch(toggleDrawer());
   }
@@ -39,46 +44,52 @@ class App extends Component {
       return null;
     }
     return (
-      <div className={classes.root}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <Hidden mdUp>
-              <IconButton
-                color="secondary"
-                aria-label="open drawer"
-                onClick={this.handleDrawerToggle}
-                className={classes.navIconHide}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
-            <div className={classes.flex}>
-              <Hidden smDown>
-                <img src={smallLogoUrl} alt="Foinn" className={classes.logo} />
+      <Fragment forRoute={`/tunebook/${this.props.currentUser.id}`}>
+        <div className={classes.root}>
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <Hidden mdUp>
+                <IconButton
+                  color="secondary"
+                  aria-label="open drawer"
+                  onClick={this.handleDrawerToggle}
+                  className={classes.navIconHide}
+                >
+                  <MenuIcon />
+                </IconButton>
               </Hidden>
-              <NavDropDown />
-            </div>
+              <div className={classes.flex}>
+                <Hidden smDown>
+                  <img
+                    src={smallLogoUrl}
+                    alt="Foinn"
+                    className={classes.logo}
+                  />
+                </Hidden>
+                <NavDropDown />
+              </div>
 
-            <Hidden smDown>
-              <span className={classes.greetings}>
-                Hi! {this.props.userName}
-              </span>
-            </Hidden>
-            <Button component={Link} href="/" color="secondary">
-              Change user
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <div className={classes.content}>
-          <Fragment forRoute="/tunes">
-            <Tunebook />
-          </Fragment>
-          <Fragment forRoute="/sets">
-            <Sets />
-          </Fragment>
+              <Hidden smDown>
+                <span className={classes.greetings}>
+                  Hi! {this.props.currentUser.name}
+                </span>
+              </Hidden>
+              <Button onClick={this.handleChangeUser} color="secondary">
+                Change user
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <div className={classes.content}>
+            <Fragment forRoute="/tunes">
+              <Tunebook />
+            </Fragment>
+            <Fragment forRoute="/sets">
+              <Sets />
+            </Fragment>
+          </div>
+          <DrawerResponsive showDrawer={this.props.showDrawer} />
         </div>
-        <DrawerResponsive showDrawer={this.props.showDrawer} />
-      </div>
+      </Fragment>
     );
   }
 }
@@ -87,7 +98,10 @@ const mapStateToProps = state => ({
   router: state.router,
   showDrawer: state.ui.showDrawer,
   isLoggedOut: isEmpty(state.session.currentUser),
-  userName: state.session.currentUser.name
+  currentUser: state.session.currentUser
 });
 
-export default connect(mapStateToProps)(withStyles(layoutStyles)(App));
+export default connect(
+  mapStateToProps,
+  { logout }
+)(withStyles(layoutStyles)(App));

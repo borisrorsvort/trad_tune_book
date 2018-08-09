@@ -1,14 +1,22 @@
 import {
-  UPDATE_CURRENT_USER,
+  LOGOUT,
+  MEMBER_URL,
   REQUEST_USER_ID,
-  MEMBER_URL
+  UPDATE_CURRENT_USER
 } from "../constants/actionTypes";
+
 import axios from "axios";
 
 export function updateCurrentUser(currentUser) {
   return {
     type: UPDATE_CURRENT_USER,
     currentUser: currentUser
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT
   };
 }
 

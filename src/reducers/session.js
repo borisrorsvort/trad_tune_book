@@ -1,4 +1,4 @@
-import { UPDATE_CURRENT_USER } from "../constants/actionTypes";
+import { LOGOUT, UPDATE_CURRENT_USER } from "../constants/actionTypes";
 
 function session(
   state = {
@@ -8,9 +8,15 @@ function session(
 ) {
   switch (action.type) {
     case UPDATE_CURRENT_USER:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         currentUser: action.currentUser
-      });
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        currentUser: {}
+      };
     default:
       return state;
   }

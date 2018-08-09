@@ -5,6 +5,7 @@ import { Link } from "redux-little-router";
 import NameAutoComplete from "./NameAutoComplete";
 import React from "react";
 import { connect } from "react-redux";
+import isEmpty from "lodash/isEmpty";
 import logoUrl from "../images/logo.svg";
 
 const styles = theme => ({
@@ -41,7 +42,7 @@ const styles = theme => ({
 });
 
 function Home(props) {
-  const { classes, userName } = props;
+  const { classes, userName, currentUser } = props;
   return (
     <BodyClassName className={classes.home}>
       <Grid
@@ -75,7 +76,7 @@ function Home(props) {
             <NameAutoComplete userName={userName} />
             {userName && (
               <Button
-                href="/tunebook/tunes"
+                href={`/tunebook/${currentUser.id}/tunes`}
                 className={classes.button}
                 component={Link}
                 variant="raised"
@@ -92,11 +93,10 @@ function Home(props) {
 }
 
 const mapStateToProps = state => ({
-  userName:
-    state.session.currentUser !== undefined &&
-    state.session.currentUser.name !== undefined
-      ? state.session.currentUser.name
-      : ""
+  currentUser: state.session.currentUser,
+  userName: !isEmpty(state.session.currentUser)
+    ? state.session.currentUser.name
+    : ""
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Home));

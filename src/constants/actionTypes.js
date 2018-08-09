@@ -11,6 +11,8 @@ export const RECEIVE_SET = "RECEIVE_SET";
 export const TOGGLE_DRAWER = "TOGGLE_DRAWER";
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
 export const REQUEST_USER_ID = "UPDATE_USER_ID";
+export const LOGOUT = "LOGOUT";
 
 export const TUNE_URL = "https://thesession.org/tunes/";
+
 export const MEMBER_URL = "https://thesession.org/members/";

@@ -1,22 +1,12 @@
-import store from "../store";
-
-export const tuneOrSetUrl = (id, type) => {
+export const tuneOrSetUrl = (id, type, currentUserId) => {
   switch (type) {
     case "sets":
-      return `/tunebook/sets/${id}`;
+      return `/tunebook/${currentUserId}/sets/${id}`;
     default:
-      return `/tunebook/tunes/${id}`;
+      return `/tunebook/${currentUserId}/tunes/${id}`;
   }
 };
 
 export const currentSection = router => {
-  return router.pathname && router.pathname.split("/")[2].toLowerCase();
-};
-
-export const randomTuneOrSetUrl = () => {
-  const state = store.getState();
-  const section = currentSection(state.router);
-  const items = state[section][section];
-  const randomIndex = Math.floor(Math.random() * (items.length - 0 + 1) + 0);
-  return tuneOrSetUrl(items[randomIndex].id, section);
+  return router.pathname && router.pathname.split("/")[3].toLowerCase();
 };
