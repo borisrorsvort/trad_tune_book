@@ -6,13 +6,15 @@ import {
   CircularProgress,
   Grid,
   Hidden,
+  Tooltip,
   Typography,
   withStyles
 } from "@material-ui/core";
 import React, { Component } from "react";
 
+import FileCopyIcon from "@material-ui/icons/FileCopyOutlined";
 import { Link } from "redux-little-router";
-import PrintIcon from "@material-ui/icons/Print";
+import PrintIcon from "@material-ui/icons/PrintOutlined";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
@@ -91,10 +93,16 @@ class Set extends Component {
             </Typography>
             <Hidden smDown>
               <p className={classes.printButton}>
-                <Button href={printUrl} target="_blank">
+                <Button href={printUrl} target="_blank" mini>
                   <PrintIcon className={classes.iconBtn} />
                   Print
                 </Button>
+                <Tooltip title="If your viewing another users set, you can copy it to your tuebook. Click to go the session.org where you can add it to yours.">
+                  <Button href={this.props.currentSet.url} target="_blank" mini>
+                    <FileCopyIcon className={classes.iconBtn} />
+                    Copy
+                  </Button>
+                </Tooltip>
               </p>
             </Hidden>
           </Grid>
