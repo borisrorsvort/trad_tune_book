@@ -1,13 +1,13 @@
-import { Button, Menu, MenuItem } from "material-ui";
+import { Button, Menu, MenuItem } from "@material-ui/core";
 import React, { Component } from "react";
 
-import KeyboardArrowDown from "material-ui-icons/KeyboardArrowDown";
+import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import { SIDEBAR_WIDTH } from "../constants/layout";
 import { connect } from "react-redux";
 import { currentSection } from "../helpers/routerHelper";
 import { redirect } from "../actions/router";
 import store from "../store";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {

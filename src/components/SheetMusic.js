@@ -7,7 +7,7 @@ import abcjs from "abcjs";
 import abcjsMidi from "abcjs/midi";
 import he from "he";
 import reactDimensions from "react-dimensions";
-import { withStyles } from "material-ui";
+import { withStyles } from "@material-ui/core";
 
 const styles = theme => ({
   root: {

@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Typography, withStyles } from "material-ui";
+import { Button, Grid, Paper, Typography, withStyles } from "@material-ui/core";
 
 import BodyClassName from "react-body-classname";
 import { Link } from "redux-little-router";

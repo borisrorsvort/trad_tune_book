@@ -5,9 +5,10 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  Hidden,
   Typography,
   withStyles
-} from "material-ui";
+} from "@material-ui/core";
 import React, { Component } from "react";
 
 import { Link } from "redux-little-router";
@@ -83,29 +84,31 @@ class Tune extends Component {
               <Grid item xs={12} md={8}>
                 <SheetMusic tune={setting} type={this.props.currentTune.type} />
               </Grid>
-              <Grid item hidden={{ smDown: true }} md={4}>
-                <Card className={classes.card} key={setting.id}>
-                  <CardContent>
-                    <Typography variant="subheading" gutterBottom>
-                      Setting #{setting.id} ({setting.key})
-                    </Typography>
-                    <Typography variant="caption">
-                      by {setting.member.name} on {setting.date}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      component={Link}
-                      target="_blank"
-                      href={`${TUNE_URL}${this.props.currentTune.id}#setting${
-                        setting.id
-                      }`}
-                    >
-                      View on The Session.org
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+              <Hidden smDown>
+                <Grid item md={4}>
+                  <Card className={classes.card} key={setting.id}>
+                    <CardContent>
+                      <Typography variant="subheading" gutterBottom>
+                        Setting #{setting.id} ({setting.key})
+                      </Typography>
+                      <Typography variant="caption">
+                        by {setting.member.name} on {setting.date}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        component={Link}
+                        target="_blank"
+                        href={`${TUNE_URL}${this.props.currentTune.id}#setting${
+                          setting.id
+                        }`}
+                      >
+                        View on The Session.org
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              </Hidden>
             </Grid>
           );
         })}

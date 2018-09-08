@@ -8,16 +8,17 @@ import {
   Hidden,
   Typography,
   withStyles
-} from "material-ui";
+} from "@material-ui/core";
 import React, { Component } from "react";
 
 import { Link } from "redux-little-router";
-import PrintIcon from "material-ui-icons/Print";
+import PrintIcon from "@material-ui/icons/Print";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
 import { fetchSet } from "../actions/sets";
 import he from "he";
+import { safeObj } from "../helpers/objectHelper";
 import store from "../store";
 
 const styles = theme => ({
@@ -74,10 +75,7 @@ class Set extends Component {
       );
     }
 
-    if (
-      this.props.currentSet === undefined ||
-      this.props.currentSet.name === undefined
-    ) {
+    if (!safeObj(this.props.currentSet).name) {
       return null;
     }
 
@@ -108,27 +106,29 @@ class Set extends Component {
                 <Grid item xs={12} md={8}>
                   <SheetMusic tune={setting} />
                 </Grid>
-                <Grid item xs={12} md={4} hidden={{ smDown: true }}>
-                  <Card className={classes.card} key={setting.id}>
-                    <CardContent>
-                      <Typography variant="subheading" gutterBottom>
-                        Setting {he.decode(setting.name)} ({setting.key})
-                      </Typography>
-                      <Typography variant="caption">
-                        by {setting.member.name} on {setting.date}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        component={Link}
-                        target="_blank"
-                        href={`${TUNE_URL}${setting.id}`}
-                      >
-                        View on The Session.org
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                <Hidden smDown>
+                  <Grid item xs={12} md={4}>
+                    <Card className={classes.card} key={setting.id}>
+                      <CardContent>
+                        <Typography variant="subheading" gutterBottom>
+                          Setting {he.decode(setting.name)} ({setting.key})
+                        </Typography>
+                        <Typography variant="caption">
+                          by {setting.member.name} on {setting.date}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button
+                          component={Link}
+                          target="_blank"
+                          href={`${TUNE_URL}${setting.id}`}
+                        >
+                          View on The Session.org
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Hidden>
               </Grid>
             );
           })}

@@ -1,4 +1,4 @@
-import { Drawer, Hidden, withStyles } from "material-ui";
+import { Drawer, Hidden, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 
 import DrawerItems from "./DrawerItems";

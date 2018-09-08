@@ -1,8 +1,8 @@
 import { AutoSizer, InfiniteLoader, List } from "react-virtualized";
-import { ListItem, ListItemIcon, ListItemText, withStyles } from "material-ui";
+import { ListItem, ListItemIcon, ListItemText, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 
-import MusicNote from "material-ui-icons/MusicNote";
+import MusicNote from "@material-ui/icons/MusicNote";
 import _isEmpty from "lodash/isEmpty";
 import classNames from "classnames";
 import { connect } from "react-redux";

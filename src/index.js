@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import App from "./App";
 import { Fragment } from "redux-little-router";
@@ -8,8 +8,8 @@ import Home from "./components/Home";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
-import green from "material-ui/colors/green";
-import red from "material-ui/colors/red";
+import green from "@material-ui/core/colors/green";
+import red from "@material-ui/core/colors/red";
 import registerServiceWorker from "./registerServiceWorker";
 import store from "./store";
 

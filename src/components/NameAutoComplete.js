@@ -1,9 +1,8 @@
-import { Paper, TextField, withStyles } from "material-ui";
+import { MenuItem, Paper, TextField, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 import { fetchUserId, updateCurrentUser } from "../actions/session";
 
 import Autosuggest from "react-autosuggest";
-import { MenuItem } from "material-ui/Menu";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import store from "../store";

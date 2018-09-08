@@ -1,16 +1,17 @@
 import "./App.css";
 
-import { Button, Hidden } from "material-ui";
+import { Button, Hidden } from "@material-ui/core";
 import React, { Component } from "react";
 
-import AppBar from "material-ui/AppBar";
+import AppBar from "@material-ui/core/AppBar";
 import DrawerResponsive from "./components/DrawerResponsive";
 import { Fragment } from "redux-little-router";
-import IconButton from "material-ui/IconButton";
-import MenuIcon from "material-ui-icons/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import { Link } from "redux-little-router";
+import MenuIcon from "@material-ui/icons/Menu";
 import NavDropDown from "./components/NavDropDown";
 import Sets from "./components/Sets";
-import Toolbar from "material-ui/Toolbar";
+import Toolbar from "@material-ui/core/Toolbar";
 import Tunebook from "./components/Tunebook";
 import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
@@ -20,7 +21,7 @@ import { redirect } from "./actions/router";
 import smallLogoUrl from "./images/logo-small.svg";
 import store from "./store";
 import { toggleDrawer } from "./actions/ui";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 class App extends Component {
   componentWillMount() {
