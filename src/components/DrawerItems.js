@@ -1,5 +1,10 @@
 import { AutoSizer, InfiniteLoader, List } from "react-virtualized";
-import { ListItem, ListItemIcon, ListItemText, withStyles } from "@material-ui/core";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  withStyles
+} from "@material-ui/core";
 import React, { Component } from "react";
 
 import MusicNote from "@material-ui/icons/MusicNote";
@@ -86,7 +91,7 @@ class DrawerItems extends Component {
         <ListItemIcon>
           <MusicNote />
         </ListItemIcon>
-        <ListItemText primary={itemName} />
+        <ListItemText primary={itemName} secondary={item.type} />
       </ListItem>
     );
   };
@@ -112,7 +117,7 @@ class DrawerItems extends Component {
                 height={height || 0}
                 onRowsRendered={onRowsRendered}
                 rowCount={meta.total}
-                rowHeight={isSets ? 80 : 60}
+                rowHeight={isSets ? 80 : 80}
                 rowRenderer={this._rowRenderer}
                 threshold={300}
                 width={width}

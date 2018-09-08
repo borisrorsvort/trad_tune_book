@@ -7,7 +7,6 @@ import AppBar from "@material-ui/core/AppBar";
 import DrawerResponsive from "./components/DrawerResponsive";
 import { Fragment } from "redux-little-router";
 import IconButton from "@material-ui/core/IconButton";
-import { Link } from "redux-little-router";
 import MenuIcon from "@material-ui/icons/Menu";
 import NavDropDown from "./components/NavDropDown";
 import Sets from "./components/Sets";

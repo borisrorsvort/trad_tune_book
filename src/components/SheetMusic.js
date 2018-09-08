@@ -28,18 +28,19 @@ const styles = theme => ({
 
 class SheetMusic extends Component {
   renderAbc(width) {
-    const props = {
+    const engraverParams = {
       paddingright: 0,
       paddingleft: 0,
       responsive: "resize"
     };
-
+    const parserParams = {};
+    const renderParams = {};
     abcjs.renderAbc(
       this.el,
       abcReformatter(this.props.tune, this.props.type, this.title()),
-      {},
-      props,
-      {}
+      parserParams,
+      engraverParams,
+      renderParams
     );
   }
 
@@ -63,8 +64,10 @@ class SheetMusic extends Component {
 
   title() {
     return this.props.tune.name
-      ? `${he.decode(this.props.tune.name)} (${this.props.tune.key})`
-      : this.props.tune.key;
+      ? `${he.decode(this.props.tune.name)} (${this.props.tune.key} - ${
+          this.props.tune.type
+        })`
+      : `${this.props.tune.key} - ${this.props.type}`;
   }
 
   componentWillReceiveProps(nextProps) {
