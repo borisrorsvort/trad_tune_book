@@ -1,5 +1,4 @@
 import { TUNE_URL } from "../constants/actionTypes";
-import { safeObj } from "./objectHelper";
 
 const tuneTypes = {
   jig: {
