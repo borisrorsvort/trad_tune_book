@@ -38,6 +38,11 @@ const theme = createMuiTheme({
       ...white
     },
     error: red
+  },
+  typography: {
+    display2: {
+      fontFamily: "'Kaushan Script', 'cursive'"
+    }
   }
 });
 
