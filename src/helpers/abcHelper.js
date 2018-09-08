@@ -59,7 +59,6 @@ export const abcReformatter = (tune, type, name) => {
   const timeSignature = `M: ${tuneTypes[tuneType].key}`;
   const tuneKey = `K: ${tune.key}`;
   const tempo = `Q: ${tuneTypes[tuneType].tempo}`;
-  console.log([tuneName, timeSignature, tempo, tuneKey, abc].join("\n"));
 
   return [tuneName, timeSignature, tempo, tuneKey, abc].join("\n");
 };

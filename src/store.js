@@ -1,18 +1,24 @@
-import thunk from "redux-thunk";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import {
   initializeCurrentLocation,
   routerForBrowser
 } from "redux-little-router";
+import { loadState, saveState } from "./helpers/localStorage";
+
+import LogRocket from "logrocket";
 import rootReducer from "./reducers/index";
 import { routes } from "./router";
-import { saveState, loadState } from "./helpers/localStorage";
+import thunk from "redux-thunk";
 
 const persistedState = loadState();
 
 const { reducer, middleware, enhancer } = routerForBrowser({ routes });
 
 const middlewares = [thunk, middleware];
+
+if (process.env.NODE_ENV !== "development") {
+  LogRocket.init("hh8o22/foinn");
+}
 
 const composeEnhancers =
   process.env.NODE_ENV === "development" &&
