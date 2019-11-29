@@ -48,6 +48,8 @@ class DrawerItems extends Component {
     const sets = this.props.type === "sets";
     const nextPage = this.props.meta.page + 1;
 
+    if (nextPage > this.props.meta.pages) return false;
+
     if (sets) {
       store.dispatch(fetchSets(this.props.userId, nextPage, true));
     } else {
