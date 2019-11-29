@@ -4,7 +4,8 @@ export const layoutStyles = theme => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
-    overflow: "hidden",
+    overflowX: "hidden",
+    overflowY: "auto",
     position: "relative",
     display: "flex",
     height: "100vh"
