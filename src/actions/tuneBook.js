@@ -38,19 +38,17 @@ export const fetchTuneBook = (
   dispatch(requestTuneBook());
   return axios
     .get(
-      `${
-        types.MEMBER_URL
-      }${memberId}/tunebook?format=json&page=${nextPage}&per_page=50`
+      `${types.MEMBER_URL}${memberId}/tunebook?format=json&page=${nextPage}&perpage=50`
     )
     .then(function(response) {
-      const { page, pages, per_page, total, tunes } = response.data;
+      const { page, pages, perpage, total, tunes } = response.data;
       dispatch(
         receiveTuneBook(
           tunes,
           {
             page: page,
             pages: pages,
-            per_page: per_page,
+            perpage: perpage,
             total: total
           },
           add

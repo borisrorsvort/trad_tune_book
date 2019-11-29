@@ -25,12 +25,15 @@ const styles = () => ({
 });
 
 class DrawerItems extends Component {
-  handleClick = item => _e => {
+  handleClick = () => _e => {
     store.dispatch(toggleDrawer(true));
   };
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     this.list && this.list.forceUpdateGrid();
+    if (nextProps.type !== this.props.type) {
+      document.getElementById("drawer").scrollTop = 0;
+    }
   }
 
   isActive(id) {
@@ -43,7 +46,7 @@ class DrawerItems extends Component {
 
   _loadMoreRows = () => {
     const sets = this.props.type === "sets";
-    const nextPage = this.props.meta.page++;
+    const nextPage = this.props.meta.page + 1;
 
     if (sets) {
       store.dispatch(fetchSets(this.props.userId, nextPage, true));
@@ -67,7 +70,6 @@ class DrawerItems extends Component {
         </div>
       );
     }
-    console.log(this.props.match);
 
     return (
       <ListItem
@@ -117,6 +119,7 @@ class DrawerItems extends Component {
                 rowRenderer={this._rowRenderer}
                 threshold={300}
                 width={width}
+                id="drawer"
               />
             )}
           </AutoSizer>

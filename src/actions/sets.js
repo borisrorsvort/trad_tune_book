@@ -34,19 +34,17 @@ export const fetchSets = (memberId, nextPage = 1, add = false) => dispatch => {
   dispatch(requestSets());
   return axios
     .get(
-      `${
-        types.MEMBER_URL
-      }${memberId}/sets?format=json&page=${nextPage}&per_page=50`
+      `${types.MEMBER_URL}${memberId}/sets?format=json&page=${nextPage}&perpage=50`
     )
     .then(function(response) {
-      const { page, pages, total, sets, per_page } = response.data;
+      const { page, pages, total, sets, perpage } = response.data;
       dispatch(
         receiveSets(
           sets,
           {
             page: page,
             pages: pages,
-            per_page: per_page,
+            perpage: perpage,
             total: total
           },
           add
