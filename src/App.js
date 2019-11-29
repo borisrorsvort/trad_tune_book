@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { Button, Hidden } from "@material-ui/core";
+import Help from "@material-ui/icons/Help";
 import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import DrawerResponsive from "./components/DrawerResponsive";
@@ -61,6 +62,14 @@ class App extends Component {
             <Button onClick={() => this.props.logout()} color="secondary">
               Change user
             </Button>
+            <IconButton
+              size="small"
+              component="a"
+              color="secondary"
+              href="mailto:accounts+foinn@rorsvort.com"
+            >
+              <Help />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <div className={classes.content}>
