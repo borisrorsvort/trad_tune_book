@@ -1,7 +1,7 @@
 import { Button, Grid, Paper, Typography, withStyles } from "@material-ui/core";
 
 import BodyClassName from "react-body-classname";
-import { Link } from "redux-little-router";
+import { Link } from "react-router-dom";
 import NameAutoComplete from "./NameAutoComplete";
 import React from "react";
 import { connect } from "react-redux";
@@ -76,7 +76,7 @@ function Home(props) {
             <NameAutoComplete userName={userName} />
             {userName && (
               <Button
-                href={`/tunebook/${currentUser.id}/tunes`}
+                to={`/tunebook/${currentUser.id}/tunes`}
                 className={classes.button}
                 component={Link}
                 variant="raised"

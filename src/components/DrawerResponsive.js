@@ -1,8 +1,7 @@
 import { Drawer, Hidden, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
-
+import { Route, withRouter, Switch } from "react-router-dom";
 import DrawerItems from "./DrawerItems";
-import { Fragment } from "redux-little-router";
 import { connect } from "react-redux";
 import { fetchSets } from "../actions/sets";
 import { fetchTuneBook } from "../actions/tuneBook";
@@ -12,7 +11,7 @@ import { toggleDrawer } from "../actions/ui";
 
 class DrawerResponsive extends Component {
   state = {
-    elementHeigh: 0
+    elementHeight: 0
   };
 
   componentDidMount() {
@@ -26,16 +25,23 @@ class DrawerResponsive extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
+    const {
+      classes,
+      folder,
+      match: { url }
+    } = this.props;
+    const items =
+      folder === "tunes" ? (
+        <DrawerItems type="tunes" height={this.state.elementHeight} />
+      ) : (
+        <DrawerItems type="sets" height={this.state.elementHeight} />
+      );
     const drawerContent = (
       <div>
-        <Fragment forRoute="/tunes">
-          <DrawerItems type="tunes" height={this.state.elementHeight} />
-        </Fragment>
-        <Fragment forRoute="/sets">
-          <DrawerItems type="sets" height={this.state.elementHeight} />
-        </Fragment>
+        <Switch>
+          <Route path={`${url}/:tuneId`}>{items}</Route>
+          <Route path={`${url}`}>{items}</Route>
+        </Switch>
       </div>
     );
 
@@ -80,6 +86,6 @@ const mapStateToProps = (state, props) => ({
   userId: state.session.currentUser.id
 });
 
-export default connect(mapStateToProps)(
-  withStyles(layoutStyles)(DrawerResponsive)
+export default withRouter(
+  connect(mapStateToProps)(withStyles(layoutStyles)(DrawerResponsive))
 );

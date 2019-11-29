@@ -6,7 +6,8 @@ export const layoutStyles = theme => ({
     zIndex: 1,
     overflow: "hidden",
     position: "relative",
-    display: "flex"
+    display: "flex",
+    height: "100vh"
   },
   appBar: {
     position: "fixed",

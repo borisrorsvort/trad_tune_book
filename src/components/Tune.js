@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 
-import { Link } from "redux-little-router";
+import { Link, withRouter } from "react-router-dom";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
@@ -99,9 +99,7 @@ class Tune extends Component {
                       <Button
                         component={Link}
                         target="_blank"
-                        href={`${TUNE_URL}${this.props.currentTune.id}#setting${
-                          setting.id
-                        }`}
+                        href={`${TUNE_URL}${this.props.currentTune.id}#setting${setting.id}`}
                       >
                         View on The Session.org
                       </Button>
@@ -117,10 +115,10 @@ class Tune extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  tuneId: state.router.params.tuneId,
+const mapStateToProps = (state, props) => ({
   currentTune: state.tunes.currentTune,
-  isFetching: state.tunes.currentTune.isFetching
+  isFetching: state.tunes.currentTune.isFetching,
+  tuneId: props.match.params.tuneId
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Tune));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Tune)));

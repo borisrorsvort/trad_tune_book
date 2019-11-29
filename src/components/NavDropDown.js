@@ -5,9 +5,8 @@ import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import { SIDEBAR_WIDTH } from "../constants/layout";
 import { connect } from "react-redux";
 import { currentSection } from "../helpers/routerHelper";
-import { redirect } from "../actions/router";
-import store from "../store";
 import { withStyles } from "@material-ui/core/styles";
+import { withRouter, Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -32,11 +31,6 @@ class NavDropDown extends Component {
     this.setState({ open: true, anchorEl: event.currentTarget });
   };
 
-  handleMenuItemClick = (event, index) => {
-    this.setState({ selectedIndex: index, open: false });
-    store.dispatch(redirect(this.menuOptions()[index].href));
-  };
-
   handleRequestClose = () => {
     this.setState({ open: false });
   };
@@ -46,20 +40,22 @@ class NavDropDown extends Component {
       {
         label: `Sets (${this.props.setsCount})`,
         shortLabel: "Sets",
-        href: `/tunebook/${this.props.currentUser.id}/sets`
+        to: `/tunebook/${this.props.currentUser.id}/sets`,
+        index: 0
       },
       {
         label: `Tunes (${this.props.tunesCount})`,
         shortLabel: "Tunes",
-        href: `/tunebook/${this.props.currentUser.id}/tunes`
+        to: `/tunebook/${this.props.currentUser.id}/tunes`,
+        index: 1
       }
     ];
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
     const selectedMenuItem = this.menuOptions().find(o =>
-      o.label.toLowerCase().includes(currentSection(this.props.router))
+      o.label.toLowerCase().includes(currentSection(location))
     );
 
     return (
@@ -87,8 +83,10 @@ class NavDropDown extends Component {
           {this.menuOptions().map((option, index) => (
             <MenuItem
               key={option.label}
-              selected={index === this.state.selectedIndex}
-              onClick={event => this.handleMenuItemClick(event, index)}
+              component={Link}
+              selected={index === selectedMenuItem.index}
+              to={option.to}
+              onClick={() => this.handleRequestClose()}
             >
               {option.label}
             </MenuItem>
@@ -101,11 +99,12 @@ class NavDropDown extends Component {
 
 const mapStateToProps = state => {
   return {
-    router: state.router,
     tunesCount: state.tunes.meta && state.tunes.meta.total,
     setsCount: state.sets.meta && state.sets.meta.total,
     currentUser: state.session.currentUser
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(NavDropDown));
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(NavDropDown))
+);

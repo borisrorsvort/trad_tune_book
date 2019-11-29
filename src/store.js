@@ -1,20 +1,13 @@
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import {
-  initializeCurrentLocation,
-  routerForBrowser
-} from "redux-little-router";
+import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import { loadState, saveState } from "./helpers/localStorage";
 
 import LogRocket from "logrocket";
 import rootReducer from "./reducers/index";
-import { routes } from "./router";
 import thunk from "redux-thunk";
 
 const persistedState = loadState();
 
-const { reducer, middleware, enhancer } = routerForBrowser({ routes });
-
-const middlewares = [thunk, middleware];
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV !== "development") {
   LogRocket.init("hh8o22/foinn");
@@ -30,15 +23,10 @@ const composeEnhancers =
     : compose;
 
 const store = createStore(
-  combineReducers({ router: reducer, ...rootReducer }),
+  combineReducers(rootReducer),
   persistedState,
-  composeEnhancers(enhancer, applyMiddleware(...middlewares))
+  composeEnhancers(applyMiddleware(...middlewares))
 );
-
-const initialLocation = store.getState().router;
-if (initialLocation) {
-  store.dispatch(initializeCurrentLocation(initialLocation));
-}
 
 store.subscribe(() => {
   saveState({

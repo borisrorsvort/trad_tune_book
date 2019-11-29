@@ -13,7 +13,7 @@ import {
 import React, { Component } from "react";
 
 import FileCopyIcon from "@material-ui/icons/FileCopyOutlined";
-import { Link } from "redux-little-router";
+import { Link, withRouter } from "react-router-dom";
 import PrintIcon from "@material-ui/icons/PrintOutlined";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
@@ -62,9 +62,7 @@ class Set extends Component {
   }
 
   render() {
-    const printUrl = `https://thesession.org/members/${
-      this.props.userId
-    }/sets/${this.props.setId}/sheetmusic?print=true`;
+    const printUrl = `https://thesession.org/members/${this.props.userId}/sets/${this.props.setId}/sheetmusic?print=true`;
     const { classes } = this.props;
 
     if (this.props.isFetching) {
@@ -146,11 +144,11 @@ class Set extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  setId: state.router.params.setId,
+const mapStateToProps = (state, props) => ({
+  setId: props.match.params.setId,
   currentSet: state.sets.currentSet,
   userId: state.session.currentUser.id,
   isFetching: state.sets.currentSet.isFetching
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Set));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Set)));

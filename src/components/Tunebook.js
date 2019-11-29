@@ -1,19 +1,24 @@
 import EmptyState from "./EmptyState";
-import { Fragment } from "redux-little-router";
+import { Route } from "react-router-dom";
 import React from "react";
 import Tune from "./Tune";
-
+import { withRouter, Switch } from "react-router-dom";
 function Tunebook(props) {
+  const {
+    match: { url }
+  } = props;
   return (
     <div>
-      <Fragment forRoute="/:tuneId">
-        <Tune />
-      </Fragment>
-      <Fragment forRoute="/">
-        <EmptyState />
-      </Fragment>
+      <Switch>
+        <Route path={`${url}/:tuneId`}>
+          <Tune />
+        </Route>
+        <Route path={`${url}`}>
+          <EmptyState />
+        </Route>
+      </Switch>
     </div>
   );
 }
 
-export default Tunebook;
+export default withRouter(Tunebook);

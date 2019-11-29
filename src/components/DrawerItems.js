@@ -10,14 +10,13 @@ import React, { Component } from "react";
 import MusicNote from "@material-ui/icons/MusicNote";
 import _isEmpty from "lodash/isEmpty";
 import classNames from "classnames";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSets } from "../actions/sets";
 import { fetchTuneBook } from "../actions/tuneBook";
 import he from "he";
-import { redirect } from "../actions/router";
 import store from "../store";
 import { toggleDrawer } from "../actions/ui";
-import { tuneOrSetUrl } from "../helpers/routerHelper";
 
 const styles = () => ({
   activeListItem: {
@@ -27,12 +26,6 @@ const styles = () => ({
 
 class DrawerItems extends Component {
   handleClick = item => _e => {
-    const href = tuneOrSetUrl(
-      item.id,
-      this.props.type,
-      this.props.currentUser.id
-    );
-    store.dispatch(redirect(href));
     store.dispatch(toggleDrawer(true));
   };
 
@@ -41,11 +34,7 @@ class DrawerItems extends Component {
   }
 
   isActive(id) {
-    const {
-      router: { params }
-    } = this.props;
-    const itemId = id.toString();
-    return params.setId === itemId || params.tuneId === itemId;
+    return id === parseInt(this.props.match.params.tuneId, 10);
   }
 
   _isRowLoaded = ({ index }) => {
@@ -78,15 +67,22 @@ class DrawerItems extends Component {
         </div>
       );
     }
+    console.log(this.props.match);
+
     return (
       <ListItem
         style={style}
         key={index}
+        component={Link}
         className={classNames({
           [`${this.props.classes.activeListItem}`]: this.isActive(item.id)
         })}
         button
-        onClick={this.handleClick(item)}
+        to={
+          this.props.match.params.tuneId
+            ? `${item.id}`
+            : `${this.props.match.url}/${item.id}`
+        }
       >
         <ListItemIcon>
           <MusicNote />
@@ -143,4 +139,6 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(DrawerItems));
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(DrawerItems))
+);

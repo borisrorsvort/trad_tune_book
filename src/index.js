@@ -1,9 +1,8 @@
 import "./index.css";
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import App from "./App";
-import { Fragment } from "redux-little-router";
 import Home from "./components/Home";
 import { Provider } from "react-redux";
 import React from "react";
@@ -49,14 +48,16 @@ const theme = createMuiTheme({
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <Fragment forRoute="/">
+      <Router>
         <div>
-          <Fragment forRoute="/">
+          <Route exact path="/">
             <Home />
-          </Fragment>
-          <App />
+          </Route>
+          <Route path="/tunebook/:userId/:folder">
+            <App />
+          </Route>
         </div>
-      </Fragment>
+      </Router>
     </Provider>
   </MuiThemeProvider>
 );
