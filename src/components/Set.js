@@ -13,7 +13,7 @@ import {
 import React, { Component } from "react";
 
 import FileCopyIcon from "@material-ui/icons/FileCopyOutlined";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PrintIcon from "@material-ui/icons/PrintOutlined";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
@@ -125,7 +125,7 @@ class Set extends Component {
                       </CardContent>
                       <CardActions>
                         <Button
-                          component={Link}
+                          component="a"
                           target="_blank"
                           href={`${TUNE_URL}${setting.id}`}
                         >
