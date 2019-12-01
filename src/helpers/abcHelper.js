@@ -58,9 +58,10 @@ export const abcReformatter = (tune, type, name) => {
   const tuneName = `T: ${name}`;
   const timeSignature = `M: ${tuneTypes[tuneType].key}`;
   const tuneKey = `K: ${tune.key}`;
+  const noteLength = `L: 1/8`;
   const tempo = `Q: ${tuneTypes[tuneType].tempo}`;
 
-  return [tuneName, timeSignature, tempo, tuneKey, abc].join("\n");
+  return [tuneName, timeSignature, tempo, noteLength, tuneKey, abc].join("\n");
 };
 
 export const printUrl = tuneId => {
