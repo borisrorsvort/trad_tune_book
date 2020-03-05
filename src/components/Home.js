@@ -62,7 +62,7 @@ function Home(props) {
         </Grid>
         <Grid item xs={12} md={4} className={classes.login}>
           <Paper className={classes.paper} elevation={8}>
-            <Typography variant="subheading" gutterBottom>
+            <Typography variant="subtitle1" gutterBottom>
               To start, select your{" "}
               <a
                 href="https://thesession.org"

@@ -33,7 +33,8 @@ const styles = theme => ({
   title: {
     textAlign: "center",
     marginTop: theme.spacing.unit * 2,
-    fontWeight: 100
+    fontWeight: 100,
+    opacity: 0.7
   }
 });
 
@@ -73,7 +74,7 @@ class Tune extends Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} md={8}>
-            <Typography className={this.props.classes.title} variant="display2">
+            <Typography className={this.props.classes.title} variant="h1">
               {he.decode(this.props.currentTune.name)}
             </Typography>
           </Grid>
@@ -88,7 +89,7 @@ class Tune extends Component {
                 <Grid item md={4}>
                   <Card className={classes.card} key={setting.id}>
                     <CardContent>
-                      <Typography variant="subheading" gutterBottom>
+                      <Typography variant="subtitle1" gutterBottom>
                         Setting #{setting.id} ({setting.key})
                       </Typography>
                       <Typography variant="caption">
@@ -97,7 +98,7 @@ class Tune extends Component {
                     </CardContent>
                     <CardActions>
                       <Button
-                        component={Link}
+                        component={"a"}
                         target="_blank"
                         href={`${TUNE_URL}${this.props.currentTune.id}#setting${setting.id}`}
                       >

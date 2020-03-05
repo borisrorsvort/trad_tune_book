@@ -40,6 +40,7 @@ const styles = theme => ({
     textAlign: "center",
     marginTop: theme.spacing.unit * 2,
     fontWeight: 100,
+    opacity: 0.7,
     [theme.breakpoints.down("sm")]: {
       fontSize: "21px"
     }
@@ -83,10 +84,7 @@ class Set extends Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} md={8}>
-            <Typography
-              className={this.props.classes.mainTitle}
-              variant="display2"
-            >
+            <Typography className={this.props.classes.mainTitle} variant="h1">
               {he.decode(this.props.currentSet.name)}
             </Typography>
             <Hidden smDown>
@@ -116,7 +114,7 @@ class Set extends Component {
                   <Grid item xs={12} md={4}>
                     <Card className={classes.card} key={setting.id}>
                       <CardContent>
-                        <Typography variant="subheading" gutterBottom>
+                        <Typography variant="subtitle1" gutterBottom>
                           Setting {he.decode(setting.name)} ({setting.key})
                         </Typography>
                         <Typography variant="caption">
@@ -125,7 +123,7 @@ class Set extends Component {
                       </CardContent>
                       <CardActions>
                         <Button
-                          component="a"
+                          component={"a"}
                           target="_blank"
                           href={`${TUNE_URL}${setting.id}`}
                         >

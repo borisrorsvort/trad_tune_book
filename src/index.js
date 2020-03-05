@@ -39,8 +39,10 @@ const theme = createMuiTheme({
     error: red
   },
   typography: {
-    display2: {
-      fontFamily: "'Kaushan Script', 'cursive'"
+    useNextVariants: true,
+    h1: {
+      fontFamily: "'Kaushan Script', 'cursive'",
+      fontSize: "2.8125rem"
     }
   }
 });
