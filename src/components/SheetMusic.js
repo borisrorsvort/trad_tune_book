@@ -4,7 +4,7 @@ import { abcReformatter } from "../helpers/abcHelper";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 //import abcjs from "exports-loader?ABCJS!script-loader!../../node_modules/abcjs/bin/abcjs_basic_latest-min.js";
 import abcjs from "abcjs";
-import abcjsMidi from "abcjs/midi";
+// import abcjsMidi from "abcjs/midi";
 import he from "he";
 import reactDimensions from "react-dimensions";
 import { withStyles } from "@material-ui/core";
@@ -44,23 +44,23 @@ class SheetMusic extends Component {
     );
   }
 
-  renderMidi() {
-    abcjsMidi.renderMidi(
-      this.midi,
-      abcReformatter(this.props.tune, this.props.type, this.title()),
-      {},
-      {
-        inlineControls: {
-          selectionToggle: false,
-          loopToggle: false,
-          standard: true,
-          tempo: false,
-          startPlaying: false
-        }
-      },
-      {}
-    );
-  }
+  // renderMidi() {
+  //   abcjsMidi.renderMidi(
+  //     this.midi,
+  //     abcReformatter(this.props.tune, this.props.type, this.title()),
+  //     {},
+  //     {
+  //       inlineControls: {
+  //         selectionToggle: false,
+  //         loopToggle: false,
+  //         standard: true,
+  //         tempo: false,
+  //         startPlaying: false
+  //       }
+  //     },
+  //     {}
+  //   );
+  // }
 
   title() {
     return this.props.tune.name
@@ -80,14 +80,14 @@ class SheetMusic extends Component {
 
   componentDidMount() {
     this.renderAbc(this.props.containerWidth);
-    this.renderMidi(this.props.containerWidth);
+    // this.renderMidi(this.props.containerWidth);
   }
 
+  // <div ref={el => (this.midi = el)} />
   render() {
     return (
       <div className={this.props.classes.root}>
         <div ref={el => (this.el = el)} />
-        <div ref={el => (this.midi = el)} />
       </div>
     );
   }
