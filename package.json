@@ -26,7 +26,7 @@
     "script-loader": "^0.7.2",
     "source-map-explorer": "^1.5.0"
   },
-  "homepage": "/",
+  "homepage": "https://www.foinn.me",
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
@@ -48,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
