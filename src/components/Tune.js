@@ -1,16 +1,16 @@
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CircularProgress,
   Grid,
-  Hidden,
   Typography,
-  withStyles
+  withStyles,
+  Dialog,
+  Slide,
+  AppBar,
+  IconButton,
+  Toolbar,
+  Link
 } from "@material-ui/core";
-import React, { Component } from "react";
-
+import React, { useEffect } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { withRouter } from "react-router-dom";
 import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
@@ -18,102 +18,87 @@ import { connect } from "react-redux";
 import { fetchTune } from "../actions/tuneBook";
 import he from "he";
 import store from "../store";
+import PageLoading from "./PageLoading";
 
-const styles = theme => ({
-  card: {
-    margin: `${theme.spacing.unit * 10}px 0`
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const styles = (theme) => ({
+  root: {
+    marginTop: 100
   },
   settings: theme.mixins.gutters({
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit
+    paddingTop: theme.spacing(),
+    paddingBottom: theme.spacing()
   }),
-  flex: {
-    flex: 1
-  },
   title: {
-    textAlign: "center",
-    marginTop: theme.spacing.unit * 2,
-    fontWeight: 100,
-    opacity: 0.7
+    marginLeft: theme.spacing(2),
+    flex: 1
   }
 });
 
-class Tune extends Component {
-  componentDidMount() {
-    store.dispatch(fetchTune(this.props.tuneId));
-  }
+function Tune(props) {
+  useEffect(() => {
+    props.tuneId && store.dispatch(fetchTune(props.tuneId));
+  }, [props.tuneId]);
 
-  componentWillReceiveProps(nextProps) {
-    const newTuneId = nextProps.tuneId;
-    if (this.props.tuneId !== newTuneId) {
-      store.dispatch(fetchTune(newTuneId));
-    }
-  }
+  const tuneLoaded = props.currentTune?.name !== undefined;
 
-  render() {
-    const { classes } = this.props;
+  const handleClose = () => props.history.push(props.referrer);
 
-    if (this.props.isFetching) {
-      return (
-        <Grid container spacing={24}>
-          <Grid item xs={12} md={8}>
-            <CircularProgress />
+  return (
+    <Dialog
+      fullScreen
+      open={!!props.tuneId}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+    >
+      <AppBar className={props.classes.appBar}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            onClick={handleClose}
+            aria-label="close"
+            color="inherit"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6" className={props.classes.title}>
+            {tuneLoaded && he.decode(props.currentTune.name)}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      {!tuneLoaded && <PageLoading />}
+      {tuneLoaded && (
+        <Grid container justify="center" className={props.classes.root}>
+          <Grid item xs={12} md={6}>
+            {props.currentTune.settings.map((setting, i) => {
+              return (
+                <div key={`${setting.id}-${i}`}>
+                  <Typography variant="h5" gutterBottom>
+                    Setting #{setting.id}
+                  </Typography>
+                  <Typography variant="body2">
+                    by {setting.member.name} on {setting.date} —{" "}
+                    <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      color="primary"
+                      href={`${TUNE_URL}${props.currentTune.id}#setting${setting.id}`}
+                    >
+                      View on The Session.org
+                    </Link>
+                  </Typography>
+                  <SheetMusic tune={setting} type={props.currentTune.type} />
+                </div>
+              );
+            })}
           </Grid>
         </Grid>
-      );
-    }
-
-    if (
-      this.props.currentTune === undefined ||
-      this.props.currentTune.name === undefined
-    ) {
-      return null;
-    }
-
-    return (
-      <div>
-        <Grid container spacing={24}>
-          <Grid item xs={12} md={8}>
-            <Typography className={this.props.classes.title} variant="h1">
-              {he.decode(this.props.currentTune.name)}
-            </Typography>
-          </Grid>
-        </Grid>
-        {this.props.currentTune.settings.map(setting => {
-          return (
-            <Grid container spacing={24} key={setting.id}>
-              <Grid item xs={12} md={8}>
-                <SheetMusic tune={setting} type={this.props.currentTune.type} />
-              </Grid>
-              <Hidden smDown>
-                <Grid item md={4}>
-                  <Card className={classes.card} key={setting.id}>
-                    <CardContent>
-                      <Typography variant="subtitle1" gutterBottom>
-                        Setting #{setting.id} ({setting.key})
-                      </Typography>
-                      <Typography variant="caption">
-                        by {setting.member.name} on {setting.date}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        component={"a"}
-                        target="_blank"
-                        href={`${TUNE_URL}${this.props.currentTune.id}#setting${setting.id}`}
-                      >
-                        View on The Session.org
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              </Hidden>
-            </Grid>
-          );
-        })}
-      </div>
-    );
-  }
+      )}
+    </Dialog>
+  );
 }
 
 const mapStateToProps = (state, props) => ({

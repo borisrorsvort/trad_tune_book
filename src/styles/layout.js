@@ -1,6 +1,6 @@
 import { SIDEBAR_WIDTH } from "../constants/layout";
 
-export const layoutStyles = theme => ({
+export const layoutStyles = (theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
@@ -18,6 +18,9 @@ export const layoutStyles = theme => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
+  title: {
+    marginLeft: theme.spacing(2)
+  },
   flex: {
     flex: 1,
     display: "flex",
@@ -34,7 +37,7 @@ export const layoutStyles = theme => ({
     zIndex: theme.zIndex.drawer - 1,
     width: SIDEBAR_WIDTH,
     top: 0,
-    left: 0,
+    right: 0,
     height: "100vh",
     position: "fixed",
     overflowY: "auto"
@@ -51,13 +54,13 @@ export const layoutStyles = theme => ({
     transform: "translateY(-2px)"
   },
   greetings: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(),
     opacity: 0.5,
     display: "inline-block"
   },
   content: {
     width: "100%",
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -67,8 +70,7 @@ export const layoutStyles = theme => ({
   },
   [theme.breakpoints.up("md")]: {
     content: {
-      marginTop: 64,
-      marginLeft: SIDEBAR_WIDTH
+      marginTop: 64
     },
     drawerPaper: {
       height: "calc(100vh - 64px)",

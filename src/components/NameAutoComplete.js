@@ -6,15 +6,16 @@ import Autosuggest from "react-autosuggest";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import store from "../store";
+import { withRouter } from "react-router-dom";
 
-const styles = theme => ({
+const styles = (theme) => ({
   suggestionsContainer: {
     position: "relative",
     zIndex: 999
   },
   suggestionsContainerOpen: {
     position: "absolute",
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
     left: 0,
     right: 0
   },
@@ -39,6 +40,7 @@ function renderInput(inputProps) {
       className={classes.textField}
       autoFocus={autoFocus}
       value={value}
+      variant="outlined"
       inputRef={ref}
       styles={{
         width: "100%"
@@ -83,14 +85,18 @@ function renderSuggestionsContainer(options) {
   );
 }
 
-function getSuggestionValue(suggestion) {
+const onSuggestionSelected = ({ suggestion }, history) => {
   store.dispatch(updateCurrentUser(suggestion));
+  history.push(`/tunebook/${suggestion.id}/tunes`);
+};
+
+function getSuggestionValue(suggestion) {
   return suggestion.name;
 }
 
 class NameAutoComplete extends Component {
   state = {
-    value: this.props.userName,
+    value: this.props.userName || "",
     selectedSuggestion: {},
     suggestions: []
   };
@@ -99,7 +105,7 @@ class NameAutoComplete extends Component {
     if (value.length < 4) {
       return false;
     } else {
-      fetchUserId(value).then(data => {
+      fetchUserId(value).then((data) => {
         if (data !== undefined) {
           this.setState({ suggestions: data.data.members });
         } else {
@@ -120,7 +126,7 @@ class NameAutoComplete extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     return (
       <Autosuggest
         theme={{
@@ -133,6 +139,9 @@ class NameAutoComplete extends Component {
         suggestions={this.state.suggestions}
         onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+        onSuggestionSelected={(_e, suggestion) =>
+          onSuggestionSelected(suggestion, history)
+        }
         renderSuggestionsContainer={renderSuggestionsContainer}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
@@ -148,4 +157,4 @@ class NameAutoComplete extends Component {
   }
 }
 
-export default withStyles(styles)(NameAutoComplete);
+export default withStyles(styles)(withRouter(NameAutoComplete));

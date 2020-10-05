@@ -1,4 +1,11 @@
-import { Button, Grid, Paper, Typography, withStyles } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Paper,
+  Typography,
+  withStyles,
+  Link as AnchorLink
+} from "@material-ui/core";
 
 import BodyClassName from "react-body-classname";
 import { Link } from "react-router-dom";
@@ -8,7 +15,7 @@ import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
 import logoUrl from "../images/logo.svg";
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     height: "100vh"
   },
@@ -18,7 +25,7 @@ const styles = theme => ({
   },
   button: {
     color: "white",
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   home: {
     background: theme.palette.primary[500]
@@ -47,7 +54,6 @@ function Home(props) {
     <BodyClassName className={classes.home}>
       <Grid
         container
-        spacing={24}
         alignItems="center"
         justify="center"
         direction="row"
@@ -64,13 +70,14 @@ function Home(props) {
           <Paper className={classes.paper} elevation={8}>
             <Typography variant="subtitle1" gutterBottom>
               To start, select your{" "}
-              <a
+              <AnchorLink
                 href="https://thesession.org"
+                color="primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 TheSession.org
-              </a>{" "}
+              </AnchorLink>{" "}
               user name.
             </Typography>
             <NameAutoComplete userName={userName} />
@@ -79,7 +86,7 @@ function Home(props) {
                 to={`/tunebook/${currentUser.id}/tunes`}
                 className={classes.button}
                 component={Link}
-                variant="raised"
+                variant="contained"
                 color="primary"
               >
                 Open tunebook
@@ -92,7 +99,7 @@ function Home(props) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
   userName: !isEmpty(state.session.currentUser)
     ? state.session.currentUser.name
