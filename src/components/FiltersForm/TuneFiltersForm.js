@@ -51,7 +51,7 @@ function TuneFiltersForm(props) {
         fullWidth
         className={classes.formControl}
       />
-      {folder == "tunes" && (
+      {folder === "tunes" && (
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Type</FormLabel>
           <RadioGroup

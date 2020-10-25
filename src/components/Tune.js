@@ -13,12 +13,12 @@ import React, { useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { withRouter } from "react-router-dom";
 import SheetMusic from "./SheetMusic";
-import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
 import { fetchTune } from "../actions/tuneBook";
 import he from "he";
 import store from "../store";
 import PageLoading from "./PageLoading";
+import TuneDialogNav from "./TuneDialogNav";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,12 +68,13 @@ function Tune(props) {
           <Typography variant="h6" className={props.classes.title}>
             {tuneLoaded && he.decode(props.currentTune.name)}
           </Typography>
+          <TuneDialogNav tuneId={props.currentTune.id} folder="tunes" />
         </Toolbar>
       </AppBar>
       {!tuneLoaded && <PageLoading />}
       {tuneLoaded && (
         <Grid container justify="center" className={props.classes.root}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={8} lg={6}>
             {props.currentTune.settings.map((setting, i) => {
               return (
                 <div key={`${setting.id}-${i}`}>
@@ -86,7 +87,7 @@ function Tune(props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       color="primary"
-                      href={`${TUNE_URL}${props.currentTune.id}#setting${setting.id}`}
+                      href={setting.url}
                     >
                       View on The Session.org
                     </Link>

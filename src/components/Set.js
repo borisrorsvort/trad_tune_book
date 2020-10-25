@@ -13,12 +13,12 @@ import React, { useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { withRouter } from "react-router-dom";
 import SheetMusic from "./SheetMusic";
-import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
 import { fetchSet } from "../actions/sets";
 import he, { decode } from "he";
 import store from "../store";
 import PageLoading from "./PageLoading";
+import TuneDialogNav from "./TuneDialogNav";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -46,7 +46,7 @@ function Set(props) {
   const setLoaded = props.currentSet?.name !== undefined;
 
   const handleClose = () => props.history.push(props.referrer);
-
+  console.log(props.currentSet.settings);
   return (
     <Dialog
       fullScreen
@@ -67,6 +67,7 @@ function Set(props) {
           <Typography variant="h6" className={props.classes.title}>
             {setLoaded && he.decode(props.currentSet.name)}
           </Typography>
+          <TuneDialogNav tuneId={props.currentSet.id} folder="sets" />
         </Toolbar>
       </AppBar>
       {!setLoaded && <PageLoading />}
@@ -85,7 +86,7 @@ function Set(props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       color="primary"
-                      href={`${TUNE_URL}${props.currentSet.id}#setting${setting.id}`}
+                      href={setting.url}
                     >
                       View on The Session.org
                     </Link>

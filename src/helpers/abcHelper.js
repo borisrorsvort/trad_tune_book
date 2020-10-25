@@ -1,4 +1,3 @@
-import { TUNE_URL } from "../constants/actionTypes";
 import he from "he";
 
 export const tuneTypes = {
@@ -45,6 +44,10 @@ export const tuneTypes = {
   mazurka: {
     key: "3/4",
     tempo: "140"
+  },
+  march: {
+    key: "4/4",
+    tempo: "140"
   }
 };
 
@@ -65,8 +68,4 @@ export const abcReformatter = (tune, type, name) => {
   return he.decode(
     [start, tuneName, timeSignature, tempo, noteLength, tuneKey, abc].join("\n")
   );
-};
-
-export const printUrl = (tuneId) => {
-  return `${TUNE_URL}${tuneId}/${tuneId}?print=true`;
 };

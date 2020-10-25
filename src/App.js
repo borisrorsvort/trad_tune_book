@@ -51,7 +51,7 @@ function App(props) {
     ]).finally(() => {
       closeSnackbar(snack);
     });
-  }, [cookies, setCookie, userId, fetchSets, fetchTuneBook]);
+  }, [cookies, setCookie, userId, closeSnackbar, enqueueSnackbar, dispatch]);
 
   const handleDrawerToggle = () => {
     props.toggleDrawer();
