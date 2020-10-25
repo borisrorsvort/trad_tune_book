@@ -4,7 +4,8 @@ import {
   Paper,
   Typography,
   withStyles,
-  Link as AnchorLink
+  Link as AnchorLink,
+  Box
 } from "@material-ui/core";
 
 import BodyClassName from "react-body-classname";
@@ -67,32 +68,34 @@ function Home(props) {
           </h1>
         </Grid>
         <Grid item xs={12} md={4} className={classes.login}>
-          <Paper className={classes.paper} elevation={8}>
-            <Typography variant="subtitle1" gutterBottom>
-              To start, select your{" "}
-              <AnchorLink
-                href="https://thesession.org"
-                color="primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                TheSession.org
-              </AnchorLink>{" "}
-              user name.
-            </Typography>
-            <NameAutoComplete userName={userName} />
-            {userName && (
-              <Button
-                to={`/tunebook/${currentUser.id}/tunes`}
-                className={classes.button}
-                component={Link}
-                variant="contained"
-                color="primary"
-              >
-                Open tunebook
-              </Button>
-            )}
-          </Paper>
+          <Box p={2}>
+            <Paper className={classes.paper} elevation={8}>
+              <Typography variant="subtitle1" gutterBottom>
+                Find your{" "}
+                <AnchorLink
+                  href="https://thesession.org"
+                  color="primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  TheSession.org
+                </AnchorLink>{" "}
+                profile:
+              </Typography>
+              <NameAutoComplete userName={userName} />
+              {userName && (
+                <Button
+                  to={`/tunebook/${currentUser.id}/tunes`}
+                  className={classes.button}
+                  component={Link}
+                  variant="contained"
+                  color="primary"
+                >
+                  Open tunebook
+                </Button>
+              )}
+            </Paper>
+          </Box>
         </Grid>
       </Grid>
     </BodyClassName>
