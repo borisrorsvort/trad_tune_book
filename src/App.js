@@ -3,10 +3,9 @@ import Joyride from "react-joyride";
 
 import React, { useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Sets from "./components/Sets";
 
 import Tunebook from "./components/Tunebook";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { layoutStyles } from "./styles/layout";
 import { logout } from "./actions/session";
 
@@ -17,9 +16,42 @@ import NavDrawer from "./components/NavDrawer";
 import { steps, stepsStyles } from "./helpers/welcomeTour";
 import { useCookies } from "react-cookie";
 import AppBarContent from "./components/AppBarContent";
+import { fetchSets } from "./actions/sets";
+import { fetchTuneBook } from "./actions/tuneBook";
+import { CircularProgress } from "@material-ui/core";
+import { withSnackbar } from "notistack";
 
 function App(props) {
   const [cookies, setCookie] = useCookies();
+  const dispatch = useDispatch();
+
+  const {
+    classes,
+    showDrawer,
+    enqueueSnackbar,
+    closeSnackbar,
+    match: {
+      params: { folder, userId }
+    }
+  } = props;
+
+  useEffect(() => {
+    if (!cookies.hadConfigTour) {
+      setCookie("hadConfigTour", true);
+    }
+    const snack = enqueueSnackbar("Syncing tunebook!", {
+      variant: "success",
+      persist: true,
+      action: <CircularProgress size={20} />
+    });
+
+    Promise.all([
+      dispatch(fetchSets(userId)),
+      dispatch(fetchTuneBook(userId))
+    ]).finally(() => {
+      closeSnackbar(snack);
+    });
+  }, [cookies, setCookie, userId, fetchSets, fetchTuneBook]);
 
   const handleDrawerToggle = () => {
     props.toggleDrawer();
@@ -28,19 +60,6 @@ function App(props) {
     props.toggleFilters();
   };
 
-  useEffect(() => {
-    if (!cookies.hadConfigTour) {
-      setCookie("hadConfigTour", true);
-    }
-  }, [cookies, setCookie]);
-
-  const {
-    classes,
-    showDrawer,
-    match: {
-      params: { folder, userId }
-    }
-  } = props;
   return (
     <div className={classes.root}>
       <Joyride
@@ -60,11 +79,7 @@ function App(props) {
       </AppBar>
       <NavDrawer onClose={handleDrawerToggle} open={showDrawer} />
       <div className={classes.content}>
-        {folder === "tunes" ? (
-          <Tunebook userId={userId} />
-        ) : (
-          <Sets userId={userId} />
-        )}
+        <Tunebook userId={userId} folder={folder} />
       </div>
     </div>
   );
@@ -76,6 +91,6 @@ const mapStateToProps = (state) => ({
 
 export default withRouter(
   connect(mapStateToProps, { logout, toggleFilters, toggleDrawer })(
-    withStyles(layoutStyles)(App)
+    withSnackbar(withStyles(layoutStyles)(App))
   )
 );

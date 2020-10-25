@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 import Fuse from "fuse.js";
-import React, { useEffect } from "react";
+import React from "react";
 import { fetchTuneBook } from "../actions/tuneBook";
 import { connect } from "react-redux";
 import Tune from "./Tune";
@@ -10,41 +10,16 @@ import PageLoading from "./PageLoading";
 import FiltersDrawer from "./FiltersDrawer";
 import TuneFiltersForm from "./FiltersForm/TuneFiltersForm";
 import { withSnackbar } from "notistack";
-import { CircularProgress } from "@material-ui/core";
 import { fuseoptions } from "../helpers/searchHelper";
+import { fetchSets } from "../actions/sets";
 
 function Tunebook(props) {
   const {
     match: { url },
     items,
-    userId,
     isFetching,
-    userChanged,
-    fetchTuneBook,
-    filters,
-    enqueueSnackbar,
-    closeSnackbar
+    filters
   } = props;
-
-  useEffect(() => {
-    if (userChanged || !items.length) {
-      const snack = enqueueSnackbar("Syncing tunebook!", {
-        variant: "success",
-        persist: true,
-        action: <CircularProgress />
-      });
-      fetchTuneBook(userId, snack).finally(() => {
-        closeSnackbar(snack);
-      });
-    }
-  }, [
-    userId,
-    items.length,
-    userChanged,
-    fetchTuneBook,
-    enqueueSnackbar,
-    closeSnackbar
-  ]);
 
   const fuse = new Fuse(items, fuseoptions);
   let filteredTunes = filters.search
@@ -69,13 +44,13 @@ function Tunebook(props) {
 }
 const mapStateToProps = (state, props) => {
   return {
-    items: state.tunes.tunes,
+    items: props.folder === "tunes" ? state.tunes.tunes : state.sets.sets,
     isFetching: state.tunes.isFetching,
     userChanged: state.session.currentUser.id !== props.userId,
     filters: state.ui.tuneFilters
   };
 };
 
-export default connect(mapStateToProps, { fetchTuneBook })(
+export default connect(mapStateToProps, { fetchTuneBook, fetchSets })(
   withSnackbar(withRouter(Tunebook))
 );
