@@ -34,12 +34,10 @@ export const layoutStyles = (theme) => ({
     display: "none"
   },
   drawerPaper: {
-    zIndex: theme.zIndex.drawer - 1,
     width: SIDEBAR_WIDTH,
     top: 0,
     right: 0,
     height: "100vh",
-    position: "fixed",
     overflowY: "auto"
   },
   drawerHeader: {

@@ -34,15 +34,15 @@ function TuneList(props) {
   return (
     <List className={classes.root} id="tunesList">
       {items.map((item, index) => (
-        <Fragment key={`${index}-item.id`}>
+        <li key={`${index}-item.id`}>
           <ListItem component={Link} button to={`${url}/${item.id}`}>
             <ListItemIcon>
               {isTune ? <MusicNote /> : <LibraryMusic />}
             </ListItemIcon>
             <ListItemText primary={itemName(item)} secondary={item.type} />
           </ListItem>
-          <Divider variant="inset" component="li" />
-        </Fragment>
+          <Divider variant="inset" />
+        </li>
       ))}
     </List>
   );
