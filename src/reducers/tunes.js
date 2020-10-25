@@ -1,4 +1,5 @@
 import {
+  LOGOUT,
   RECEIVE_TUNE,
   RECEIVE_TUNEBOOK,
   REQUEST_TUNE,
@@ -17,6 +18,11 @@ function tunes(
   action
 ) {
   switch (action.type) {
+    case LOGOUT:
+      return {
+        ...state,
+        tunes: []
+      };
     case REQUEST_TUNEBOOK:
       return Object.assign({}, state, {
         isFetching: true

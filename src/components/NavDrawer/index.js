@@ -9,9 +9,10 @@ import Home from "@material-ui/icons/Home";
 import ListItemText from "@material-ui/core/ListItemText";
 import LibraryMusic from "@material-ui/icons/LibraryMusic";
 import MusicNote from "@material-ui/icons/MusicNote";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Divider } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+import { logout } from "../../actions/session";
 
 const useStyles = makeStyles({
   list: {
@@ -24,13 +25,9 @@ const useStyles = makeStyles({
 
 function NavDrawer(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const items = [
-    {
-      label: `Change user`,
-      to: `/`,
-      icon: <Home />
-    },
     {
       label: `Sets ${!!props.setsCount ? "(" + props.setsCount + ")" : ""}`,
       to: `/tunebook/${props.currentUser.id}/sets`,
@@ -48,9 +45,21 @@ function NavDrawer(props) {
     props.history.push(item.to);
   };
 
+  const handleLogout = () => {
+    props.onClose();
+    dispatch(logout());
+    props.history.push("/");
+  };
+
   const list = () => (
     <div role="presentation" className={classes.list}>
       <List>
+        <ListItem button key="Change user" onClick={handleLogout}>
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary="Change user" />
+        </ListItem>
         {items.map((item) => (
           <ListItem button key={item.label} onClick={() => handleClick(item)}>
             <ListItemIcon>{item.icon}</ListItemIcon>

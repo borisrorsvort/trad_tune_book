@@ -146,7 +146,7 @@ class NameAutoComplete extends Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: false,
+          autoFocus: true,
           classes,
           placeholder: "Search by typing your user name",
           value: this.state.value,

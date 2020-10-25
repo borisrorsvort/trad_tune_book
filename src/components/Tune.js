@@ -26,7 +26,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const styles = (theme) => ({
   root: {
-    marginTop: 100
+    marginTop: 100,
+    padding: theme.spacing(0, 3)
   },
   settings: theme.mixins.gutters({
     paddingTop: theme.spacing(),

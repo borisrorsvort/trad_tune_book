@@ -1,4 +1,5 @@
 import {
+  LOGOUT,
   RECEIVE_SET,
   RECEIVE_SETS,
   REQUEST_SET,
@@ -16,6 +17,11 @@ function sets(
   action
 ) {
   switch (action.type) {
+    case LOGOUT:
+      return {
+        ...state,
+        sets: []
+      };
     case REQUEST_SETS:
       return Object.assign({}, state, {
         isFetching: true

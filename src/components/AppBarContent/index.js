@@ -26,7 +26,8 @@ function AppBarContent(props) {
           <img src={smallLogoUrl} alt="Foinn" className={classes.logo} />
         </Hidden>
         <Typography className={classes.title} variant="h6">
-          — {startCase(folder)}
+          <Hidden smDown> — </Hidden>
+          {startCase(folder)}
         </Typography>
       </div>
       <Hidden mdUp>
