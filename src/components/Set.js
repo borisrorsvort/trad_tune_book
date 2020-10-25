@@ -16,7 +16,7 @@ import SheetMusic from "./SheetMusic";
 import { TUNE_URL } from "../constants/actionTypes";
 import { connect } from "react-redux";
 import { fetchSet } from "../actions/sets";
-import he from "he";
+import he, { decode } from "he";
 import store from "../store";
 import PageLoading from "./PageLoading";
 
@@ -40,8 +40,8 @@ const styles = (theme) => ({
 
 function Set(props) {
   useEffect(() => {
-    !!props.setId && store.dispatch(fetchSet(props.userId, props.setId));
-  }, [props.setId, props.userId]);
+    !!props.tuneId && store.dispatch(fetchSet(props.userId, props.tuneId));
+  }, [props.tuneId, props.userId]);
 
   const setLoaded = props.currentSet?.name !== undefined;
 
@@ -50,7 +50,7 @@ function Set(props) {
   return (
     <Dialog
       fullScreen
-      open={!!props.setId}
+      open={!!props.tuneId}
       onClose={handleClose}
       TransitionComponent={Transition}
     >
@@ -77,7 +77,7 @@ function Set(props) {
               return (
                 <div key={`${setting.id}-${i}`}>
                   <Typography variant="h5" gutterBottom>
-                    Setting #{setting.id}
+                    {decode(setting.name)}
                   </Typography>
                   <Typography variant="body2">
                     by {setting.member.name} on {setting.date} —{" "}
@@ -104,7 +104,7 @@ function Set(props) {
 const mapStateToProps = (state, props) => ({
   currentSet: state.sets.currentSet,
   isFetching: state.sets.currentSet.isFetching,
-  setId: props.match.params.setId,
+  tuneId: props.match.params.tuneId,
   userId: state.session.currentUser.id
 });
 

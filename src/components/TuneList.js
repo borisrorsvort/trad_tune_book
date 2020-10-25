@@ -11,33 +11,33 @@ import {
   Divider
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { LibraryMusic } from "@material-ui/icons";
 
 const useStyles = makeStyles({});
 
 function TuneList(props) {
   const classes = useStyles();
-  const { items, match } = props;
+  const {
+    items,
+    match: {
+      url,
+      params: { folder }
+    }
+  } = props;
+  const isTune = folder === "tunes";
   const itemName = (item) =>
     item &&
-    (item.name.length > 40
-      ? he.decode(item.name).substring(0, 40) + "..."
+    (item.name.length > 150
+      ? he.decode(item.name).substring(0, 150) + "..."
       : he.decode(item.name));
 
   return (
     <List className={classes.root} id="tunesList">
       {items.map((item, index) => (
         <Fragment key={`${index}-item.id`}>
-          <ListItem
-            component={Link}
-            button
-            to={
-              match.params.tuneId || match.params.setId
-                ? `${item.id}`
-                : `${match.url}/${item.id}`
-            }
-          >
+          <ListItem component={Link} button to={`${url}/${item.id}`}>
             <ListItemIcon>
-              <MusicNote />
+              {isTune ? <MusicNote /> : <LibraryMusic />}
             </ListItemIcon>
             <ListItemText primary={itemName(item)} secondary={item.type} />
           </ListItem>

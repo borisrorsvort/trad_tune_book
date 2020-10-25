@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 function TuneFiltersForm(props) {
   const classes = useStyles();
-  const { currentFilters } = props;
+  const { currentFilters, folder } = props;
 
   const handleSearchChange = debounce((value) => {
     props.updateTuneFilters({ ...currentFilters, search: value });
@@ -51,30 +51,32 @@ function TuneFiltersForm(props) {
         fullWidth
         className={classes.formControl}
       />
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Type</FormLabel>
-        <RadioGroup
-          aria-label="Tune Type"
-          id="filter-tuneType"
-          name="tuneType"
-          defaultValue="all"
-          onChange={handleTuneTypeChange}
-        >
-          <FormControlLabel
-            value="all"
-            control={<Radio color="primary" />}
-            label="All"
-          />
-          {Object.keys(tuneTypes).map((tuneType) => (
+      {folder == "tunes" && (
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Type</FormLabel>
+          <RadioGroup
+            aria-label="Tune Type"
+            id="filter-tuneType"
+            name="tuneType"
+            defaultValue="all"
+            onChange={handleTuneTypeChange}
+          >
             <FormControlLabel
-              key={tuneType}
-              value={tuneType}
+              value="all"
               control={<Radio color="primary" />}
-              label={startCase(tuneType)}
+              label="All"
             />
-          ))}
-        </RadioGroup>
-      </FormControl>
+            {Object.keys(tuneTypes).map((tuneType) => (
+              <FormControlLabel
+                key={tuneType}
+                value={tuneType}
+                control={<Radio color="primary" />}
+                label={startCase(tuneType)}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+      )}
     </div>
   );
 }

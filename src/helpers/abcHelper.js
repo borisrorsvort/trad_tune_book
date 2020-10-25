@@ -54,20 +54,19 @@ export const abcReformatter = (tune, type, name) => {
   }
 
   const tuneType = !!type ? type : tune.type;
-
   const abc = tune.abc.split("! ").join("\n");
   const start = `X: 1`;
   const tuneName = `T: ${name}`;
   const timeSignature = `M: ${tuneTypes[tuneType].key}`;
   const tuneKey = `K: ${tune.key}`;
   const noteLength = `L: 1/8`;
-  const tempo = `Q: ${tuneTypes[tuneType].tempo}`;
+  const tempo = `Q: ${tuneTypes[tuneType]?.tempo}`;
 
   return he.decode(
     [start, tuneName, timeSignature, tempo, noteLength, tuneKey, abc].join("\n")
   );
 };
 
-export const printUrl = tuneId => {
+export const printUrl = (tuneId) => {
   return `${TUNE_URL}${tuneId}/${tuneId}?print=true`;
 };

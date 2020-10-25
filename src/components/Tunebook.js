@@ -12,32 +12,37 @@ import TuneFiltersForm from "./FiltersForm/TuneFiltersForm";
 import { withSnackbar } from "notistack";
 import { fuseoptions } from "../helpers/searchHelper";
 import { fetchSets } from "../actions/sets";
+import Set from "./Set";
 
 function Tunebook(props) {
   const {
-    match: { url },
+    match: {
+      url,
+      params: { folder }
+    },
     items,
     isFetching,
     filters
   } = props;
-
+  const isTune = folder === "tunes";
   const fuse = new Fuse(items, fuseoptions);
   let filteredTunes = filters.search
     ? fuse.search(filters.search || "").map((item) => item.item)
     : items;
 
+  // Excluding items without type so Sets are not filtered in case filter active in the tune section
   const withType = filteredTunes.filter(
-    (item) => !filters.tuneType || item.type === filters.tuneType
+    (item) => !filters.tuneType || !item.type || item.type === filters.tuneType
   );
 
   return (
     <div>
       {isFetching ? <PageLoading /> : <TuneList items={withType} />}
       <FiltersDrawer>
-        <TuneFiltersForm />
+        <TuneFiltersForm folder={folder} />
       </FiltersDrawer>
       <Route path={`${url}/:tuneId?`}>
-        <Tune referrer={url} />
+        {isTune ? <Tune referrer={url} /> : <Set referrer={url} />}
       </Route>
     </div>
   );
